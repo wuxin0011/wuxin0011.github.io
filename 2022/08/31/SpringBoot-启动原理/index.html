@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="wuxin001">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="程序入口 12345678@SpringBootApplicationpublic class Start &amp;#123;    public static void main(String[] args) &amp;#123;        SpringApplication.run(Start.class, args);    &amp;#125;&amp;#125;  SpringApplication1、初始化12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot 启动原理">
+<meta property="og:url" content="https://wuxin0011.github.io/2022/08/31/SpringBoot-%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="程序入口 12345678@SpringBootApplicationpublic class Start &amp;#123;    public static void main(String[] args) &amp;#123;        SpringApplication.run(Start.class, args);    &amp;#125;&amp;#125;  SpringApplication1、初始化12">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/Sprinboot.png">
+<meta property="article:published_time" content="2022-08-31T12:45:11.000Z">
+<meta property="article:modified_time" content="2022-08-31T14:13:07.972Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java、Springboot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/Sprinboot.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>SpringBoot 启动原理 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuxin0011.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>wuxin0011 Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archive/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tag-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/Sprinboot.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SpringBoot 启动原理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-31 20:45" pubdate>
+          August 31, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          91 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SpringBoot 启动原理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>程序入口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Start</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(Start.class, args);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="SpringApplication"><a href="#SpringApplication" class="headerlink" title="SpringApplication"></a><strong>SpringApplication</strong></h3><h4 id="1、初始化"><a href="#1、初始化" class="headerlink" title="1、初始化"></a>1、初始化</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ConfigurableApplicationContext <span class="hljs-title function_">run</span><span class="hljs-params">(Class&lt;?&gt;[] primarySources, String[] args)</span> &#123;<br>        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">new</span> <span class="hljs-title class_">SpringApplication</span>(primarySources)).run(args);<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">SpringApplication</span><span class="hljs-params">(ResourceLoader resourceLoader, Class&lt;?&gt;... primarySources)</span> &#123;<br>       <span class="hljs-built_in">this</span>.sources = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>(); <span class="hljs-comment">// </span><br>       <span class="hljs-built_in">this</span>.bannerMode = Mode.CONSOLE;<span class="hljs-comment">// 控制banner</span><br>       <span class="hljs-built_in">this</span>.logStartupInfo = <span class="hljs-literal">true</span>;<span class="hljs-comment">// 是否启动日志</span><br>       <span class="hljs-built_in">this</span>.addCommandLineProperties = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 读取命令行配置</span><br>       <span class="hljs-built_in">this</span>.addConversionService = <span class="hljs-literal">true</span>; <span class="hljs-comment">//添加转换器</span><br>       <span class="hljs-built_in">this</span>.headless = <span class="hljs-literal">true</span>; <span class="hljs-comment">// </span><br>       <span class="hljs-built_in">this</span>.registerShutdownHook = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 注册重启</span><br>       <span class="hljs-built_in">this</span>.additionalProfiles = Collections.emptySet();<span class="hljs-comment">// 读取配置环境</span><br>       <span class="hljs-built_in">this</span>.isCustomEnvironment = <span class="hljs-literal">false</span>;<span class="hljs-comment">// 是否是自定义环境</span><br>       <span class="hljs-built_in">this</span>.lazyInitialization = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 是否懒加载</span><br>       <span class="hljs-built_in">this</span>.applicationContextFactory = ApplicationContextFactory.DEFAULT;<br>       <span class="hljs-built_in">this</span>.applicationStartup = ApplicationStartup.DEFAULT; <span class="hljs-comment">// ApplicationStartup DEFAULT = new DefaultApplicationStartup();</span><br>       <span class="hljs-built_in">this</span>.resourceLoader = resourceLoader;<span class="hljs-comment">// 资源加载器</span><br>       Assert.notNull(primarySources, <span class="hljs-string">&quot;PrimarySources must not be null&quot;</span>);<br>       <span class="hljs-built_in">this</span>.primarySources = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>(Arrays.asList(primarySources)); <span class="hljs-comment">// 主程序</span><br>       <span class="hljs-built_in">this</span>.webApplicationType = WebApplicationType.deduceFromClasspath();<span class="hljs-comment">//  SERVLET||REACTIVE; 是servlet还是reactive环境</span><br>       <span class="hljs-comment">// BootstrapRegistryInitializer</span><br><span class="hljs-built_in">this</span>.bootstrapRegistryInitializers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>(<span class="hljs-built_in">this</span>.getSpringFactoriesInstances(BootstrapRegistryInitializer.class));<br>       <span class="hljs-comment">// ApplicationContextInitializer</span><br><span class="hljs-built_in">this</span>.setInitializers(<span class="hljs-built_in">this</span>.getSpringFactoriesInstances(ApplicationContextInitializer.class));<br><span class="hljs-comment">// ApplicationListener        </span><br><span class="hljs-built_in">this</span>.setListeners(<span class="hljs-built_in">this</span>.getSpringFactoriesInstances(ApplicationListener.class));<br>       <span class="hljs-built_in">this</span>.mainApplicationClass = <span class="hljs-built_in">this</span>.deduceMainApplicationClass();<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>注册  BootstrapRegistryInitializer</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-built_in">this</span>.bootstrapRegistryInitializers = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>(<span class="hljs-built_in">this</span>.getSpringFactoriesInstances(BootstrapRegistryInitializer.class));<br><br><span class="hljs-comment">// </span><br><span class="hljs-keyword">private</span> &lt;T&gt; Collection&lt;T&gt; <span class="hljs-title function_">getSpringFactoriesInstances</span><span class="hljs-params">(Class&lt;T&gt; type, Class&lt;?&gt;[] parameterTypes, Object... args)</span> &#123;<br>        <span class="hljs-type">ClassLoader</span> <span class="hljs-variable">classLoader</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getClassLoader();<br>        <span class="hljs-comment">// 1、从配置文件读取名称加载</span><br>        Set&lt;String&gt; names = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedHashSet</span>(SpringFactoriesLoader.loadFactoryNames(type, classLoader));<br>        <span class="hljs-comment">// 2、获取构造器实例</span><br> 	List&lt;T&gt; instances = <span class="hljs-built_in">this</span>.createSpringFactoriesInstances(type, parameterTypes, classLoader, args, names);<br>        <span class="hljs-comment">// 3、排序</span><br>	 AnnotationAwareOrderComparator.sort(instances);<br>        <span class="hljs-keyword">return</span> instances;<br>&#125;<br><br><span class="hljs-comment">// 1、加载配置</span><br> <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Map&lt;String, List&lt;String&gt;&gt; <span class="hljs-title function_">loadSpringFactories</span><span class="hljs-params">(ClassLoader classLoader)</span> &#123;<br>        Map&lt;String, List&lt;String&gt;&gt; result = (Map)cache.get(classLoader);<br>        <span class="hljs-keyword">if</span> (result != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> result;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-type">HashMap</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br><br>            <span class="hljs-keyword">try</span> &#123;<br>                 <span class="hljs-comment">//核心 从这里知道读取配置文件位置 默认</span><br>                <span class="hljs-type">Enumeration</span> <span class="hljs-variable">urls</span> <span class="hljs-operator">=</span> classLoader.getResources(<span class="hljs-string">&quot;META-INF/spring.factories&quot;</span>);<br>		<span class="hljs-comment">// ... 这里省略迭代器遍历注册</span><br>                result.replaceAll((factoryType, implementations) -&gt; &#123;<br>                    <span class="hljs-keyword">return</span> (List)implementations.stream().distinct().collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));<br>                &#125;);<br>		<span class="hljs-comment">// 添加到缓存中，下次读取。根据类名读取</span><br>                cache.put(classLoader, result);<br>                <span class="hljs-keyword">return</span> result;<br>            &#125; <span class="hljs-keyword">catch</span> (IOException var14) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;Unable to load factories from location [META-INF/spring.factories]&quot;</span>, var14);<br>            &#125;<br>        &#125;<br>    &#125;<br><br><span class="hljs-comment">// 2、获取构造器实例</span><br><span class="hljs-keyword">private</span> &lt;T&gt; List&lt;T&gt; <span class="hljs-title function_">createSpringFactoriesInstances</span><span class="hljs-params">(Class&lt;T&gt; type, Class&lt;?&gt;[] parameterTypes, ClassLoader classLoader, Object[] args, Set&lt;String&gt; names)</span> &#123;<br>        List&lt;T&gt; instances = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>(names.size());<br>        <span class="hljs-type">Iterator</span> <span class="hljs-variable">var7</span> <span class="hljs-operator">=</span> names.iterator();<br><br>        <span class="hljs-keyword">while</span>(var7.hasNext()) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> (String)var7.next();<br><br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-comment">// 通过类名反射机制调用，读取Class&lt;T&gt; class</span><br>                Class&lt;?&gt; instanceClass = ClassUtils.forName(name, classLoader);<br>                Assert.isAssignable(type, instanceClass);<br>                Constructor&lt;?&gt; constructor = instanceClass.getDeclaredConstructor(parameterTypes);<br>                <span class="hljs-comment">// 获取构造器实例</span><br> 		<span class="hljs-type">T</span> <span class="hljs-variable">instance</span> <span class="hljs-operator">=</span> BeanUtils.instantiateClass(constructor, args);<br>                <span class="hljs-comment">// 添加到构造器中</span><br>                instances.add(instance);<br>            &#125; <span class="hljs-keyword">catch</span> (Throwable var12) &#123;<br>                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;Cannot instantiate &quot;</span> + type + <span class="hljs-string">&quot; : &quot;</span> + name, var12);<br>            &#125;<br>        &#125;<br>	<span class="hljs-comment">// 返回</span><br>        <span class="hljs-keyword">return</span> instances;<br>    &#125;<br><br><br><span class="hljs-comment">// 排序 通过debug这里调用的是Integer类型排序方法 List&lt;Integer&gt; list</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sort</span><span class="hljs-params">(List&lt;?&gt; list)</span> &#123;<br>        <span class="hljs-keyword">if</span> (list.size() &gt; <span class="hljs-number">1</span>) &#123;<br>            list.sort(INSTANCE);<br>        &#125;<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>配置文件</p>
+<p><code>spring-boot:2.7.1.META-INF\spring.factorie</code></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs properties"><span class="hljs-attr">org.springframework.context.ApplicationContextInitializer</span>=<span class="hljs-string">\</span><br><span class="hljs-string">org.springframework.boot.context.ConfigurationWarningsApplicationContextInitializer,\</span><br><span class="hljs-string">org.springframework.boot.context.ContextIdApplicationContextInitializer,\</span><br><span class="hljs-string">org.springframework.boot.context.config.DelegatingApplicationContextInitializer,\</span><br><span class="hljs-string">org.springframework.boot.rsocket.context.RSocketPortInfoApplicationContextInitializer,\</span><br><span class="hljs-string">org.springframework.boot.web.context.ServerPortInfoApplicationContextInitializer</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/ApplicaitonContextinitializer.png" srcset="/img/loading.gif" lazyload>​</p>
+<p>像 BootstrapRegistryInitializer</p>
+<p>另外几个配置是从其他配置文件中读取的</p>
+<p>例如</p>
+<p><img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/ApplicaitonContextinitializerAutoConfig.png" srcset="/img/loading.gif" lazyload>​</p>
+<blockquote>
+<p>注册 ApplicationContextInitializer 、ApplicationListener</p>
+</blockquote>
+<p>同 <code>BootstrapRegistryInitializer</code>加载原理</p>
+<h4 id="2、调用run方法"><a href="#2、调用run方法" class="headerlink" title="2、调用run方法"></a>2、调用run方法</h4><blockquote>
+<p>核心</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> ConfigurableApplicationContext <span class="hljs-title function_">run</span><span class="hljs-params">(String... args)</span> &#123;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">startTime</span> <span class="hljs-operator">=</span> System.nanoTime();<br>        <span class="hljs-type">DefaultBootstrapContext</span> <span class="hljs-variable">bootstrapContext</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.createBootstrapContext();<br>        <span class="hljs-type">ConfigurableApplicationContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-built_in">this</span>.configureHeadlessProperty();<br>        <span class="hljs-type">SpringApplicationRunListeners</span> <span class="hljs-variable">listeners</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.getRunListeners(args);<br>        listeners.starting(bootstrapContext, <span class="hljs-built_in">this</span>.mainApplicationClass);<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">ApplicationArguments</span> <span class="hljs-variable">applicationArguments</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultApplicationArguments</span>(args);<br>            <span class="hljs-type">ConfigurableEnvironment</span> <span class="hljs-variable">environment</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.prepareEnvironment(listeners, bootstrapContext, applicationArguments);<br>            <span class="hljs-built_in">this</span>.configureIgnoreBeanInfo(environment);<br>            <span class="hljs-type">Banner</span> <span class="hljs-variable">printedBanner</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.printBanner(environment);<br>            context = <span class="hljs-built_in">this</span>.createApplicationContext();<br>            context.setApplicationStartup(<span class="hljs-built_in">this</span>.applicationStartup);<br>            <span class="hljs-built_in">this</span>.prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);<br>            <span class="hljs-comment">// 加载所有注解使用的扫描的组件</span><br>	    <span class="hljs-built_in">this</span>.refreshContext(context);<br>	    <span class="hljs-comment">// 刷新</span><br>            <span class="hljs-built_in">this</span>.afterRefresh(context, applicationArguments);<br>            <span class="hljs-type">Duration</span> <span class="hljs-variable">timeTakenToStartup</span> <span class="hljs-operator">=</span> Duration.ofNanos(System.nanoTime() - startTime);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.logStartupInfo) &#123;<br>                (<span class="hljs-keyword">new</span> <span class="hljs-title class_">StartupInfoLogger</span>(<span class="hljs-built_in">this</span>.mainApplicationClass)).logStarted(<span class="hljs-built_in">this</span>.getApplicationLog(), timeTakenToStartup);<br>            &#125;<br><br>            listeners.started(context, timeTakenToStartup);<br>            <span class="hljs-built_in">this</span>.callRunners(context, applicationArguments);<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable var12) &#123;<br>            <span class="hljs-built_in">this</span>.handleRunFailure(context, var12, listeners);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(var12);<br>        &#125;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-type">Duration</span> <span class="hljs-variable">timeTakenToReady</span> <span class="hljs-operator">=</span> Duration.ofNanos(System.nanoTime() - startTime);<br>            listeners.ready(context, timeTakenToReady);<br>            <span class="hljs-keyword">return</span> context;<br>        &#125; <span class="hljs-keyword">catch</span> (Throwable var11) &#123;<br>            <span class="hljs-built_in">this</span>.handleRunFailure(context, var11, (SpringApplicationRunListeners)<span class="hljs-literal">null</span>);<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalStateException</span>(var11);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>所有组件经过<code>org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader</code>方法加载注册组件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerBeanDefinitionForImportedConfigurationClass</span><span class="hljs-params">(ConfigurationClass configClass)</span> &#123;<br>        <span class="hljs-type">AnnotationMetadata</span> <span class="hljs-variable">metadata</span> <span class="hljs-operator">=</span> configClass.getMetadata();<br>        <span class="hljs-type">AnnotatedGenericBeanDefinition</span> <span class="hljs-variable">configBeanDef</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AnnotatedGenericBeanDefinition</span>(metadata);<br>        <span class="hljs-type">ScopeMetadata</span> <span class="hljs-variable">scopeMetadata</span> <span class="hljs-operator">=</span> scopeMetadataResolver.resolveScopeMetadata(configBeanDef);<br>        configBeanDef.setScope(scopeMetadata.getScopeName());<br>        <span class="hljs-type">String</span> <span class="hljs-variable">configBeanName</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.importBeanNameGenerator.generateBeanName(configBeanDef, <span class="hljs-built_in">this</span>.registry);<br>        AnnotationConfigUtils.processCommonDefinitionAnnotations(configBeanDef, metadata);<br>        <span class="hljs-type">BeanDefinitionHolder</span> <span class="hljs-variable">definitionHolder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanDefinitionHolder</span>(configBeanDef, configBeanName);<br>        definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, <span class="hljs-built_in">this</span>.registry);<br>        <span class="hljs-comment">// 在这里注册</span><br>	<span class="hljs-built_in">this</span>.registry.registerBeanDefinition(definitionHolder.getBeanName(), definitionHolder.getBeanDefinition());<br>        configClass.setBeanName(configBeanName);<br>        <span class="hljs-keyword">if</span> (logger.isTraceEnabled()) &#123;<br>            logger.trace(<span class="hljs-string">&quot;Registered bean definition for imported class &#x27;&quot;</span> + configBeanName + <span class="hljs-string">&quot;&#x27;&quot;</span>);<br>        &#125;<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+<p><code>org.springframework.beans.factory.support.DefaultListableBeanFactory</code></p>
+<ul>
+<li><code>registerBeanDefinition(definitionHolder.getBeanName(), definitionHolder.getBeanDefinition())</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerBeanDefinition</span><span class="hljs-params">(String beanName, BeanDefinition beanDefinition)</span><br>			<span class="hljs-keyword">throws</span> BeanDefinitionStoreException &#123;<br><br>		Assert.hasText(beanName, <span class="hljs-string">&quot;Bean name must not be empty&quot;</span>);<br>		Assert.notNull(beanDefinition, <span class="hljs-string">&quot;BeanDefinition must not be null&quot;</span>);<br><br>		<span class="hljs-keyword">if</span> (beanDefinition <span class="hljs-keyword">instanceof</span> AbstractBeanDefinition) &#123;<br>			<span class="hljs-keyword">try</span> &#123;<br>				((AbstractBeanDefinition) beanDefinition).validate();<br>			&#125;<br>			<span class="hljs-keyword">catch</span> (BeanDefinitionValidationException ex) &#123;<br>				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanDefinitionStoreException</span>(beanDefinition.getResourceDescription(), beanName,<br>						<span class="hljs-string">&quot;Validation of bean definition failed&quot;</span>, ex);<br>			&#125;<br>		&#125;<br><br>		<span class="hljs-type">BeanDefinition</span> <span class="hljs-variable">existingDefinition</span> <span class="hljs-operator">=</span> <span class="hljs-built_in">this</span>.beanDefinitionMap.get(beanName);<br>		<span class="hljs-keyword">if</span> (existingDefinition != <span class="hljs-literal">null</span>) &#123;<br>			<span class="hljs-keyword">if</span> (!isAllowBeanDefinitionOverriding()) &#123;<br>				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanDefinitionOverrideException</span>(beanName, beanDefinition, existingDefinition);<br>			&#125;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (existingDefinition.getRole() &lt; beanDefinition.getRole()) &#123;<br>				<span class="hljs-comment">// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE</span><br>				<span class="hljs-keyword">if</span> (logger.isInfoEnabled()) &#123;<br>					logger.info(<span class="hljs-string">&quot;Overriding user-defined bean definition for bean &#x27;&quot;</span> + beanName +<br>							<span class="hljs-string">&quot;&#x27; with a framework-generated bean definition: replacing [&quot;</span> +<br>							existingDefinition + <span class="hljs-string">&quot;] with [&quot;</span> + beanDefinition + <span class="hljs-string">&quot;]&quot;</span>);<br>				&#125;<br>			&#125;<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!beanDefinition.equals(existingDefinition)) &#123;<br>				<span class="hljs-keyword">if</span> (logger.isDebugEnabled()) &#123;<br>					logger.debug(<span class="hljs-string">&quot;Overriding bean definition for bean &#x27;&quot;</span> + beanName +<br>							<span class="hljs-string">&quot;&#x27; with a different definition: replacing [&quot;</span> + existingDefinition +<br>							<span class="hljs-string">&quot;] with [&quot;</span> + beanDefinition + <span class="hljs-string">&quot;]&quot;</span>);<br>				&#125;<br>			&#125;<br>			<span class="hljs-keyword">else</span> &#123;<br>				<span class="hljs-keyword">if</span> (logger.isTraceEnabled()) &#123;<br>					logger.trace(<span class="hljs-string">&quot;Overriding bean definition for bean &#x27;&quot;</span> + beanName +<br>							<span class="hljs-string">&quot;&#x27; with an equivalent definition: replacing [&quot;</span> + existingDefinition +<br>							<span class="hljs-string">&quot;] with [&quot;</span> + beanDefinition + <span class="hljs-string">&quot;]&quot;</span>);<br>				&#125;<br>			&#125;<br>			<span class="hljs-comment">// 注册</span><br>			<span class="hljs-built_in">this</span>.beanDefinitionMap.put(beanName, beanDefinition);<br>		&#125;<br>		<span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">if</span> (hasBeanCreationStarted()) &#123;<br>				<span class="hljs-comment">// Cannot modify startup-time collection elements anymore (for stable iteration)</span><br>				<span class="hljs-keyword">synchronized</span> (<span class="hljs-built_in">this</span>.beanDefinitionMap) &#123;<br>					<span class="hljs-built_in">this</span>.beanDefinitionMap.put(beanName, beanDefinition);<br>					List&lt;String&gt; updatedDefinitions = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(<span class="hljs-built_in">this</span>.beanDefinitionNames.size() + <span class="hljs-number">1</span>);<br>					updatedDefinitions.addAll(<span class="hljs-built_in">this</span>.beanDefinitionNames);<br>					updatedDefinitions.add(beanName);<br>					<span class="hljs-built_in">this</span>.beanDefinitionNames = updatedDefinitions;<br>					removeManualSingletonName(beanName);<br>				&#125;<br>			&#125;<br>			<span class="hljs-keyword">else</span> &#123;<br>				<span class="hljs-comment">// Still in startup registration phase</span><br>				<span class="hljs-built_in">this</span>.beanDefinitionMap.put(beanName, beanDefinition);<br>				<span class="hljs-built_in">this</span>.beanDefinitionNames.add(beanName);<br>				removeManualSingletonName(beanName);<br>			&#125;<br>			<span class="hljs-built_in">this</span>.frozenBeanDefinitionNames = <span class="hljs-literal">null</span>;<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> (existingDefinition != <span class="hljs-literal">null</span> || containsSingleton(beanName)) &#123;<br>			resetBeanDefinition(beanName);<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isConfigurationFrozen()) &#123;<br>			clearByTypeCache();<br>		&#125;<br>	&#125;<br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E3%80%81Springboot/">#Java、Springboot</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SpringBoot 启动原理</div>
+      <div>https://wuxin0011.github.io/2022/08/31/SpringBoot-启动原理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>wuxin001</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 31, 2022</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>Licensed under</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/31/RabbitMQ/" title="RabbitMQ">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">RabbitMQ</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/31/%E9%9B%86%E5%90%88%E5%A4%8D%E4%B9%A0/" title="集合">
+                        <span class="hidden-mobile">集合</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/wuxin0011" target="_blank" rel="nofollow noopener"><span>Github</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        Views: 
+        <span id="busuanzi_value_site_pv"></span>
+        
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        Visitors: 
+        <span id="busuanzi_value_site_uv"></span>
+        
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
