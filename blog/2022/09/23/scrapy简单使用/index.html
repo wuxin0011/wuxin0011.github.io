@@ -16,19 +16,21 @@
   <meta name="author" content="wuxin001">
   <meta name="keywords" content="blog 博客">
   
-    <meta name="description" content="笔记内容总结">
+    <meta name="description" content="前言python 爬虫框架 ，和 Java 中 spring，zookeeer等，JavaScript 中的 webpack、ElementUI 等等类似，拥有一套完善的爬虫体系 。可以说安装了scrapy 不需要依赖其他第三方库就可以完成爬虫工作了!  官方文档 中文文档 Github  安装开始123456# 首先执行该命令 到python安装文件夹，然后进入scripy 文件夹# 例如 D:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scrapy简单使用">
 <meta property="og:url" content="https://wuxin0011.github.io/2022/09/23/scrapy%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="wuxin001">
-<meta property="og:description" content="笔记内容总结">
+<meta property="og:description" content="前言python 爬虫框架 ，和 Java 中 spring，zookeeer等，JavaScript 中的 webpack、ElementUI 等等类似，拥有一套完善的爬虫体系 。可以说安装了scrapy 不需要依赖其他第三方库就可以完成爬虫工作了!  官方文档 中文文档 Github  安装开始123456# 首先执行该命令 到python安装文件夹，然后进入scripy 文件夹# 例如 D:">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-23T07:47:52.000Z">
-<meta property="article:modified_time" content="2022-09-23T07:48:50.663Z">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/scrapy.png">
+<meta property="article:published_time" content="2022-09-23T10:47:52.000Z">
+<meta property="article:modified_time" content="2022-11-28T12:29:14.126Z">
 <meta property="article:author" content="wuxin001">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="scrapy">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/scrapy.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -210,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-23 15:47" pubdate>
-          2022年9月23日 下午
+        <time datetime="2022-09-23 18:47" pubdate>
+          2022年9月23日 晚上
         </time>
       </span>
     
@@ -222,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 words
+          7.8k words
         
       </span>
     
@@ -233,7 +235,7 @@
         
         
         
-          1 mins
+          65 mins
         
       </span>
     
@@ -276,7 +278,105 @@
             
               <div class="markdown-body">
                 
-                
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>python 爬虫框架 ，和 Java 中 spring，zookeeer等，JavaScript 中的 webpack、ElementUI 等等类似，拥有一套完善的爬虫体系 。可以说安装了scrapy 不需要依赖其他第三方库就可以完成爬虫工作了!</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.scrapy.org/en/latest/index.html">官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/">中文文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/scrapy/scrapy">Github</a></li>
+</ul>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">首先执行该命令 到python安装文件夹，然后进入scripy 文件夹</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">例如 D:\environment\python\Scripts&gt;</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">执行下载命令</span><br>pip install scrapy <br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用国内镜像下载提高访问速度</span><br>pip install scrapy -i https://pypi.douban.com/simple<br></code></pre></td></tr></table></figure>
+
+<h4 id="报错问题"><a href="#报错问题" class="headerlink" title="报错问题"></a>报错问题</h4><p>参考地址 ： <a target="_blank" rel="noopener" href="https://www.yiibai.com/scrapy/scrapy_environment.html">https://www.yiibai.com/scrapy/scrapy_environment.html</a></p>
+<ul>
+<li>如果是因为版本问题报错升级安装包</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python -m pip install --upgrage pip<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>系统型号报错</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python install pypiwin32<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如果以上方式安装失败使用 anaconda</li>
+</ul>
+<blockquote>
+<p>注意 安装时一定要安装到python环境目录的scripts目录中，如果安装到该目录需要配置环境变量！</p>
+</blockquote>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="命令介绍"><a href="#命令介绍" class="headerlink" title="命令介绍"></a>命令介绍</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs shell">Usage:<br>  scrapy &lt;command&gt; [options] [args]<br><br>Available commands:<br>  bench         快速测试<br>  check         检查<br>  commands<br>  crawl         运行一个爬虫程序<br>  edit          编辑爬虫文件<br>  fetch         类似于JavaScript 浏览器 Fetch API，获取url请求<br>  genspider     使用该命令创建一个爬虫模板 通常  scrapy  genspider  文件名 请求地址<br>  list          列表形式列出可用爬虫程序<br>  parse         测试地址信息 例如 scrapy parse https://www.baidu.com<br>  runspider     Run a self-contained spider (without creating a project)<br>  settings      Get settings values<br>  shell         命令模式执行<br>  startproject  创建一个基于scrapy框架简单项目架构<br>  version       查看当前scrapy 版本号<br>  view          使用浏览器打开 例如 scrapy view https://www.baiu.com<br><br>Use &quot;scrapy &lt;command&gt; -h&quot; 查看该命令详细信息<br><br></code></pre></td></tr></table></figure>
+
+<p>测试命令 scrapy shell <a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell">scrapy shell https://www.baidu.com<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">输出最后几行内容</span><br>[s] Available Scrapy objects:<br>[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)<br>[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x000002341C91EEF0&gt;<br>[s]   item       &#123;&#125;<br>[s]   request    &lt;GET https://www.baidu.com&gt;<br>[s]   response   &lt;200 https://www.baidu.com&gt;<br>[s]   settings   &lt;scrapy.settings.Settings object at 0x000002341C91F490&gt;<br>[s]   spider     &lt;BaiduSpider &#x27;baidu&#x27; at 0x2341cefe320&gt;<br>[s] Useful shortcuts:<br>[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)<br>[s]   fetch(req)                  Fetch a scrapy.Request and update local objects<br>[s]   shelp()           Shell help (print this help)<br>[s]   view(response)    View response in a browser<br></code></pre></td></tr></table></figure>
+
+<p>操作（需要安装ipython）</p>
+<p>下面 获取了response类型以及 response对象含有的方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs shell">In [1]: response<br>Out[1]: &lt;200 https://www.baidu.com&gt;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">输出response对象含有的方法</span><br>In [2]: dir(response)<br>Out[2]: <br>[&#x27;_DEFAULT_ENCODING&#x27;,<br> &#x27;__annotations__&#x27;,<br> &#x27;__class__&#x27;,<br> &#x27;__delattr__&#x27;,<br> &#x27;__dict__&#x27;,<br> &#x27;__dir__&#x27;,<br> &#x27;__doc__&#x27;,<br> &#x27;__eq__&#x27;,<br> &#x27;__format__&#x27;,<br> &#x27;__ge__&#x27;,<br> &#x27;__getattribute__&#x27;,<br> &#x27;__gt__&#x27;,<br> &#x27;__hash__&#x27;,<br> &#x27;__init__&#x27;,<br> &#x27;__init_subclass__&#x27;,<br> &#x27;__le__&#x27;,<br> &#x27;__lt__&#x27;,<br> &#x27;__module__&#x27;,<br> &#x27;__ne__&#x27;,<br> &#x27;__new__&#x27;,<br> &#x27;__reduce__&#x27;,<br> &#x27;__reduce_ex__&#x27;,<br> &#x27;__repr__&#x27;,<br> &#x27;__setattr__&#x27;,<br> &#x27;__sizeof__&#x27;,<br> &#x27;__slots__&#x27;,<br> &#x27;__str__&#x27;,<br> &#x27;__subclasshook__&#x27;,<br> &#x27;__weakref__&#x27;,<br> &#x27;_auto_detect_fun&#x27;,<br> &#x27;_body&#x27;,<br> &#x27;_body_declared_encoding&#x27;,<br> &#x27;_body_inferred_encoding&#x27;,<br> &#x27;_cached_benc&#x27;,<br> &#x27;_cached_decoded_json&#x27;,<br> &#x27;_cached_selector&#x27;,<br> &#x27;_cached_ubody&#x27;,<br> &#x27;_declared_encoding&#x27;,<br> &#x27;_encoding&#x27;,<br> &#x27;_get_body&#x27;,<br> &#x27;_get_url&#x27;,<br> &#x27;_headers_encoding&#x27;,<br> &#x27;_set_body&#x27;,<br> &#x27;_set_url&#x27;,<br> &#x27;_url&#x27;,<br> &#x27;attributes&#x27;,<br> &#x27;body&#x27;,<br> &#x27;cb_kwargs&#x27;,<br> &#x27;certificate&#x27;,<br> &#x27;copy&#x27;,<br> &#x27;css&#x27;,<br> &#x27;encoding&#x27;,<br> &#x27;flags&#x27;,<br> &#x27;follow&#x27;,<br> &#x27;follow_all&#x27;,<br> &#x27;headers&#x27;,<br> &#x27;ip_address&#x27;,<br> &#x27;json&#x27;,<br> &#x27;meta&#x27;,<br> &#x27;protocol&#x27;,<br> &#x27;replace&#x27;,<br> &#x27;request&#x27;,<br> &#x27;selector&#x27;,<br> &#x27;status&#x27;,<br> &#x27;text&#x27;,<br> &#x27;url&#x27;,<br> &#x27;urljoin&#x27;,<br> &#x27;xpath&#x27;]<br><br></code></pre></td></tr></table></figure>
+
+<p>简单测试下几个属性以及方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell">In [4]: response.url<br>Out[4]: &#x27;https://www.baidu.com&#x27;<br><br>In [5]: response.xpath(&#x27;//title/text()&#x27;)<br>Out[5]: [&lt;Selector xpath=&#x27;//title/text()&#x27; data=&#x27;百度一下，你就知道&#x27;&gt;]<br><br>In [6]: response.xpath(&#x27;//title/text()&#x27;).get()<br>Out[6]: &#x27;百度一下，你就知道&#x27;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">输出response对象的类</span><br>In [7]: type(response)<br>Out[6]: scrapy.http.response.html.HtmlResponse<br><br></code></pre></td></tr></table></figure>
+
+<p>获取标题和图片地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">In [10]: response.xpath(&#x27;//div[@id=&quot;lg&quot;]//img[1]&#x27;)<br>Out[10]: [&lt;Selector xpath=&#x27;//div[@id=&quot;lg&quot;]//img[1]&#x27; data=&#x27;&lt;img hidefocus=&quot;true&quot; id=&quot;s_lg_img&quot; c...&#x27;&gt;]<br><br>In [11]: response.xpath(&#x27;//div[@id=&quot;lg&quot;]//img[1]&#x27;).extract()<br>Out[11]: [&#x27;&lt;img hidefocus=&quot;true&quot; id=&quot;s_lg_img&quot; class=&quot;index-logo-src&quot; src=&quot;//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png&quot; width=&quot;270&quot; height=&quot;129&quot;<br>onerror=&quot;this.src=\&#x27;//www.baidu.com/img/flexible/logo/pc/index.png\&#x27;;this.onerror=null;&quot; usemap=&quot;#mp&quot;&gt;&#x27;]<br><br>In [12]: response.xpath(&#x27;//div[@id=&quot;lg&quot;]//img[1]/@src&#x27;)<br>Out[12]: [&lt;Selector xpath=&#x27;//div[@id=&quot;lg&quot;]//img[1]/@src&#x27; data=&#x27;//www.baidu.com/img/PCtm_d9c8750bed0b...&#x27;&gt;]<br><br>In [13]: response.xpath(&#x27;//div[@id=&quot;lg&quot;]//img[1]/@src&#x27;).get()<br>Out[13]: &#x27;//www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png&#x27;<br><br>In [14]: response.xpath(&#x27;//div[@id=&quot;lg&quot;]//img[1]/@src&#x27;).get().replace(&#x27;//&#x27;,&#x27;&#x27;)<br>Out[14]: &#x27;www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png&#x27;<br><br>In [15]: response.xpath(&#x27;//title/text()&#x27;)<br>Out[15]: [&lt;Selector xpath=&#x27;//title/text()&#x27; data=&#x27;百度一下，你就知道&#x27;&gt;]<br><br></code></pre></td></tr></table></figure>
+
+<p>发现百度很坏哦！😄,搞个链接还有双下划线</p>
+<h4 id="源码部分（入门）"><a href="#源码部分（入门）" class="headerlink" title="源码部分（入门）"></a>源码部分（入门）</h4><blockquote>
+<p><del>scrapy.http.response.html.HtmlResponse</del> 源代码</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> scrapy.http.response.text <span class="hljs-keyword">import</span> TextResponse<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HtmlResponse</span>(<span class="hljs-title class_ inherited__">TextResponse</span>):<br>    <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TextResponse</span>(<span class="hljs-title class_ inherited__">Response</span>):<br></code></pre></td></tr></table></figure>
+
+<p>该对象继承与 scrapy.http.response.text.TextResponse</p>
+<p><img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/python-response-source-1.png" srcset="/blog/img/loading.gif" lazyload>​</p>
+<p>继承该对类有两个子类 上图所示</p>
+<p>待会使用scrapy 抓取内容 使用最多方法 <del>xpath</del><img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/python-response-xpath.png" srcset="/blog/img/loading.gif" lazyload>​</p>
+<p>更多内容请参考源代码，本次仅仅介绍了response对象的方法来源</p>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>初始化</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">scrapy startproject scrapy_project_demo<br></code></pre></td></tr></table></figure>
+
+<p>进入项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd scrapy_project_demo<br></code></pre></td></tr></table></figure>
+
+<p>项目结构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">scrapy_project_demo/<br>    scrapy.cfg            # 项目配置<br>    scrapy_project_demo/  # 项目源文件目录<br>        __init__.py<br>        items.py          # 项目目标文件类似于 Java 创建好对象属性在 spiders 文件引用<br>        middlewares.py    # 中间件<br>        pipelines.py      # 管道文件 <br>        settings.py       # 设置文件<br>        spiders/          # 爬虫文件目录 主要代码路径基本上在这里完成的<br>            __init__.py   # 用户代码<br></code></pre></td></tr></table></figure>
+
+<p>查看项目编写好项目内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">D:\desktop\Learn\python\gitee-demo\spider\scrapy_project_demo&gt;scrapy list<br>baidu<br>demo<br>test<br></code></pre></td></tr></table></figure>
+
+<h4 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h4><p>编写init.py 文件内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> scrapy.spiders <span class="hljs-keyword">import</span> Spider<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">DemoSpider</span>(<span class="hljs-title class_ inherited__">Spider</span>):<br>    name = <span class="hljs-string">&quot;test&quot;</span><br><br>    start_urls = [<span class="hljs-string">&quot;https://www.baidu.com/&quot;</span>]<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, *a, **kw</span>):<br>        <span class="hljs-built_in">super</span>().__init__(*a, **kw)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;项目初始化..&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">self,response </span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;=======================&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;百度标签:&quot;</span>,response.xpath(<span class="hljs-string">&#x27;//title/text()&#x27;</span>).get())<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;百度Logo:&quot;</span>,response.xpath(<span class="hljs-string">&#x27;//div[@id=&quot;lg&quot;]//img[1]/@src&#x27;</span>).get().replace(<span class="hljs-string">&#x27;//&#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>在settings.py文件中配置</p>
+<ul>
+<li>关闭 robots协议</li>
+<li>开启请求头</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">DEFAULT_REQUEST_HEADERS = &#123;<br>    <span class="hljs-string">&#x27;Accept&#x27;</span>: <span class="hljs-string">&#x27;*/*&#x27;</span>,<br>    <span class="hljs-string">&#x27;referer&#x27;</span>:<span class="hljs-string">&#x27;https://www.baidu.com&#x27;</span>,<br>    <span class="hljs-string">&#x27;User-Agent&#x27;</span>: <span class="hljs-string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.42&#x27;</span><br>&#125;<br><br><span class="hljs-comment"># ROBOTSTXT_OBEY = True</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注意: 如果还是抓取不到内容，请在请求头中添加更多内容</strong></p>
+<p>运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">scrapy crawl test<br></code></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">=======================<br>&lt;200 https://www.baidu.com/&gt;<br>百度标签: 百度一下，你就知道<br>百度Logo: www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="scrapy-工作流程-核心"><a href="#scrapy-工作流程-核心" class="headerlink" title="scrapy 工作流程 (核心)"></a>scrapy 工作流程 (核心)</h3><p><a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html">参考地址</a></p>
+<p><img src="https://www.osgeo.cn/scrapy/_images/scrapy_architecture_02.png" srcset="/blog/img/loading.gif" lazyload alt="name">​</p>
+<p>Scrapy中的数据流由执行引擎控制，如下所示：</p>
+<ol>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> 获取要从 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-spiders">Spider</a> .</li>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> 在中安排请求 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-scheduler">Scheduler</a> 并请求下一个要爬行的请求。</li>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-scheduler">Scheduler</a> 将下一个请求返回到 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> .</li>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> 将请求发送到 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-downloader">Downloader</a> ，通过 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-downloader-middleware">Downloader Middlewares</a> （见 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/downloader-middleware.html#scrapy.downloadermiddlewares.DownloaderMiddleware.process_request" title="scrapy.downloadermiddlewares.DownloaderMiddleware.process_request"><code>&lt;span class=&quot;pre&quot;&gt;process_request()&lt;/span&gt;</code></a> ）</li>
+<li>一旦页面完成下载， <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-downloader">Downloader</a> 生成响应（使用该页）并将其发送到引擎，并通过 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-downloader-middleware">Downloader Middlewares</a> （见 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/downloader-middleware.html#scrapy.downloadermiddlewares.DownloaderMiddleware.process_response" title="scrapy.downloadermiddlewares.DownloaderMiddleware.process_response"><code>&lt;span class=&quot;pre&quot;&gt;process_response()&lt;/span&gt;</code></a> ）</li>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> 接收来自的响应 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-downloader">Downloader</a> 并发送到 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-spiders">Spider</a> 用于处理，通过 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-spider-middleware">Spider Middleware</a> （见 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/spider-middleware.html#scrapy.spidermiddlewares.SpiderMiddleware.process_spider_input" title="scrapy.spidermiddlewares.SpiderMiddleware.process_spider_input"><code>&lt;span class=&quot;pre&quot;&gt;process_spider_input()&lt;/span&gt;</code></a> ）</li>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-spiders">Spider</a> 处理响应并向 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> ，通过 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-spider-middleware">Spider Middleware</a> （见 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/spider-middleware.html#scrapy.spidermiddlewares.SpiderMiddleware.process_spider_output" title="scrapy.spidermiddlewares.SpiderMiddleware.process_spider_output"><code>&lt;span class=&quot;pre&quot;&gt;process_spider_output()&lt;/span&gt;</code></a> ）</li>
+<li>这个 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-engine">Engine</a> 将已处理的项目发送到 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-pipelines">Item Pipelines</a> ，然后将已处理的请求发送到 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-scheduler">Scheduler</a> 并请求可能的下一个爬行请求。</li>
+<li>该过程重复（从步骤1开始），直到不再有来自 <a target="_blank" rel="noopener" href="https://www.osgeo.cn/scrapy/topics/architecture.html#component-scheduler">Scheduler</a> .</li>
+</ol>
+
                 
               </div>
             
@@ -344,6 +444,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/blog/2022/11/24/spring-cloud%E5%85%A5%E9%97%A8/" title="spring-cloud入门">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">spring-cloud入门</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
