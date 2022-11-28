@@ -1,0 +1,852 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="wuxin001">
+  <meta name="keywords" content="blog 博客">
+  
+    <meta name="description" content="官网地址: https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;doc&#x2F;r3.8.0&#x2F;zookeeperStarted.html 中文地址: https:&#x2F;&#x2F;zookeeper.net.cn&#x2F;index.html 介绍核心概念zookeeper是一个分布式的开源框架，它能很好的管理集群，而且提供协调分布式应用的基本服务。 它向外部应用暴露一组通用服务——分布式同步（Distributed S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper简单使用">
+<meta property="og:url" content="https://wuxin0011.github.io/2022/09/04/zookeeper/index.html">
+<meta property="og:site_name" content="wuxin001">
+<meta property="og:description" content="官网地址: https:&#x2F;&#x2F;zookeeper.apache.org&#x2F;doc&#x2F;r3.8.0&#x2F;zookeeperStarted.html 中文地址: https:&#x2F;&#x2F;zookeeper.net.cn&#x2F;index.html 介绍核心概念zookeeper是一个分布式的开源框架，它能很好的管理集群，而且提供协调分布式应用的基本服务。 它向外部应用暴露一组通用服务——分布式同步（Distributed S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/zookeeper.png">
+<meta property="article:published_time" content="2022-09-04T03:45:11.000Z">
+<meta property="article:modified_time" content="2022-09-04T01:23:53.033Z">
+<meta property="article:author" content="wuxin001">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="zookeeper">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/zookeeper.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Zookeeper简单使用 - wuxin001</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wuxin0011.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>wuxin0011 Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archive/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tag-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/桌面壁纸.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Zookeeper简单使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-04 11:45" pubdate>
+          2022年9月4日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          22k wörter
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          183 minuten
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Zookeeper简单使用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>官网地址:<a target="_blank" rel="noopener" href="https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html"> https://zookeeper.apache.org/doc/r3.8.0/zookeeperStarted.html</a></p>
+<p>中文地址: <a target="_blank" rel="noopener" href="https://zookeeper.net.cn/index.html">https://zookeeper.net.cn/index.html</a></p>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h4 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h4><p>zookeeper是一个分布式的开源框架，它能很好的管理集群，而且提供协调分布式应用的基本服务。</p>
+<p>它向外部应用暴露一组通用服务——分布式同步（Distributed Synchronization）、命名服务（Naming Service）、集群维护（Group Maintenance）等，简化分布式应用协调及其管理的难度，提供高性能的分布式服务。</p>
+<p>zookeeper本身可以以standalone模式（单节点状态）安装运行，不过它的长处在于通过分布式zookeeper集群（一个leader，多个follower），基于一定的策略来保证zookeeper集群的稳定性和可用性，从而实现分布式应用的可靠性。</p>
+<h4 id="集群角色介绍"><a href="#集群角色介绍" class="headerlink" title="集群角色介绍"></a>集群角色介绍</h4><p>zookeeper集群中主要有两个角色：leader和follower。</p>
+<p>领导者（leader）,用于负责进行投票的发起和决议,更新系统状态。</p>
+<p>学习者（learner）,包括跟随者（follower）和观察者（observer）。</p>
+<p>其中follower用于接受客户端请求并想客户端返回结果,在选主过程中参与投票。</p>
+<p>而observer可以接受客户端连接,将写请求转发给leader,但observer不参加投票过程,只同步leader的状态,observer的目的是为了扩展系统,提高读取速度。</p>
+<p>zookeeper节点部署的越多，服务的可靠性也就越高。当然建议最好是部署奇数个，偶数个不是不可以。但是zookeeper集群是以宕机个数过半才会让整个集群宕机的，所以奇数个集群更佳。</p>
+<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">1、拉取 zookeeper 镜像</span><br>docker pull zookeeper:3.7.1-temurin<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">2、创建 zookeeper 配置文件目录 用于挂载</span><br>mkdir -p /usr/local/zookeeper/conf<br>echo  &quot;tickTime=2000<br>dataDir=/var/lib/zookeeper <br>clientPort=2181&quot; \<br><span class="hljs-meta prompt_">&gt;</span><span class="language-bash">&gt;/usr/local/zookeeper/conf/zoo.cfg</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">3、启动 zookeeper</span><br>docker run --name zookeeper01 --restart always -d \<br>-p 2181:2181 \<br>-v /usr/local/zookeeper/conf/zoo.cfg:/conf/zoo.cfg zookeeper:3.7.1-temurin<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name zookeeper01 --restart always -d \<br>-v /usr/local/zookeeper/conf/zoo.cfg:/conf/zoo.cfg zookeeper:3.7.1-temurin<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run --name zookeeper01 --restart always -d  zookeeper:3.7.1-temurin<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">进入容器</span><br>root@8b57a494c9e5:/apache-zookeeper-3.7.1-bin# ls<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动 zookeeper</span><br>bin/zkServer.sh start<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">进入zookeeper</span><br>bin/zkCli.sh -server 127.0.0.1:2181<br></code></pre></td></tr></table></figure>
+
+
+<p>成功进入后看到如下界面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">Welcome to ZooKeeper!<br>JLine support is enabled<br>... # 中间具体内容省略<br>[zk: localhost:2181(CONNECTED) 0] <br></code></pre></td></tr></table></figure>
+
+<h4 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h4><p>可以参考 ： <a target="_blank" rel="noopener" href="https://zookeeper.net.cn/zookeeperCLI.html">https://zookeeper.net.cn/zookeeperCLI.html</a></p>
+<p>成功进入后使用help查勘zookeeper全部命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs shell"><br>addauth scheme auth     			 ### 节点添加权限<br>close                                            ### 节点添加权限<br>config [-c] [-w] [-s]                            ### 配置文件<br>connect host:port                                ### 连接<br>create [-s] [-e] [-c] [-t ttl] path [data] [acl] ### 添加节点<br>delete [-v version] path 		         ### 根据节点版本号删除节点<br>deleteall path [-b batch size]                   ### 删除该节点以及该节点所有子节点<br>delquota [-n|-b|-N|-B] path<br>get [-s] [-w] path                               ### 获取节点内容<br>getAcl [-s] path                                 ### 获取一条路径的ACL权限<br>getAllChildrenNumber path                        ### 获取特定路径下的所有子节点数<br>getEphemerals path<br>history                                          ### 查看操作历史<br>listquota path                                   ### 列出一个路径的配额<br>ls [-s] [-w] [-R] path<br>printwatches on|off                              ### 打开/关闭是否打印手表的开关。<br>quit                                             ### 退出<br>reconfig [-s] [-v version] [[-file path] | [-members serverID=host:port1:port2;port3[,...]*]] | [-add serverId=host:port1:port2;port3[,...]]* [-remove serverId[,...]*]<br>redo cmdno<br>removewatches path [-c|-d|-a] [-l]<br>set [-s] [-v version] path data                  ### 设置节点内容 <br>setAcl [-s] [-v version] [-R] path acl<br>setquota -n|-b|-N|-B val path<br>stat [-w] path<br>sync path                                        ### 异步操作节点<br>version                                          ### 查看zookeeper版本信息<br>whoami                                 	  	 ### 查看用户信息<br><br></code></pre></td></tr></table></figure>
+
+
+<p><strong>基本操作实例</strong></p>
+<p><strong>添加节点</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">创建节点</span><br>create /zk_test1<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">设置节点内容</span><br>set /zk_test1 zk_test1_content<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">获取节点详细内容</span><br>get -s /zk_test1<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">## 测试 添加 给/zk_test1节点添加两个</span></span><br>zk: localhost:2181(CONNECTED) 20] create /zk_test1/zk_test1_child1<br>Created /zk_test1/zk_test1_child1<br>[zk: localhost:2181(CONNECTED) 21] create /zk_test1/zk_test1_child2<br>Created /zk_test1/zk_test1_child2<br>[zk: localhost:2181(CONNECTED) 22] set /zk_test1/zk_test1_child1 zk_test1_child1_content<br>[zk: localhost:2181(CONNECTED) 23] set /zk_test1/zk_test1_child2 zk_test2_child2_content<br>[zk: localhost:2181(CONNECTED) 24] ls -R /<br>/<br>/zk_test1<br>/zk_test2<br>/zookeeper<br>/zk_test1/zk_test1_child1<br>/zk_test1/zk_test1_child2<br>/zookeeper/config<br>/zookeeper/quota<br>[zk: localhost:2181(CONNECTED) 25] <br></code></pre></td></tr></table></figure>
+
+<p><strong>删除命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">[zk: localhost:2181(CONNECTED) 25] delete /zk_test2<br>[zk: localhost:2181(CONNECTED) 26] delete /zk_test1<br>Node not empty: /zk_test1<br></code></pre></td></tr></table></figure>
+
+<p>因为节点 &#x2F;<strong>zk_test1</strong>含有子节点 ，直接是删除不掉的 需要使用 <code>deleteall</code> 命令,这里就不测试了</p>
+<p><strong>版本号测试</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell">[zk: localhost:2181(CONNECTED) 30] get -s /zk_test1/zk_test1_child1<br>zk_test1_child1_content<br>cZxid = 0xb<br>ctime = Thu Sep 01 19:38:41 UTC 2022<br>mZxid = 0xd<br>mtime = Thu Sep 01 19:39:12 UTC 2022<br>pZxid = 0xb<br>cversion = 0<br>dataVersion = 1   ### 第一次内容版本号<br>aclVersion = 0<br>ephemeralOwner = 0x0<br>dataLength = 23<br>numChildren = 0<br>[zk: localhost:2181(CONNECTED) 31] set /zk_test1/zk_test1_child1 content_change_child1<br>[zk: localhost:2181(CONNECTED) 32] get -s /zk_test1/zk_test1_child1<br>content_change_child1<br>cZxid = 0xb<br>ctime = Thu Sep 01 19:38:41 UTC 2022<br>mZxid = 0x11<br>mtime = Thu Sep 01 19:47:33 UTC 2022<br>pZxid = 0xb<br>cversion = 0<br>dataVersion = 2   ### 内容修改之后版本号<br>aclVersion = 0<br>ephemeralOwner = 0x0<br>dataLength = 21<br>numChildren = 0<br></code></pre></td></tr></table></figure>
+
+<p>根据版本号删除节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">[zk: localhost:2181(CONNECTED) 33] delete -v 1  /zk_test1/zk_test1_child1<br>version No is not valid : /zk_test1/zk_test1_child1<br>[zk: localhost:2181(CONNECTED) 34] delete -v 2  /zk_test1/zk_test1_child1<br>[zk: localhost:2181(CONNECTED) 35] get  /zk_test1/zk_test1_child1<br>Node does not exist: /zk_test1/zk_test1_child1 ### 成功删除节点了！<br></code></pre></td></tr></table></figure>
+
+
+<p>设置权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">[zk: localhost:2181(CONNECTED) 44] addauth digest user1:12345<br>[zk: localhost:2181(CONNECTED) 46] create /acl_auth_test <br>Created /acl_auth_test<br>[zk: localhost:2181(CONNECTED) 47] setAcl /acl_auth_test auth:user1:12345:crwad<br>[zk: localhost:2181(CONNECTED) 48] getAcl /acl_auth_test<br>&#x27;digest,&#x27;user1:+owfoSBn/am19roBPzR1/MfCblE=<br></code></pre></td></tr></table></figure>
+
+<p>重新开个窗口进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker exec -it zookeeper01 /bin/bash<br>bin/zkCli.sh -server 127.0.0.1:2181<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">WatchedEvent state:SyncConnected type:None path:null<br>[zk: 127.0.0.1:2181(CONNECTED) 0] getAcl /acl_auth_test<br>Insufficient permission : /acl_auth_test<br></code></pre></td></tr></table></figure>
+
+<p>此时无权限获取节点 <strong>&#x2F;acl_auth_test</strong> 内容</p>
+<p>设置一个节点权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">setAcl -R /acl_auth_test auth:user1:12345:crwad<br></code></pre></td></tr></table></figure>
+
+
+
+<p>其他命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">[zk: localhost:2181(CONNECTED) 67] whoami<br>Auth scheme: User<br>ip: 127.0.0.1<br>digest: user1<br>[zk: localhost:2181(CONNECTED) 68] version<br>ZooKeeper CLI version: 3.7.1-a2fb57c55f8e59cdd76c34b357ad5181df1258d5, built on 2022-05-07 06:45 UTC<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="节点属性"><a href="#节点属性" class="headerlink" title="节点属性"></a>节点属性</h4><table>
+<thead>
+<tr>
+<th>cZxid</th>
+<th>创建节点时的事务ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ctime</td>
+<td>创建节点时的时间</td>
+</tr>
+<tr>
+<td>mZxid</td>
+<td><strong>最后修改节点时的事务ID</strong></td>
+</tr>
+<tr>
+<td>mtime</td>
+<td>最后修改节点时的时间</td>
+</tr>
+<tr>
+<td>pZxid</td>
+<td>表示该节点的子节点列表最后一次修改的事务ID，添加子节点或删除子节点就会影响子节点列表，但是修改子节点的数据内容则不影响该ID<strong>（注意，只有子节点列表变更了才会变更pzxid，子节点内容变更不会影响pzxid）</strong></td>
+</tr>
+<tr>
+<td>cversion</td>
+<td><strong>子节点版本号，子节点每次修改版本号加1</strong></td>
+</tr>
+<tr>
+<td>dataversion</td>
+<td><strong>数据版本号，数据每次修改该版本号加1</strong></td>
+</tr>
+<tr>
+<td>aclversion</td>
+<td>权限版本号，权限每次修改该版本号加1</td>
+</tr>
+<tr>
+<td>ephemeralOwner</td>
+<td>创建该临时节点的会话的sessionID。 <strong>（</strong>* <em>如果该节点是持久节点，那么这个属性值为0）</em>*</td>
+</tr>
+<tr>
+<td>dataLength</td>
+<td>该节点的数据长度</td>
+</tr>
+<tr>
+<td>numChildren</td>
+<td>该节点拥有子节点的数量<strong>（只统计直接子节点的数量）</strong></td>
+</tr>
+</tbody></table>
+<p>Zookeeper的应用场景</p>
+<ul>
+<li><ol>
+<li>数据发布&#x2F;订阅</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>负载均衡</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>分布式协调&#x2F;通知</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>集群管理</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>集群管理</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>master 管理</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>分布式锁</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>分布式队列</li>
+</ol>
+</li>
+</ul>
+<h3 id="代码操作"><a href="#代码操作" class="headerlink" title="代码操作"></a>代码操作</h3><h4 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h4><p>首先开启一个docker容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d --restart=always -p 2181:2181 --name=zookeeper02 zookeeper:3.7.1-temurin<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="客户端的zookeeper原生-API"><a href="#客户端的zookeeper原生-API" class="headerlink" title="客户端的zookeeper原生 API"></a>客户端的zookeeper原生 API</h4><p>测试连接 这个容器</p>
+<p><strong>ConnectionDemo</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>       <span class="hljs-keyword">try</span> &#123;<br>           <span class="hljs-keyword">final</span> <span class="hljs-type">CountDownLatch</span> <span class="hljs-variable">countDownLatch</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CountDownLatch</span>(<span class="hljs-number">1</span>);<br>           <span class="hljs-type">ZooKeeper</span> <span class="hljs-variable">zooKeeper</span> <span class="hljs-operator">=</span><br>                   <span class="hljs-keyword">new</span> <span class="hljs-title class_">ZooKeeper</span>(<span class="hljs-string">&quot;192.168.56.40:2181&quot;</span>,<br><br>                           <span class="hljs-number">4000</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Watcher</span>() &#123;<br>                       <span class="hljs-meta">@Override</span><br>                       <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(WatchedEvent event)</span> &#123;<br>                           <span class="hljs-keyword">if</span> (Event.KeeperState.SyncConnected == event.getState()) &#123;<br>                               <span class="hljs-comment">//如果收到了服务端的响应事件，连接成功</span><br>                               countDownLatch.countDown();<br>                           &#125;<br>                       &#125;<br>                   &#125;);<br>           countDownLatch.await();<br>           <span class="hljs-comment">//CONNECTED</span><br>           System.out.println(zooKeeper.getState());<br><br>           <span class="hljs-comment">// 添加一个节点</span><br>           createNode(zooKeeper,<span class="hljs-string">&quot;/zk_testNode1&quot;</span>,<span class="hljs-string">&quot;创建第一个节点&quot;</span>);<br><br>       &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>           System.err.println(e.toString());<br>       &#125;<br>   &#125;<br><br>   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createNode</span><span class="hljs-params">(ZooKeeper zooKeeper, String path, String message)</span> &#123;<br>       <span class="hljs-keyword">try</span> &#123;<br>           zooKeeper.create(path, message.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);<br>       &#125; <span class="hljs-keyword">catch</span> (KeeperException | InterruptedException e) &#123;<br>           e.printStackTrace();<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p>控制台输出结果，出现  <strong>CONNECTED</strong> 说明连接成功</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">D:\environment\java\jdk\bin\java.exe -agentlib:jdwp=transport=dt_socket,address=<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">3677</span>,suspend=y,server=n -javaagent:C:\Users\Administrator\AppData\Local\JetBrains\IntelliJIdea2021<span class="hljs-number">.2</span>\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-<span class="hljs-number">8</span> -classpath <span class="hljs-string">&quot;D:\environment\java\jdk\jre\lib\charsets.jar;D:\environment\java\jdk\jre\lib\deploy.jar;D:\environment\java\jdk\jre\lib\ext\access-bridge-64.jar;D:\environment\java\jdk\jre\lib\ext\cldrdata.jar;D:\environment\java\jdk\jre\lib\ext\dnsns.jar;D:\environment\java\jdk\jre\lib\ext\jaccess.jar;D:\environment\java\jdk\jre\lib\ext\jfxrt.jar;D:\environment\java\jdk\jre\lib\ext\localedata.jar;D:\environment\java\jdk\jre\lib\ext\nashorn.jar;D:\environment\java\jdk\jre\lib\ext\sunec.jar;D:\environment\java\jdk\jre\lib\ext\sunjce_provider.jar;D:\environment\java\jdk\jre\lib\ext\sunmscapi.jar;D:\environment\java\jdk\jre\lib\ext\sunpkcs11.jar;D:\environment\java\jdk\jre\lib\ext\zipfs.jar;D:\environment\java\jdk\jre\lib\javaws.jar;D:\environment\java\jdk\jre\lib\jce.jar;D:\environment\java\jdk\jre\lib\jfr.jar;D:\environment\java\jdk\jre\lib\jfxswt.jar;D:\environment\java\jdk\jre\lib\jsse.jar;D:\environment\java\jdk\jre\lib\management-agent.jar;D:\environment\java\jdk\jre\lib\plugin.jar;D:\environment\java\jdk\jre\lib\resources.jar;D:\environment\java\jdk\jre\lib\rt.jar;D:\desktop\Learn\admin\zookeeper\target\classes;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\zookeeper\zookeeper\3.7.1\zookeeper-3.7.1.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\zookeeper\zookeeper-jute\3.7.1\zookeeper-jute-3.7.1.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\yetus\audience-annotations\0.12.0\audience-annotations-0.12.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-handler\4.1.76.Final\netty-handler-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-common\4.1.76.Final\netty-common-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-resolver\4.1.76.Final\netty-resolver-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-buffer\4.1.76.Final\netty-buffer-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport\4.1.76.Final\netty-transport-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-codec\4.1.76.Final\netty-codec-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-native-epoll\4.1.76.Final\netty-transport-native-epoll-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-native-unix-common\4.1.76.Final\netty-transport-native-unix-common-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-classes-epoll\4.1.76.Final\netty-transport-classes-epoll-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\slf4j\slf4j-api\1.7.35\slf4j-api-1.7.35.jar;D:\software\idea\IntelliJ IDEA 2021.2\lib\idea_rt.jar&quot;</span> com.wuxin.zookeeper.ConnectionDemo<br>Connected to the target VM, address: <span class="hljs-string">&#x27;127.0.0.1:3677&#x27;</span>, transport: <span class="hljs-string">&#x27;socket&#x27;</span><br>SLF4J: Failed to load class <span class="hljs-string">&quot;org.slf4j.impl.StaticLoggerBinder&quot;</span>.<br>SLF4J: Defaulting to no-operation (NOP) logger implementation<br>SLF4J: See http:<span class="hljs-comment">//www.slf4j.org/codes.html#StaticLoggerBinder for further details.</span><br>SLF4J: Failed to load class <span class="hljs-string">&quot;org.slf4j.impl.StaticMDCBinder&quot;</span>.<br>SLF4J: Defaulting to no-operation MDCAdapter implementation.<br>SLF4J: See http:<span class="hljs-comment">//www.slf4j.org/codes.html#no_static_mdc_binder for further details.</span><br>CONNECTED<br>Disconnected from the target VM, address: <span class="hljs-string">&#x27;127.0.0.1:3677&#x27;</span>, transport: <span class="hljs-string">&#x27;socket&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+<p>进入容器查看添加节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">进入容器</span><br>docker exec -it zookeeper02 /bin/bash<br><span class="hljs-meta prompt_"># </span><span class="language-bash">连接zookeeper服务</span><br>bin/zkCli.sh -server 127.0.0.1:2181<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">查看内容</span><br>[zk: 127.0.0.1:2181(CONNECTED) 0] ls /<br>[zk_testNode1, zookeeper]<br></code></pre></td></tr></table></figure>
+
+<p>节点添加成功！</p>
+<p>其他操作类似</p>
+<h4 id="客户端的curator连接"><a href="#客户端的curator连接" class="headerlink" title="客户端的curator连接"></a>客户端的curator连接</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.curator.framework.CuratorFramework;<br><span class="hljs-keyword">import</span> org.apache.curator.framework.CuratorFrameworkFactory;<br><span class="hljs-keyword">import</span> org.apache.curator.retry.ExponentialBackoffRetry;<br><span class="hljs-keyword">import</span> org.apache.zookeeper.data.Stat;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CuratorDemo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">CuratorFramework</span> <span class="hljs-variable">curatorFramework</span> <span class="hljs-operator">=</span><br>                CuratorFrameworkFactory<br>                        .builder()<br>                        .connectString(<span class="hljs-string">&quot;192.168.56.40:2181&quot;</span>)<br>                        .sessionTimeoutMs(<span class="hljs-number">4000</span>).retryPolicy(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExponentialBackoffRetry</span>(<span class="hljs-number">1000</span>, <span class="hljs-number">3</span>)).<br>                        namespace(<span class="hljs-string">&quot;&quot;</span>).build();<br>        curatorFramework.start();<br>        <span class="hljs-type">Stat</span> <span class="hljs-variable">stat</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stat</span>();<br>        <span class="hljs-comment">//查询节点数据</span><br>        <span class="hljs-type">byte</span>[] bytes = curatorFramework.getData().storingStatIn(stat).forPath(<span class="hljs-string">&quot;/zk_testNode1&quot;</span>);<br>        System.out.println(<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(bytes));<br>        curatorFramework.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出内容,可以看到输出内容获取到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">D:\environment\java\jdk\bin\java.exe -agentlib:jdwp=transport=dt_socket,address=<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">3824</span>,suspend=y,server=n -javaagent:C:\Users\Administrator\AppData\Local\JetBrains\IntelliJIdea2021<span class="hljs-number">.2</span>\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-<span class="hljs-number">8</span> -classpath <span class="hljs-string">&quot;D:\environment\java\jdk\jre\lib\charsets.jar;D:\environment\java\jdk\jre\lib\deploy.jar;D:\environment\java\jdk\jre\lib\ext\access-bridge-64.jar;D:\environment\java\jdk\jre\lib\ext\cldrdata.jar;D:\environment\java\jdk\jre\lib\ext\dnsns.jar;D:\environment\java\jdk\jre\lib\ext\jaccess.jar;D:\environment\java\jdk\jre\lib\ext\jfxrt.jar;D:\environment\java\jdk\jre\lib\ext\localedata.jar;D:\environment\java\jdk\jre\lib\ext\nashorn.jar;D:\environment\java\jdk\jre\lib\ext\sunec.jar;D:\environment\java\jdk\jre\lib\ext\sunjce_provider.jar;D:\environment\java\jdk\jre\lib\ext\sunmscapi.jar;D:\environment\java\jdk\jre\lib\ext\sunpkcs11.jar;D:\environment\java\jdk\jre\lib\ext\zipfs.jar;D:\environment\java\jdk\jre\lib\javaws.jar;D:\environment\java\jdk\jre\lib\jce.jar;D:\environment\java\jdk\jre\lib\jfr.jar;D:\environment\java\jdk\jre\lib\jfxswt.jar;D:\environment\java\jdk\jre\lib\jsse.jar;D:\environment\java\jdk\jre\lib\management-agent.jar;D:\environment\java\jdk\jre\lib\plugin.jar;D:\environment\java\jdk\jre\lib\resources.jar;D:\environment\java\jdk\jre\lib\rt.jar;D:\desktop\Learn\admin\zookeeper\target\classes;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\zookeeper\zookeeper\3.7.1\zookeeper-3.7.1.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\zookeeper\zookeeper-jute\3.7.1\zookeeper-jute-3.7.1.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\yetus\audience-annotations\0.12.0\audience-annotations-0.12.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-handler\4.1.76.Final\netty-handler-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-common\4.1.76.Final\netty-common-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-resolver\4.1.76.Final\netty-resolver-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-buffer\4.1.76.Final\netty-buffer-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport\4.1.76.Final\netty-transport-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-codec\4.1.76.Final\netty-codec-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-native-epoll\4.1.76.Final\netty-transport-native-epoll-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-native-unix-common\4.1.76.Final\netty-transport-native-unix-common-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-classes-epoll\4.1.76.Final\netty-transport-classes-epoll-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\slf4j\slf4j-api\1.7.35\slf4j-api-1.7.35.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\curator\curator-framework\4.0.0\curator-framework-4.0.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\curator\curator-client\4.0.0\curator-client-4.0.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\com\google\guava\guava\20.0\guava-20.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\curator\curator-recipes\4.0.0\curator-recipes-4.0.0.jar;D:\software\idea\IntelliJ IDEA 2021.2\lib\idea_rt.jar&quot;</span> com.wuxin.zookeeper.CuratorDemo<br>Connected to the target VM, address: <span class="hljs-string">&#x27;127.0.0.1:3824&#x27;</span>, transport: <span class="hljs-string">&#x27;socket&#x27;</span><br>SLF4J: Failed to load class <span class="hljs-string">&quot;org.slf4j.impl.StaticLoggerBinder&quot;</span>.<br>SLF4J: Defaulting to no-operation (NOP) logger implementation<br>SLF4J: See http:<span class="hljs-comment">//www.slf4j.org/codes.html#StaticLoggerBinder for further details.</span><br>SLF4J: Failed to load class <span class="hljs-string">&quot;org.slf4j.impl.StaticMDCBinder&quot;</span>.<br>SLF4J: Defaulting to no-operation MDCAdapter implementation.<br>SLF4J: See http:<span class="hljs-comment">//www.slf4j.org/codes.html#no_static_mdc_binder for further details.</span><br>创建第一个节点<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="监听"><a href="#监听" class="headerlink" title="监听"></a>监听</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><br><span class="hljs-keyword">import</span> org.apache.zookeeper.*;<br><span class="hljs-keyword">import</span> org.apache.zookeeper.data.Stat;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WatcherDemo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Watcher</span> &#123;<br>    <span class="hljs-keyword">static</span> ZooKeeper zooKeeper;<br><br>    <span class="hljs-keyword">static</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            <span class="hljs-comment">// 连接客户端</span><br>            zooKeeper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ZooKeeper</span>(<span class="hljs-string">&quot;192.168.56.40:2181&quot;</span>, <span class="hljs-number">4000</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">WatcherDemo</span>());<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(WatchedEvent event)</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;eventType:&quot;</span> + event.getType());<br>        <span class="hljs-keyword">if</span> (event.getType() == Event.EventType.NodeDataChanged) &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                zooKeeper.exists(event.getPath(), <span class="hljs-literal">true</span>);<br>            &#125; <span class="hljs-keyword">catch</span> (KeeperException e) &#123;<br>                e.printStackTrace();<br>            &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                e.printStackTrace();<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, KeeperException, InterruptedException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">path</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;/watcher&quot;</span>;<br>        <span class="hljs-keyword">if</span> (zooKeeper.exists(path, <span class="hljs-literal">false</span>) == <span class="hljs-literal">null</span>) &#123;<br>            zooKeeper.create(<span class="hljs-string">&quot;/watcher&quot;</span>, <span class="hljs-string">&quot;0&quot;</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);<br>        &#125;<br>        Thread.sleep(<span class="hljs-number">1000</span>);<br>        System.out.println(<span class="hljs-string">&quot;-----------&quot;</span>);<br>        <span class="hljs-comment">//true表示使用zookeeper实例中配置的watcher</span><br>        <span class="hljs-type">Stat</span> <span class="hljs-variable">stat</span> <span class="hljs-operator">=</span> zooKeeper.exists(path, <span class="hljs-literal">true</span>);<br>        System.in.read();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>控制台内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">D:\environment\java\jdk\bin\java.exe -agentlib:jdwp=transport=dt_socket,address=<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">14799</span>,suspend=y,server=n -javaagent:C:\Users\Administrator\AppData\Local\JetBrains\IntelliJIdea2021<span class="hljs-number">.2</span>\captureAgent\debugger-agent.jar -Dfile.encoding=UTF-<span class="hljs-number">8</span> -classpath <span class="hljs-string">&quot;D:\environment\java\jdk\jre\lib\charsets.jar;D:\environment\java\jdk\jre\lib\deploy.jar;D:\environment\java\jdk\jre\lib\ext\access-bridge-64.jar;D:\environment\java\jdk\jre\lib\ext\cldrdata.jar;D:\environment\java\jdk\jre\lib\ext\dnsns.jar;D:\environment\java\jdk\jre\lib\ext\jaccess.jar;D:\environment\java\jdk\jre\lib\ext\jfxrt.jar;D:\environment\java\jdk\jre\lib\ext\localedata.jar;D:\environment\java\jdk\jre\lib\ext\nashorn.jar;D:\environment\java\jdk\jre\lib\ext\sunec.jar;D:\environment\java\jdk\jre\lib\ext\sunjce_provider.jar;D:\environment\java\jdk\jre\lib\ext\sunmscapi.jar;D:\environment\java\jdk\jre\lib\ext\sunpkcs11.jar;D:\environment\java\jdk\jre\lib\ext\zipfs.jar;D:\environment\java\jdk\jre\lib\javaws.jar;D:\environment\java\jdk\jre\lib\jce.jar;D:\environment\java\jdk\jre\lib\jfr.jar;D:\environment\java\jdk\jre\lib\jfxswt.jar;D:\environment\java\jdk\jre\lib\jsse.jar;D:\environment\java\jdk\jre\lib\management-agent.jar;D:\environment\java\jdk\jre\lib\plugin.jar;D:\environment\java\jdk\jre\lib\resources.jar;D:\environment\java\jdk\jre\lib\rt.jar;D:\desktop\Learn\admin\zookeeper\target\classes;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\zookeeper\zookeeper\3.7.1\zookeeper-3.7.1.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\zookeeper\zookeeper-jute\3.7.1\zookeeper-jute-3.7.1.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\yetus\audience-annotations\0.12.0\audience-annotations-0.12.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-handler\4.1.76.Final\netty-handler-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-common\4.1.76.Final\netty-common-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-resolver\4.1.76.Final\netty-resolver-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-buffer\4.1.76.Final\netty-buffer-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport\4.1.76.Final\netty-transport-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-codec\4.1.76.Final\netty-codec-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-native-epoll\4.1.76.Final\netty-transport-native-epoll-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-native-unix-common\4.1.76.Final\netty-transport-native-unix-common-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\io\netty\netty-transport-classes-epoll\4.1.76.Final\netty-transport-classes-epoll-4.1.76.Final.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\slf4j\slf4j-api\1.7.35\slf4j-api-1.7.35.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\curator\curator-framework\4.0.0\curator-framework-4.0.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\curator\curator-client\4.0.0\curator-client-4.0.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\com\google\guava\guava\20.0\guava-20.0.jar;D:\environment\java\maven\apache-maven-3.8.3\maven-repo\org\apache\curator\curator-recipes\4.0.0\curator-recipes-4.0.0.jar;D:\software\idea\IntelliJ IDEA 2021.2\lib\idea_rt.jar&quot;</span> com.wuxin.zookeeper.WatcherDemo<br>Connected to the target VM, address: <span class="hljs-string">&#x27;127.0.0.1:14799&#x27;</span>, transport: <span class="hljs-string">&#x27;socket&#x27;</span><br>SLF4J: Failed to load class <span class="hljs-string">&quot;org.slf4j.impl.StaticLoggerBinder&quot;</span>.<br>SLF4J: Defaulting to no-operation (NOP) logger implementation<br>SLF4J: See http:<span class="hljs-comment">//www.slf4j.org/codes.html#StaticLoggerBinder for further details.</span><br>SLF4J: Failed to load class <span class="hljs-string">&quot;org.slf4j.impl.StaticMDCBinder&quot;</span>.<br>SLF4J: Defaulting to no-operation MDCAdapter implementation.<br>SLF4J: See http:<span class="hljs-comment">//www.slf4j.org/codes.html#no_static_mdc_binder for further details.</span><br>eventType:None<br></code></pre></td></tr></table></figure>
+
+<p>监听之后在 docker 容器中操作节点  <strong>&#x2F;watcher</strong> 操作，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">set /watcher watcher_content<br></code></pre></td></tr></table></figure>
+
+<p>控制台新增内容，监听到了节点发生了变化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">-----------<br>eventType:NodeDataChanged<br></code></pre></td></tr></table></figure>
+
+
+<p>部分源代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"># 设置监控 <br>request.setWatch(watcher != <span class="hljs-literal">null</span>);<br></code></pre></td></tr></table></figure>
+
+
+
+
+<h3 id="zookeeper集群搭建"><a href="#zookeeper集群搭建" class="headerlink" title="zookeeper集群搭建"></a>zookeeper集群搭建</h3><p>docker 容器下 zookeeper 目录如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@8b57a494c9e5:/# ls<br>apache-zookeeper-3.7.1-bin  data                  etc    lib64   mnt   run   tmp<br>bin                         datalog               home   libx32  opt   sbin  usr<br>boot                        dev                   lib    logs    proc  srv   var<br>conf                        docker-entrypoint.sh  lib32  media   root  sys<br>root@8b57a494c9e5:/# <br></code></pre></td></tr></table></figure>
+
+<p>配置文件和 id文件分别在 <strong>conf</strong> 和 <strong>data</strong> 配置文件中</p>
+<p>修改配置文件 <strong>&#x2F;conf&#x2F;zoo.cfg</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">dataDir=/data<br>dataLogDir=/datalog<br>tickTime=2000<br>initLimit=5<br>syncLimit=2<br>autopurge.snapRetainCount=3<br>autopurge.purgeInterval=0<br>maxClientCnxns=60<br>standaloneEnabled=true<br>admin.enableServer=true<br>server.1=localhost:2888:3888;2181<br></code></pre></td></tr></table></figure>
+
+
+<p>主要添加以下内容</p>
+<p><strong>server.1&#x3D;192.168.56.10:2888:3888;2181<br>server.2&#x3D;192.168.56.20:2888:3888;2181<br>server.3&#x3D;192.168.56.30:2888:3888;2181</strong></p>
+<p>其他三个类似，然后就是修改 <strong>&#x2F;data&#x2F;myid</strong> 内容依次为 1 、2 、3</p>
+<p>修改完毕之后需要重新启，这三台就可以默认为是一个zookeeper小集群了</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/zookeeper-linux-cluster.html">详细内容可以参考</a></p>
+<h3 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h3><p>zookeeper 原子广播协议<a target="_blank" rel="noopener" href="https://zookeeper.net.cn/zookeeperInternals.html#sc_consistency"> https://zookeeper.net.cn/zookeeperInternals.html#sc_consistency</a></p>
+<p><strong>ZooKeeper 的核心是一个原子消息系统，它使所有服务器保持同步。</strong></p>
+<h3 id="Zookeeper原理"><a href="#Zookeeper原理" class="headerlink" title="Zookeeper原理"></a>Zookeeper原理</h3><h4 id="监听机制"><a href="#监听机制" class="headerlink" title="监听机制"></a><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/zookeeper-watcher.html">监听机制</a></h4><h4 id="选举算法"><a href="#选举算法" class="headerlink" title="选举算法"></a><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/zookeeper-leader.html">选举算法</a></h4><h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/zookeeper-locks.html">分布式锁</a></h4>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/">#Java</a>
+      
+        <a href="/tags/zookeeper/">#zookeeper</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Zookeeper简单使用</div>
+      <div>https://wuxin0011.github.io/2022/09/04/zookeeper/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Beitragsautor</div>
+          <div>wuxin001</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Veröffentlicht am</div>
+          <div>2022年9月4日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>Urheberrechtshinweis</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/13/MySQL/" title="MySQL">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL</span>
+                        <span class="visible-mobile">Vorheriger</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/31/RabbitMQ/" title="RabbitMQ">
+                        <span class="hidden-mobile">RabbitMQ</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Inhaltsverzeichnis</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/wuxin0011" target="_blank" rel="nofollow noopener"><span>Github</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        Alle Aufrufe: 
+        <span id="busuanzi_value_site_pv"></span>
+        
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        Alle Besucher: 
+        <span id="busuanzi_value_site_uv"></span>
+        
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog funktioniert am besten mit aktiviertem JavaScript</div>
+  </noscript>
+</body>
+</html>
