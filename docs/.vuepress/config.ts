@@ -18,8 +18,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: "Evan's blog",
-      description: 'web前端技术博客,专注web前端学习与总结。JavaScript,js,ES6,TypeScript,vue,React,python,css3,html5,Node,git,github等技术文章。',
+      title: "wuxin0011 blog",
+      description: '欢迎访问个人静态网站',
     }
   },
   base: '/blog/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
@@ -172,7 +172,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 博主信息 (显示在首页侧边栏)
     blogger: {
-      avatar: 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/桌面壁纸.jpg',
+      avatar: 'https://avatars.githubusercontent.com/u/65836396?v=4',
       name: 'wuxin0011',
       slogan: '懂得越多，懂得越少',
     },
@@ -352,8 +352,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         platform: 'github',
         owner: 'wuxin0011',
         repo: 'blog-gitalk-comment',
-        clientId: '89da537c46f15ccbf324',
-        clientSecret: '676dc75bbdec5ff92ea699e578365d9135bc22f1',
+        clientId: '24a11f32692b0bf7b210',
+        clientSecret: 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
         autoCreateIssue:true,
       },
     ],
