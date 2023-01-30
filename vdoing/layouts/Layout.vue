@@ -49,20 +49,18 @@
 
     <!-- 文章页或其他页 -->
     <Page v-else :sidebar-items="sidebarItems">
+      
       <template #top v-if="pageSlotTop">
         <div class="page-slot page-slot-top" v-html="pageSlotTop"></div>
+      </template>
+      <template #comment >
+        <div class="page-slot page-slot-bottom">
+           <Vssue/>
+        </div>
       </template>
       <template #bottom v-if="pageSlotBottom">
         <div class="page-slot page-slot-bottom" v-html="pageSlotBottom"></div>
       </template>
-      <!-- <slot
-        name="page-top"
-        #top
-      />
-      <slot
-        name="page-bottom"
-        #bottom
-      /> -->
     </Page>
 
     <Footer />
