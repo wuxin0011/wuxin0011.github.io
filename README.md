@@ -1,4 +1,6 @@
-### 欢迎来到我的Github静态网站
 
-[博客](https://wuxin0011.github.io/blog/)
-[直播插件](https://wuxin0011.github.io/blog/)
+
+## 许可证
+[MIT](https://github.com/xugaoyi/vuepress-theme-vdoing/blob/master/LICENSE)
+
+Copyright (c) 2019-present Evan Xu
