@@ -10,6 +10,7 @@ import htmlModules from './config/htmlModules' // 自定义插入的html块
 
 const DOMAIN_NAME = 'wuxin0011.github.io/blog' // 域名 (不带https)
 const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
+const IS_DEV = process.env.NODE_ENV == 'development'
 
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
   // theme: 'vdoing', // 使用npm主题包
@@ -18,11 +19,13 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: "wuxin0011 blog",
+      title: "wuxin0011`blog",
       description: '欢迎访问个人静态网站',
     }
   },
-  base: '/blog/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
+  // 打包目录
+  // desc: resolve(__dirname, './dist/blog'),
+  base: IS_DEV ? '/' : '/blog/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
 
   // 主题配置
   themeConfig: {
@@ -324,41 +327,40 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         },
       },
     ],
-    // [
-    //   'vuepress-plugin-comment', // 评论
-    //   {
-    //     choosen: 'gitalk',
-    //     options: {
-    //       clientID: 'a6e1355287947096b88b',
-    //       clientSecret: 'f0e77d070fabfcd5af95bebb82b2d574d7248d71',
-    //       repo: 'blog-gitalk-comment', // GitHub 仓库
-    //       owner: 'xugaoyi', // GitHub仓库所有者
-    //       admin: ['xugaoyi'], // 对仓库有写权限的人
-    //       // distractionFreeMode: true,
-    //       pagerDirection: 'last', // 'first'正序 | 'last'倒序
-    //       id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
-    //       title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
-    //       labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
-    //       body:
-    //         '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
-    //     },
-    //   },
-    // ],
-    // ],
-
-    // 评论驱动 https://vssue.js.org/zh/guide/vuepress.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95
     [
-      '@vssue/vuepress-plugin-vssue',{
-        platform: 'github',
-        owner: 'wuxin0011',
-        repo: 'blog-gitalk-comment',
-        clientId: '24a11f32692b0bf7b210',
-        clientSecret: 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
-        autoCreateIssue:true,
+      'vuepress-plugin-comment', // 评论
+      {
+        choosen: 'gitalk',
+        options: {
+          clientId: '89da537c46f15ccbf324',
+          clientSecret: '676dc75bbdec5ff92ea699e578365d9135bc22f1',
+          repo: 'blog-gitalk-comment', // GitHub 仓库
+          owner: 'wuxin0011', // GitHub仓库所有者
+          admin: ['wuxin0011'], // 对仓库有写权限的人
+          // distractionFreeMode: true,
+          pagerDirection: 'last', // 'first'正序 | 'last'倒序
+          id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
+          title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
+          labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
+          body:
+            '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
+        },
       },
     ],
 
-    
+    // 评论驱动 https://vssue.js.org/zh/guide/vuepress.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95
+    // [
+    //   '@vssue/vuepress-plugin-vssue', {
+    //     platform: 'github',
+    //     owner: 'wuxin0011',
+    //     repo: 'blog-gitalk-comment',
+    //     clientId: IS_DEV ? '89da537c46f15ccbf324' : '24a11f32692b0bf7b210',
+    //     clientSecret: IS_DEV ? '676dc75bbdec5ff92ea699e578365d9135bc22f1' : 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
+    //     autoCreateIssue: true,
+    //   },
+    // ],
+
+
     [
       '@vuepress/last-updated', // "上次更新"时间格式
       {

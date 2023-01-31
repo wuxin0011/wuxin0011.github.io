@@ -53,11 +53,12 @@
       <template #top v-if="pageSlotTop">
         <div class="page-slot page-slot-top" v-html="pageSlotTop"></div>
       </template>
-      <template #comment >
-        <div class="page-slot page-slot-bottom">
-           <Vssue/>
-        </div>
-      </template>
+      <!-- <template #comment > -->
+        <!-- <div class="page-slot page-slot-bottom"> -->
+           <!-- 指定文件评论ID -->
+           <!-- <Vssue :issueId="permalink"/> -->
+        <!-- </div> -->
+      <!-- </template> -->
       <template #bottom v-if="pageSlotBottom">
         <div class="page-slot page-slot-bottom" v-html="pageSlotBottom"></div>
       </template>
