@@ -30,7 +30,7 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: background-image ease-in-out 0.5s;
+            transition: background-image ease-in-out 1s;
         }
 
         div.container {
@@ -42,19 +42,20 @@
         .title {
           padding-top: 100px;
           font-family: 'fangsong';
-          display: inline-block;
+          display: block;
           position: relative;
           font-size: 40px;
           height: 60px;
+          min-height: 60px;
           color: rgb(245, 245, 245);
         }
 
         .title::after{
             content: '';
             position: absolute;
-            right: -10px;
             width: 3px;     
-            padding-top: 45px;
+            height: 50px;
+            min-height: 50px;
             background-color: #fff;
             animation: stepAni 0.5s steps(1) infinite;
         }
@@ -65,7 +66,6 @@
             50%{
                background-color: transparent;
             }
-
         }
 
 
@@ -102,7 +102,6 @@
 
         .link:visited {
             color: rgb(58, 58, 211) !important;
-            opacity: 0.3;
         }
 
         footer {
@@ -188,7 +187,6 @@
         })
         li.appendChild(span)
         ul.appendChild(li)
-
     }
     }
 
