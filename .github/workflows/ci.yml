@@ -42,7 +42,7 @@ jobs:
           branch: blog-test
           folder: docs/.vuepress/dist 
           target-folder: blog
-          commit-message: `update content`
+          commit-message: update content
           force: true
           git-config-name: wuxin0011
           git-config-email: 2191377759@qq.com
