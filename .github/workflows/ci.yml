@@ -1,5 +1,5 @@
 
-name: ci
+name: blog-build
 on:
   push:
     branches:
@@ -30,7 +30,8 @@ jobs:
           node-version: 16
 
       - name: 📦 Install dependencies
-        run: npm install --registry=https://registry.npmmirror.com 
+        # run: npm install --registry=https://registry.npmmirror.com 
+        run: npm install 
 
       - name: 🚧 Set up project
         run: npm run build
