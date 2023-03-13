@@ -1,49 +1,51 @@
-name: CI
 
-#on: [push]
-
-# 触发分支
+name: ci
 on:
   push:
     branches:
       - blog-dev
 
-env: # 设置环境变量
-  TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用该时区时间）
+  pull_request:
+    branches:
+      - blog-dev
+
+  workflow_dispatch: {}
+env: 
+  TZ: Asia/Shanghai 
+
+permissions:
+  contents: write
 
 jobs:
-  build: # 自定义名称
-    runs-on: ubuntu-latest # 运行在虚拟机环境ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
+  ci:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout # 步骤1
-        uses: actions/checkout@v1 # 使用的动作。格式：userName/repoName。作用：检出仓库，获取源码。 官方actions库：https://github.com/actions
-      - name: Use Node.js ${{ matrix.node-version }} # 步骤2
-        uses: actions/setup-node@v1 # 作用：安装nodejs
+
+      - uses: actions/checkout@v3
+      - run: corepack enable
+
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }} # 版本
-      - name: Build-and-deploy # 步骤3
-        run: |
-          remote_addr=`git remote get-url --push origin`
-          commit_info=`git describe --all --always --long`
-          user_name=`git log -1 --pretty=format:'%an'`
-          user_email=`git log -1 --pretty=format:'%ae'`
-          deploy_branch=gh-pages
-          yarn
-          yarn build
-          cd docs/.vuepress/dist
-          git config --global init.defaultBranch $deploy_branch
-          git init
-          git config user.name ${user_name}
-          git config user.email ${user_email}
-          git add -A
-          git commit -m "auto deploy, $commit_info"
-          remote_addr=`echo $remote_addr | awk -F'://' '{print $2}'`
-          remote_addr=https://${user_name}:${{secrets.GITHUB_TOKEN}}@${remote_addr}
-          git remote add origin ${remote_addr}
-          git push origin HEAD:$deploy_branch --force # 推送到github $deploy_branch分支
-      # 只提交到github pages也可以使用github-pages-deploy-action，详见: https://github.com/JamesIves/github-pages-deploy-action
+          node-version: 16
+
+      - name: 📦 Install dependencies
+        run: npm install --registry=https://registry.npmmirror.com 
+
+      - name: 🚧 Set up project
+        run: npm run build
+     # https://github.com/JamesIves/github-pages-deploy-action
+      - name: 🚀 deploy project
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} 
+          branch: blog-test
+          folder: docs/.vuepress/dist 
+          target-folder: blog
+          commit-message: `update content`
+          force: true
+          git-config-name: wuxin0011
+          git-config-email: 2191377759@qq.com
+          clean: true
+
+

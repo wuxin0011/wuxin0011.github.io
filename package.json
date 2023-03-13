@@ -1,14 +1,10 @@
 {
-  "name": "theme-vdoing-blog",
+  "name": "wuxin0011`blog",
   "version": "1.0.0",
   "scripts": {
-    "dev": " node  --max_old_space_size=4096 ./node_modules/vuepress/cli.js  dev docs",
+    "dev": " node --max_old_space_size=4096 ./node_modules/vuepress/cli.js  dev docs",
     "build": " node --max_old_space_size=4096 ./node_modules/vuepress/cli.js build docs",
-    "deploy": "bash deploy.sh",
-    "editFm": "node utils/editFrontmatter.js",
-    "baiduPush": "node utils/baiduPush.js https://xugaoyi.com && bash baiduPush.sh",
-    "publish": "cd ./vdoing && npm publish && cd .. && yarn updateTheme",
-    "updateTheme": "yarn remove vuepress-theme-vdoing && rm -rf node_modules && yarn && yarn add vuepress-theme-vdoing -D"
+    "deploy": "bash deploy.sh"
   },
   "license": "MIT",
   "devDependencies": {
@@ -19,6 +15,7 @@
     "vuepress-plugin-baidu-autopush": "^1.0.1",
     "vuepress-plugin-baidu-tongji": "^1.0.1",
     "vuepress-plugin-comment": "^0.7.3",
+    "vuepress-plugin-comment2": "^2.0.0-beta.178",
     "vuepress-plugin-demo-block": "^0.7.2",
     "vuepress-plugin-fulltext-search": "^2.2.1",
     "vuepress-plugin-one-click-copy": "^1.0.2",

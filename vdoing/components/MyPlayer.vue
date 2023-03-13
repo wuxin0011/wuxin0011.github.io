@@ -1,19 +1,12 @@
-<tempalte>
-
-</tempalte>
+<template>
+  <div>
+    <meting-js server="netease" type="playlist" id="7327522396" fixed="true" theme="#25CCF7" autoPlay="false"></meting-js>
+  </div>
+</template>
 
 <script>
 export default {
-  name:"meting-js",
-  data() {
-    return {
-      key: value
-    }
-  },
+  name: 'MyPlayer',
+
 }
 </script>
-<style>
-/*@import url('https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css');*/
-@import url('https://cdn.statictly.net/npm/aplayer/dist/APlayer.min.css');
-
-</style>
