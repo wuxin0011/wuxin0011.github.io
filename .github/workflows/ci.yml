@@ -21,17 +21,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v3
       - run: corepack enable
-
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
       - name: 📦 Install dependencies
         run: npm install --registry=https://registry.npmmirror.com --force --legacy-peer-deps
-
       - name: 🚧 Set up project
         run: npm run build
      # https://github.com/JamesIves/github-pages-deploy-action
