@@ -35,9 +35,9 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} 
-          branch: blog-test
+          branch: main
           folder: docs/.vuepress/dist 
-          target-folder: blog
+          # target-folder: blog
           commit-message: update content
           force: true
           git-config-name: wuxin0011

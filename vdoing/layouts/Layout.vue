@@ -1,75 +1,77 @@
 <template>
-<div class="theme-container" :class="pageClasses" @touchstart="onTouchStart" @touchend="onTouchEnd">
-    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
+    <div class="theme-container" :class="pageClasses" @touchstart="onTouchStart" @touchend="onTouchEnd">
+        <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
-    <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
+        <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
 
-    <div v-if="$themeConfig.sidebarHoverTriggerOpen !== false" class="sidebar-hover-trigger"></div>
+        <div v-if="$themeConfig.sidebarHoverTriggerOpen !== false" class="sidebar-hover-trigger"></div>
 
-    <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar" v-show="showSidebar">
-        <template #top v-if="sidebarSlotTop">
-            <div class="sidebar-slot sidebar-slot-top" v-html="sidebarSlotTop"></div>
-        </template>
-        <template #bottom v-if="sidebarSlotBottom">
-            <div class="sidebar-slot sidebar-slot-bottom" v-html="sidebarSlotBottom"></div>
-        </template>
-        <!-- <slot name="sidebar-top" #top />
+        <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar" v-show="showSidebar">
+            <template #top v-if="sidebarSlotTop">
+                <div class="sidebar-slot sidebar-slot-top" v-html="sidebarSlotTop"></div>
+            </template>
+            <template #bottom v-if="sidebarSlotBottom">
+                <div class="sidebar-slot sidebar-slot-bottom" v-html="sidebarSlotBottom"></div>
+            </template>
+            <!-- <slot name="sidebar-top" #top />
       <slot name="sidebar-bottom" #bottom /> -->
-    </Sidebar>
+        </Sidebar>
 
-    <!-- 首页 -->
-    <Home v-if="$page.frontmatter.home" />
+        <!-- 首页 -->
+        <Home v-if="$page.frontmatter.home" />
 
-    <!-- 分类页 -->
-    <CategoriesPage v-else-if="$page.frontmatter.categoriesPage" />
+        <!-- 分类页 -->
+        <CategoriesPage v-else-if="$page.frontmatter.categoriesPage" />
 
-    <!-- 标签页 -->
-    <TagsPage v-else-if="$page.frontmatter.tagsPage" />
+        <!-- 标签页 -->
+        <TagsPage v-else-if="$page.frontmatter.tagsPage" />
 
-    <!-- 归档页 -->
-    <ArchivesPage v-else-if="$page.frontmatter.archivesPage" />
+        <!-- 归档页 -->
+        <ArchivesPage v-else-if="$page.frontmatter.archivesPage" />
 
-    <!-- 文章页或其他页 -->
-    <Page v-else :sidebar-items="sidebarItems">
-        <template #top v-if="pageSlotTop">
-            <div class="page-slot page-slot-top" v-html="pageSlotTop"></div>
-        </template>
-        <!-- <template #bottom v-if="pageSlotBottom">
-            <div class="page-slot page-slot-bottom" v-html="pageSlotBottom"></div>
-        </template> -->
-        <template #bottom v-if="pageSlotBottom">
+        <!-- 文章页或其他页 -->
+        <Page v-else :sidebar-items="sidebarItems">
+            <template #top v-if="pageSlotTop">
+                <div class="page-slot page-slot-top" v-html="pageSlotTop"></div>
+            </template>
+            <template #bottom v-if="pageSlotBottom">
+                <div class="page-slot page-slot-bottom" v-html="pageSlotBottom"></div>
+            </template>
+            <!-- <template #bottom v-if="pageSlotBottom">
             <div class="page-slot page-slot-bottom">
-               <CommentService />
+               <CommentService :darkmode="themeMode" />
             </div>
-        </template>
+        </template> -->
+        </Page>
 
-         <!-- <CommentService /> -->
-         <CommentService/>
 
-    </Page>
+        <!-- footer -->
+        <Footer />
 
-    <Footer />
-    <!--music componets-->
-    <MyPlayer />
+        <!--music componets-->
+        <MyPlayer />
 
-    <Buttons ref="buttons" @toggle-theme-mode="toggleThemeMode" />
+        <!-- theme change -->
+        <Buttons ref="buttons" @toggle-theme-mode="toggleThemeMode" />
 
-    <BodyBgImg v-if="$themeConfig.bodyBgImg" />
 
-    <!-- 自定义html插入左右下角的小窗口 -->
-    <div class="custom-html-window custom-html-window-lb" v-if="windowLB" v-show="showWindowLB">
-        <div class="custom-wrapper">
-            <span class="close-but" @click="showWindowLB = false">×</span>
-            <div v-html="windowLB" />
+        <!-- backgroundImage change -->
+        <BodyBgImg v-if="$themeConfig.bodyBgImg" />
+
+        <!-- 自定义html插入左右下角的小窗口 -->
+        <div class="custom-html-window custom-html-window-lb" v-if="windowLB" v-show="showWindowLB">
+            <div class="custom-wrapper">
+                <span class="close-but" @click="showWindowLB = false">×</span>
+                <div v-html="windowLB" />
+            </div>
+        </div>
+        <div class="custom-html-window custom-html-window-rb" v-if="windowRB" v-show="showWindowRB">
+            <div class="custom-wrapper">
+                <span class="close-but" @click="showWindowRB = false">×</span>
+                <div v-html="windowRB" />
+            </div>
         </div>
     </div>
-    <div class="custom-html-window custom-html-window-rb" v-if="windowRB" v-show="showWindowRB">
-        <div class="custom-wrapper">
-            <span class="close-but" @click="showWindowRB = false">×</span>
-            <div v-html="windowRB" />
-        </div>
-    </div>
-</div>
 </template>
 
 <script>
@@ -194,15 +196,15 @@ export default {
         pageClasses() {
             const userPageClass = this.$page.frontmatter.pageClass;
             return [{
-                    "no-navbar": !this.shouldShowNavbar,
-                    "hide-navbar": this.hideNavbar, // 向下滚动隐藏导航栏
-                    "sidebar-open": this.isSidebarOpen,
-                    "no-sidebar": !this.shouldShowSidebar,
-                    "have-rightmenu": this.showRightMenu,
-                    "have-body-img": this.$themeConfig.bodyBgImg,
-                    "only-sidebarItem": this.sidebarItems.length === 1 &&
-                        this.sidebarItems[0].type === "page", // 左侧边栏只有一项时
-                },
+                "no-navbar": !this.shouldShowNavbar,
+                "hide-navbar": this.hideNavbar, // 向下滚动隐藏导航栏
+                "sidebar-open": this.isSidebarOpen,
+                "no-sidebar": !this.shouldShowSidebar,
+                "have-rightmenu": this.showRightMenu,
+                "have-body-img": this.$themeConfig.bodyBgImg,
+                "only-sidebarItem": this.sidebarItems.length === 1 &&
+                    this.sidebarItems[0].type === "page", // 左侧边栏只有一项时
+            },
                 userPageClass,
             ];
         },

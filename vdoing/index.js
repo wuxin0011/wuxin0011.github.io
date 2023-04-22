@@ -73,7 +73,7 @@ module.exports = (options, ctx) => {
     alias() {
       return {
         '@AlgoliaSearchBox': isAlgoliaSearch
-          ? path.resolve(__dirname, 'components/AlgoliaSearchBox.vue')
+          ? path.resolve(__dirname, 'components/@AlgoliaSearchBox.vue')
           : path.resolve(__dirname, 'noopModule.js')
       }
     },

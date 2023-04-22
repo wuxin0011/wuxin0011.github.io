@@ -10,14 +10,13 @@ import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
 import htmlModules from './config/htmlModules' // 自定义插入的html块
 
-const DOMAIN_NAME = 'wuxin0011.github.io/blog' // 域名 (不带https)
+const DOMAIN_NAME = 'wuxin0011.github.io' // 域名 (不带https)
 const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
 const IS_DEV = process.env.NODE_ENV == 'development'
-
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // theme: 'vdoing', // 使用npm主题包
     theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
-    base: '/blog/',
+    base: '/',
     locales: {
         '/': {
             lang: 'zh-CN',
@@ -53,10 +52,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                             { text: '《ES6 教程》', link: '/note/es6/' },
                             { text: '《Vue》', link: '/note/vue/' },
                             { text: '《React》', link: '/note/react/' },
-                            {
-                                text: '《TypeScript 从零实现 axios》',
-                                link: '/note/typescript-axios/',
-                            },
                             {
                                 text: '《Git》',
                                 link: '/note/git/',
@@ -137,11 +132,11 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
         // pageStyle: 'line', // 页面风格，可选值：'card'卡片 | 'line' 线（未设置bodyBgImg时才生效）， 默认'card'。 说明：card时背景显示灰色衬托出卡片样式，line时背景显示纯色，并且部分模块带线条边框
 
-        bodyBgImg: [
-            'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg1.jpg',
-            'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg2.jpg',
-            'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg3.jpg'
-        ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
+        // bodyBgImg: [
+        //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg1.jpg',
+        //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg2.jpg',
+        //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg3.jpg'
+        // ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
         bodyBgImgOpacity: 0.8, // body背景图透明度，选值 0.1~1.0, 默认0.5
         bodyBgImgInterval: 30, // body多张背景图时的切换间隔, 默认15，单位s
         // titleBadge: false, // 文章标题前的图标是否显示，默认true
@@ -204,7 +199,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         footer: {
             createYear: 2020, // 博客创建年份
             copyrightInfo:
-                'wuxin0011 | <a href="https://github.com/xugaoyi/vuepress-theme-vdoing/blob/master/LICENSE" target="_blank">MIT License</a>', // 博客版权信息、备案信息等，支持a标签或换行标签</br>
+                'wuxin0011 | <a href="https://github.com/wuxin0011/wuxin0011.github.io" target="_blank">MIT License</a>', // 博客版权信息、备案信息等，支持a标签或换行标签</br>
         },
 
         // 扩展自动生成frontmatter。（当md文件的frontmatter不存在相应的字段时将自动添加。不会覆盖已有的数据。）
@@ -332,29 +327,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 },
             },
         ],
-        // 此驱动目前不支持vuepress 2x
-        // [
-        //     'vuepress-plugin-comment', // 评论
-        //     {
-        //         choosen: 'gitalk',
-        //         options: {
-        //             // clientId: '24a11f32692b0bf7b210',
-        //             // clientSecret: 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
-        //             clientId: '89da537c46f15ccbf324',
-        //             clientSecret: '676dc75bbdec5ff92ea699e578365d9135bc22f1',
-        //             repo: 'https://github.com/wuxin0011/blog-gitalk-comment', // GitHub 仓库
-        //             owner: 'wuxin0011', // GitHub仓库所有者
-        //             admin: ['wuxin0011'], // 对仓库有写权限的人
-        //             distractionFreeMode: false,
-        //             pagerDirection: 'last', // 'first'正序 | 'last'倒序
-        //             id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
-        //             title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
-        //             labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
-        //             body:
-        //                 '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
-        //         },
-        //     },
-        // ],
 
         // 此驱动目前不支持vuepress 2x
         // 评论驱动 https://vssue.js.org/zh/guide/vuepress.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95
@@ -373,24 +345,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         // 基于 github Dissicon 的评论项目 giscus
         // https://plugin-comment2.vuejs.press/
         // https://giscus.app/zh-CN
-        // [
-        //     commentPlugin({
-        //         provider: "Giscus",
-        //         repo: 'wuxin0011/blog-giscus-comment',
-        //         repoId:'R_kgDOJADaHw', // id
-        //         category:'Announcements',
-        //         categoryId:'DIC_kwDOJADaH84CUUwQ', // id
-        //         mapping:'pathname', // url
-        //         strict:0, 
-        //         lazyLoading:true,
-        //         reactionsEnabled:true, 
-        //         inputPosition:'bottom',// top | bottom
-        //         lightTheme:'dark',
-        //         lang:'zh-CN'
-        //     })
-        // ],
-
-
         commentPlugin({
             provider: "Giscus",
             repo: 'wuxin0011/blog-giscus-comment',
@@ -402,27 +356,25 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             lazyLoading: true,
             reactionsEnabled: true,
             inputPosition: 'bottom',// top | bottom
-            lightTheme: 'dark',
             lang: 'zh-CN'
         }),
 
-       
 
         // "上次更新"时间格式
         [
-        '@vuepress/last-updated', 
-        {
-            transformer: (timestamp, lang) => {
-                return dayjs(timestamp).format('YYYY-MM-DD, HH:mm:ss')
+            '@vuepress/last-updated',
+            {
+                transformer: (timestamp, lang) => {
+                    return dayjs(timestamp).format('YYYY-MM-DD, HH:mm:ss')
+                },
             },
-        },
         ],
     ],
 
     // 提取标题到侧边栏的级别，默认['h2', 'h3']
     markdown: {
         lineNumbers: true,
-        extractHeaders: ['h2', 'h3', 'h4', 'h5', 'h6'], 
+        extractHeaders: ['h2', 'h3', 'h4', 'h5', 'h6'],
     },
 
     // 监听文件变化并重新构建
