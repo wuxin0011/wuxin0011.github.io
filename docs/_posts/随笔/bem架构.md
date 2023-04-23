@@ -1,0 +1,235 @@
+---
+title: 拥抱生活，拥抱快乐
+date: 2021-06-26 20:40:38
+permalink: /pages/bem/
+sidebar: false
+categories: 
+  - 随笔
+tags: 
+  - css
+  - bem
+author: 
+  name: wuxin0011
+  link: https://github.com/wuxin0011
+---
+
+
+
+# bem架构
+
+1、什么是 `bem`架构？
+
+​        名字听起来高大尚，其实是 css 的一种命名规范，是css中的oop,按oop来理解 b 是指 类,具备一个对象基本属性，e指的是子类 一般修改内部样式,变化较大；m也是子类，不过变化不大，一般调整一些简单样式（变化不大的样式等）。
+
+
+例如:
+
+* b -> block 表示一个快，也就是分类中的顶级分类 比如 是一个`button` ,是一个 `input` ……
+* e - > element 元素本身内容样式 一般是变化较大，被block包括。
+* m -> modify 修饰一个块 ，比如 button颜色，大小，形状（简单改变） ……
+
+
+2、案例
+
+* [element-plus-button](https://element-plus.org/zh-CN/component/button.html#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95)
+
+![](https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/bem/bem1.png)​
+
+虽说都是 button，不过是简单调整了默认button样式
+
+
+* [element-plus-input](https://element-plus.org/zh-CN/component/input.html#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95)
+
+![](https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/bem/bem3.png)​
+
+
+使用 vite 构建项目
+
+```shell
+npm init vite
+```
+
+安装 sass
+
+```shell
+pnpm install sass -D
+```
+
+
+配置 sass `vite.config.js`
+
+[vite 关于 sass 配置 ](https://vitejs.dev/config/shared-options.html#css-preprocessoroptions)
+
+```ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import './src/styles/index.scss';`
+      }
+    }
+  }
+
+})
+```
+
+
+`index.scss`
+
+```scss
+$namespace : 'el' !default;
+$block-sel: '-' !default;
+$element-sel: '__' !default;
+$modify-sel: '--' !default;
+
+
+
+// el-button
+@mixin b($block) {
+    // el - button
+    $parent:#{$namespace + $block-sel + $block} !global;
+
+    .#{$parent} {
+        @content;
+    }
+
+}
+
+// el-input__inner
+@mixin e($element) {
+    // @at-root 跳过父级
+    // el-button__inner
+    @at-root {
+        .#{$parent + $element-sel + $element} {
+            @content;
+        }
+    }
+
+}
+
+// el-button--primary
+@mixin m($modify) {
+    // @at-root 跳过父级
+    // el-button--primary
+    @at-root {
+        .#{$parent + $modify-sel + $modify} {
+            @content;
+        }
+    }
+}
+```
+
+
+
+```html
+
+<template>
+  <button class="el-button">default</button>
+  <button class="el-button el-button--info">info</button>
+  <button class="el-button el-button--primary">primary</button>
+  <button class="el-button el-button--danger">danger</button>
+  <button class="el-button el-button--success">succss</button>
+  <button class="el-button el-button--warning">warning</button>
+  <input type="text" class="el-input ">
+  <input type="text" class="el-input el-input__inner">
+</template>
+
+<style scoped lang="scss">
+$opticy: 0.5;
+$opticy-hover: 0.9;
+
+@include b(button) {
+  color: #fff;
+  padding: 10px 20px;
+  display: inline-block;
+  margin: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, $opticy);
+  transition: 0.2s all ease-out;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, $opticy-hover);
+  }
+
+  @include m(info) {
+    background-color: rgba(167, 165, 165, $opticy);
+
+    &:hover {
+      background-color: rgba(167, 165, 165, $opticy-hover);
+    }
+  }
+
+  @include m(primary) {
+    background-color: rgba(79, 99, 250, $opticy);
+
+    &:hover {
+      background-color: rgba(79, 99, 250, $opticy-hover);
+    }
+  }
+
+  @include m(danger) {
+    background-color: rgba(255, 20, 20, $opticy);
+
+    &:hover {
+      background-color: rgba(255, 20, 20, $opticy-hover);
+    }
+  }
+
+  @include m(success) {
+    background-color: rgba(15, 183, 5, $opticy);
+
+    &:hover {
+      background-color: rgba(15, 183, 5, $opticy-hover);
+    }
+  }
+
+  @include m(warning) {
+    background-color: rgba(216, 138, 12, $opticy);
+
+    &:hover {
+      background-color: rgba(216, 138, 12, $opticy-hover);
+    }
+  }
+}
+
+@include b(input) {
+  border: none;
+  padding: 10px 20px;
+  color: teal;
+  width: 200px;
+  display: block;
+  margin-top: 20px;
+  border: 1px solid red;
+  outline: none;
+
+  &:hover {
+    border: 1px solid teal;
+    outline: none;
+  }
+
+  @include e(inner) {
+    border: 1px solid teal;
+    outline: none;
+    border-radius: 20px;
+
+    &:focus {
+      border: 1px solid red;
+      outline: none;
+    }
+
+  }
+}
+</style>
+```
+
+
+
+![](https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/bem/bem2.png)​
