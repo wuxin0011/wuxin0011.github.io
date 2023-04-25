@@ -164,16 +164,16 @@
 </template>
 
 <script>
-import NavLink from "@theme/components/NavLink";
+import NavLink from "./NavLink.vue";
 import BScroll from "@better-scroll/core"
 import Slide from "@better-scroll/slide"
-import MainLayout from '@theme/components/MainLayout'
-import PostList from '@theme/components/PostList'
-import UpdateArticle from '@theme/components/UpdateArticle'
-import Pagination from '@theme/components/Pagination'
-import BloggerBar from '@theme/components/BloggerBar'
-import CategoriesBar from '@theme/components/CategoriesBar'
-import TagsBar from '@theme/components/TagsBar'
+import MainLayout from './MainLayout.vue'
+import PostList from './PostList.vue'
+import UpdateArticle from './UpdateArticle.vue'
+import Pagination from './Pagination.vue'
+import BloggerBar from './BloggerBar.vue'
+import CategoriesBar from './CategoriesBar.vue'
+import TagsBar from './TagsBar.vue'
 
 const MOBILE_DESKTOP_BREAKPOINT = 720 // refer to config.styl
 

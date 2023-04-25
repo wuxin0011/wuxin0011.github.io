@@ -1,24 +1,17 @@
 <template>
   <div class="footer">
     <div class="icons" v-if="social && social.icons">
-      <a
-        :href="item.link"
-        :title="item.title"
-        :class="['iconfont', item.iconClass]"
-        v-for="(item, index) in social.icons"
-        :key="index"
-        target="_blank"
-      ></a>
+      <a :href="item.link" :title="item.title" :class="['iconfont', item.iconClass]" v-for="(item, index) in social.icons"
+        :key="index" target="_blank"></a>
+    </div>
+
+    <div class="views">
+      本站访客数<span id="busuanzi_value_site_uv">424587</span>人次
     </div>
 
     <!--Vdoing主题遵循MIT协议，完全开源且免费。如果您对主题的修改并不大，希望您保留主题的链接。-->
     Theme by
-    <a
-      href="https://github.com/xugaoyi/vuepress-theme-vdoing"
-      target="_blank"
-      title="本站主题"
-      >Vdoing</a
-    >
+    <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a>
     <template v-if="footer">
       | Copyright © {{ footer.createYear }}-{{ new Date().getFullYear() }}
       <span v-html="footer.copyrightInfo"></span>

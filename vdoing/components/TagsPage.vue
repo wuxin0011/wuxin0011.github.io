@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import MainLayout from '@theme/components/MainLayout'
-import PostList from '@theme/components/PostList'
-import Pagination from '@theme/components/Pagination'
-import TagsBar from '@theme/components/TagsBar'
+import MainLayout from './MainLayout.vue'
+import PostList from './PostList.vue'
+import Pagination from './Pagination.vue'
+import TagsBar from './TagsBar.vue'
 
 export default {
   data() {

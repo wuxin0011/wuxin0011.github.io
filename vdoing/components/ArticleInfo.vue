@@ -13,12 +13,8 @@
             item
           }}</router-link>
           <!-- 跳分类页 -->
-          <router-link
-            v-else-if="$themeConfig.category !== false"
-            :to="`/categories/?category=${encodeURIComponent(item)}`"
-            title="分类"
-            >{{ item }}</router-link
-          >
+          <router-link v-else-if="$themeConfig.category !== false"
+            :to="`/categories/?category=${encodeURIComponent(item)}`" title="分类">{{ item }}</router-link>
           <!-- 没有跳转 -->
           <span v-else>{{ item }}</span>
         </li>
@@ -26,37 +22,25 @@
 
       <!-- 作者&日期 -->
       <div class="info">
+        <div class="bilibili iconfont icon-bilibili" title="本文浏览量">
+          <a href="javascript:;">
+            <span id="busuanzi_value_site_uv">120</span></a>
+        </div>
         <div class="author iconfont icon-touxiang" title="作者" v-if="author">
-          <a
-            :href="author.href || author.link"
-            v-if="
-              author.href || (author.link && typeof author.link === 'string')
-            "
-            target="_blank"
-            class="beLink"
-            title="作者"
-            >{{ author.name }}</a
-          >
+          <a :href="author.href || author.link" v-if="author.href || (author.link && typeof author.link === 'string')
+            " target="_blank" class="beLink" title="作者">{{ author.name }}</a>
           <a v-else href="javascript:;">{{ author.name || author }}</a>
         </div>
         <div class="date iconfont icon-riqi" title="创建时间" v-if="date">
           <a href="javascript:;">{{ date }}</a>
         </div>
-        <div
-          class="date iconfont icon-wenjian"
-          title="分类"
-          v-if="
-            $themeConfig.category !== false &&
-            !(classify1 && classify1 !== '_posts') &&
-            categories
-          "
-        >
-          <router-link
-            :to="`/categories/?category=${encodeURIComponent(item)}`"
-            v-for="(item, index) in categories"
-            :key="index"
-            >{{ item + ' ' }}</router-link
-          >
+
+        <div class="date iconfont icon-wenjian" title="分类" v-if="$themeConfig.category !== false &&
+          !(classify1 && classify1 !== '_posts') &&
+          categories
+          ">
+          <router-link :to="`/categories/?category=${encodeURIComponent(item)}`" v-for="(item, index) in categories"
+            :key="index">{{ item + ' ' }}</router-link>
         </div>
       </div>
     </div>

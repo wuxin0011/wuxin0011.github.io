@@ -35,13 +35,11 @@
                 <div class="page-slot page-slot-top" v-html="pageSlotTop"></div>
             </template>
             <template #bottom v-if="pageSlotBottom">
-                <div class="page-slot page-slot-bottom" v-html="pageSlotBottom"></div>
+                <div class="page-slot page-slot-bottom">
+                    <!-- <CommentService></CommentService> -->
+                    <h2>页面底部内容</h2>
+                </div>
             </template>
-            <!-- <template #bottom v-if="pageSlotBottom">
-            <div class="page-slot page-slot-bottom">
-               <CommentService :darkmode="themeMode" />
-            </div>
-        </template> -->
         </Page>
 
 
@@ -75,17 +73,17 @@
 </template>
 
 <script>
-import Home from "@theme/components/Home.vue";
-import Navbar from "@theme/components/Navbar.vue";
-import Page from "@theme/components/Page.vue";
-import CategoriesPage from "@theme/components/CategoriesPage.vue";
-import TagsPage from "@theme/components/TagsPage.vue";
-import ArchivesPage from "@theme/components/ArchivesPage.vue";
-import Sidebar from "@theme/components/Sidebar.vue";
-import Buttons from "@theme/components/Buttons.vue";
-import Footer from "@theme/components/Footer";
-import MyPlayer from "../../vdoing/components/MyPlayer";
-import BodyBgImg from "@theme/components/BodyBgImg";
+import Home from "../components/Home.vue";
+import Navbar from "../components/Navbar.vue";
+import Page from "../components/Page.vue";
+import CategoriesPage from "../components/CategoriesPage.vue";
+import TagsPage from "../components/TagsPage.vue";
+import ArchivesPage from "../components/ArchivesPage.vue";
+import Sidebar from "../components/Sidebar.vue";
+import Buttons from "../components/Buttons.vue";
+import Footer from "../components/Footer.vue";
+import MyPlayer from "../components/MyPlayer.vue";
+import BodyBgImg from "../components/BodyBgImg.vue";
 import {
     resolveSidebarItems
 } from "../util";

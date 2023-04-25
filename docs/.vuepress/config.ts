@@ -47,32 +47,26 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                     {
                         text: '进阶',
                         items: [
-                            { text: '《JavaScript教程》', link: '/note/javascript/' },
-                            { text: '《JavaScript高级程序设计》', link: '/note/js/' },
-                            { text: '《ES6 教程》', link: '/note/es6/' },
-                            { text: '《Vue》', link: '/note/vue/' },
-                            { text: '《React》', link: '/note/react/' },
+                            { text: '《JavaScript教程》', link: '/pages/0796ba76b4b55368/' },
+                            { text: '《ES6 教程》', link: '/pages/f344d070a1031ef7/' },
+                            { text: '《Vue》', link: '/pages/114158caa9e96df0/' },
+                            { text: '《React》', link: '/pages/5df969/' },
                             {
                                 text: '《Git》',
-                                link: '/note/git/',
-                            },
-                            {
-                                text: 'TypeScript',
-                                link: '/pages/51afd6/',
-                            },
-                            {
-                                text: 'JS设计模式总结',
-                                link: '/pages/4643cd/',
-                            },
+                                link: '/note/8292d8/',
+                            }
+
                         ],
                     },
-                ],
+                ]
             },
             {
                 text: '后端',
+                link: '/admin/',
                 items: [
                     { text: '推荐阅读', link: '/pages/70ba6f/' },
-                ],
+                    { text: 'java随笔', link: '/pages/java-collection/' },
+                ]
             },
             {
                 text: '技术',
@@ -137,21 +131,21 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg2.jpg',
         //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg3.jpg'
         // ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
-        bodyBgImgOpacity: 0.8, // body背景图透明度，选值 0.1~1.0, 默认0.5
-        bodyBgImgInterval: 30, // body多张背景图时的切换间隔, 默认15，单位s
+        // bodyBgImgOpacity: 0.8, // body背景图透明度，选值 0.1~1.0, 默认0.5
+        // bodyBgImgInterval: 30, // body多张背景图时的切换间隔, 默认15，单位s
         // titleBadge: false, // 文章标题前的图标是否显示，默认true
         // titleBadgeIcons: [ // 文章标题前图标的地址，默认主题内置图标
         //   '图标地址1',
         //   '图标地址2'
         // ],
-        // contentBgStyle: 1, // 文章内容块的背景风格，默认无. 1 方格 | 2 横线 | 3 竖线 | 4 左斜线 | 5 右斜线 | 6 点状
+        contentBgStyle: 1, // 文章内容块的背景风格，默认无. 1 方格 | 2 横线 | 3 竖线 | 4 左斜线 | 5 右斜线 | 6 点状
 
         // updateBar: { // 最近更新栏
         //   showToArticle: true, // 显示到文章页底部，默认true
         //   moreArticle: '/archives' // “更多文章”跳转的页面，默认'/archives'
         // },
-        // rightMenuBar: false, // 是否显示右侧文章大纲栏，默认true (屏宽小于1300px下无论如何都不显示)
-        // sidebarOpen: false, // 初始状态是否打开左侧边栏，默认true
+        // rightMenuBar: true, // 是否显示右侧文章大纲栏，默认true (屏宽小于1300px下无论如何都不显示)
+        // sidebarOpen: true, // 初始状态是否打开左侧边栏，默认true
         // pageButton: false, // 是否显示快捷翻页按钮，默认true
 
         // 默认外观模式（用户未在页面手动修改过模式时才生效，否则以用户设置的模式为准），可选：'auto' | 'light' | 'dark' | 'read'，默认'auto'。
@@ -192,6 +186,16 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                     title: 'bilibili',
                     link: 'https://space.bilibili.com/259072250',
                 },
+                {
+                    iconClass: 'icon-bokeyuan',
+                    title: '博客园',
+                    link: 'https://www.cnblogs.com/wuxin001/',
+                },
+                {
+                    iconClass: 'icon-juejin',
+                    title: '掘金',
+                    link: 'https://juejin.cn/user/2019183212631912',
+                },
             ],
         },
 
@@ -217,9 +221,10 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
     head: [
         ['link', { rel: 'icon', href: '/img/favicon.ico' }], //favicons，资源放在public文件夹
-        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }], //favicons，资源放在public文件夹
-        ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js', crossorigin: 'anonymous' }], //favicons，资源放在public文件夹
-        ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js', crossorigin: 'anonymous' }], //favicons，资源放在public文件夹
+        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }],
+        ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js', crossorigin: 'anonymous' }],
+        ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js', crossorigin: 'anonymous' }],
+        ['script', { rel: 'stylesheet', src: 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', crossorigin: 'anonymous' }],
         [
             'meta',
             {
@@ -242,12 +247,12 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 插件配置
     plugins: <UserPlugins>[
-        // [
-        //     "sitemap", // 网站地图
-        //     {
-        //         hostname: WEB_SITE,
-        //     },
-        // ],
+        [
+            "sitemap", // 网站地图
+            {
+                hostname: WEB_SITE,
+            },
+        ],
 
         'vuepress-plugin-baidu-autopush', // 百度自动推送
 
@@ -277,7 +282,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                     },
                     {
                         title: '在Vue API中搜索',
-                        frontUrl: 'https://cn.vuejs.org/v2/api/#',
+                        frontUrl: 'https://cn.vuejs.org/api/#',
                     },
                     {
                         title: '在Bing中搜索',
@@ -327,19 +332,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 },
             },
         ],
-
-        // 此驱动目前不支持vuepress 2x
-        // 评论驱动 https://vssue.js.org/zh/guide/vuepress.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95
-        // [
-        //   '@vssue/vuepress-plugin-vssue', {
-        //     platform: 'github',
-        //     owner: 'wuxin0011',
-        //     repo: 'blog-gitalk-comment',
-        //     clientId: '89da537c46f15ccbf324',
-        //     clientSecret: '676dc75bbdec5ff92ea699e578365d9135bc22f1',
-        //     autoCreateIssue: true, // 如果 autoCreateIssue 设置为 false，你必须手动创建 Issue。
-        //   },
-        // ],
 
 
         // 基于 github Dissicon 的评论项目 giscus

@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import MainLayout from '@theme/components/MainLayout'
-import PostList from '@theme/components/PostList'
-import Pagination from '@theme/components/Pagination'
-import CategoriesBar from '@theme/components/CategoriesBar'
+import MainLayout from './MainLayout.vue'
+import PostList from './PostList.vue'
+import Pagination from './Pagination.vue'
+import CategoriesBar from './CategoriesBar.vue'
 
 export default {
   data() {

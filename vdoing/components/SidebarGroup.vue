@@ -56,7 +56,7 @@
 
 <script>
 import { isActive } from '../util'
-import DropdownTransition from '@theme/components/DropdownTransition.vue'
+import DropdownTransition from './DropdownTransition.vue'
 
 export default {
   name: 'SidebarGroup',

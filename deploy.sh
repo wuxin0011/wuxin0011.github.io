@@ -23,4 +23,4 @@ set -e
 
 git add .
 git commit -m 'deploy to https://wuxin0011.github.io 🎉'
-git push origin blog-dev
+git push

@@ -1,40 +1,44 @@
 <template>
-<div>
-    <main class="page">
-        <div :class="`theme-vdoing-wrapper ${bgStyle}`">
-            <ArticleInfo v-if="isArticle()" />
-            <div v-else class="placeholder" />
-            <component class="theme-vdoing-content" v-if="pageComponent" :is="pageComponent" />
+    <div>
+        <main class="page">
+            <div :class="`theme-vdoing-wrapper ${bgStyle}`">
+                <ArticleInfo v-if="isArticle()" />
+                <div v-else class="placeholder" />
+                <component class="theme-vdoing-content" v-if="pageComponent" :is="pageComponent" />
 
-            <div class="content-wrapper">
-                <RightMenu v-if="showRightMenu" />
+                <div class="content-wrapper">
+                    <RightMenu v-if="showRightMenu" />
 
-                <h1 v-if="showTitle">
-                    <img :src="currentBadge" v-if="$themeConfig.titleBadge === false ? false : true" />{{ this.$page.title
-            }}<span class="title-tag" v-if="$frontmatter.titleTag">{{
-              $frontmatter.titleTag
-            }}</span>
-                </h1>
-                <!-- 顶部 -->
-                <slot name="top" v-if="isShowSlotT" />
-                <!-- 内容部分 -->
-                <Content class="theme-vdoing-content" />
+                    <h1 v-if="showTitle">
+                        <img :src="currentBadge" v-if="$themeConfig.titleBadge === false ? false : true" />{{
+                            this.$page.title
+                        }}<span class="title-tag" v-if="$frontmatter.titleTag">{{
+    $frontmatter.titleTag
+}}</span>
+                    </h1>
+                    <!-- 顶部 -->
+                    <slot name="top" v-if="isShowSlotT" />
+                    <!-- 内容部分 -->
+                    <Content class="theme-vdoing-content" />
+                </div>
+                <!-- 文章底部 -->
+                <slot name="bottom">
+                    <!-- <CommentService></CommentService> -->
+                </slot>
+
+                <!-- 页面编辑 -->
+                <PageEdit />
+
+                <PageNav v-bind="{ sidebarItems }" />
             </div>
-            <!-- 文章底部 -->
-            <slot name="bottom" v-if="isShowSlotB" />
 
-            <!-- 页面编辑 -->
-            <PageEdit />
+            <UpdateArticle :length="3" :moreArticle="updateBarConfig && updateBarConfig.moreArticle"
+                v-if="isShowUpdateBar" />
+            <!-- 评论 -->
 
-            <PageNav v-bind="{ sidebarItems }" />
-        </div>
 
-        <UpdateArticle :length="3" :moreArticle="updateBarConfig && updateBarConfig.moreArticle" v-if="isShowUpdateBar" />
-        <!-- 评论 -->
-        
-
-    </main>
-</div>
+        </main>
+    </div>
 </template>
 
 <script>
