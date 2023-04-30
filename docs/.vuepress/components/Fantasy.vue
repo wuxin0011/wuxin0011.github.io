@@ -259,10 +259,10 @@
   
         // Canvas奇妙的剪切蒙版实现
         var screenMask = new Image();
-        screenMask.src = "/fantasy/Screenmask.png";
+        screenMask.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/Screenmask.png";
   
         var screen = new Image();
-        screen.src = "/fantasy/screen.png";
+        screen.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/screen.png";
   
         var iv = setInterval(() => {
           if (screen.complete && screenMask.complete) {
@@ -290,25 +290,26 @@
   
         // 加载图片
         var bg = new Image();
-        bg.src = "/fantasy/bg.png";
+        bg.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/bg.png";
   
         var mask = new Image();
-        mask.src = "/fantasy/mask.png";
+        mask.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/mask.png";
   
         var light = new Image();
-        light.src = "/fantasy/light.png";
+        light.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/light.png";
   
         var caidai = new Image();
-        caidai.src = "/fantasy/caidai.png";
+        caidai.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/caidai.png";
   
+        // https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/Screenmask.png
         var two = new Image();
-        two.src = "/fantasy/22.png";
+        two.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/22.png";
   
         var screenLight = new Image();
-        screenLight.src = "/fantasy/screenLight.png";
+        screenLight.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/screenLight.png";
   
         var phoneLight = new Image();
-        phoneLight.src = "/fantasy/phoneLight.png";
+        phoneLight.src = "https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/fantasy/phoneLight.png";
   
         var phoneText = JSON.parse(
           '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'
@@ -587,7 +588,7 @@
         let fantasy = document.getElementsByClassName("fantasy")[0];
         let banner = document.getElementsByClassName("banner")[0];
         // 去掉黑色栅格背景
-        banner.style.background = "";
+        banner.style.background = "none";
         fantasy && banner && banner.appendChild(fantasy);
       },
       clearBannerColor() {

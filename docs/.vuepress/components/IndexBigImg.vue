@@ -37,7 +37,7 @@
       let a = document.createElement("a");
       a.id = banner_arrow;
       a.className = banner_arrow;
-      document.getElementsByClassName(banner)[0].append(a);
+      document.getElementsByClassName(banner)[0]?.append(a);
       let targetA = document.getElementById(banner_arrow);
       targetA.addEventListener("click", (e) => {
         // 添加点击事件
@@ -65,7 +65,7 @@
         let canvas = document.createElement("canvas");
         canvas.id = "canvas";
         canvas.style.top = this.bubblePosition + "%";
-        document.getElementsByClassName(banner)[0].append(canvas);
+        document.getElementsByClassName(banner)[0]?.append(canvas);
         this.canvasBubble();
       }
     },

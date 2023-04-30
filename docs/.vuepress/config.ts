@@ -33,7 +33,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         // 导航配置
         nav: nav,
         sidebarDepth: 2, // 侧边栏显示深度，默认1，最大2（显示到h3标题）
-        logo: '/img/logo.png', // 导航栏logo
+        logo: 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/icon.png', // 导航栏logo
         repo: 'wuxin0011/wuxin0011.github.io', // 导航栏右侧生成Github链接
         searchMaxSuggestions: 10, // 搜索结果显示最大数
         lastUpdated: '上次更新', // 开启更新时间，并配置前缀文字   string | boolean (取值为git提交时间)
@@ -164,13 +164,13 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         },
 
         // 自定义hmtl(广告)模块
-        htmlModules
+        // htmlModules
     },
 
     // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
     head: [
         ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css' }],
-        ['link', { rel: 'icon', href: '/img/favicon.ico' }], //favicons，资源放在public文件夹
+        ['link', { rel: 'icon', href: 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico' }], //favicons，资源放在public文件夹
         ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }],
         ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js', crossorigin: 'anonymous' }],
         ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js', crossorigin: 'anonymous' }],
@@ -248,7 +248,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                     },
                     {
                         title: '通过百度搜索本站的',
-                        frontUrl: `https://www.baidu.com/s?wd=site%3A${DOMAIN_NAME}%20`,
+                        frontUrl: `https://www.baidu.com/s?wd=`,
                     },
                 ],
             }
