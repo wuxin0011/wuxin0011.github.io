@@ -4,11 +4,13 @@
 import { resolve } from 'path'
 import { defineConfig4CustomTheme, UserPlugins } from 'vuepress/config'
 import { VdoingThemeConfig } from 'vuepress-theme-vdoing/types'
-// import { commentPlugin } from "vuepress-plugin-comment2";
 // @ts-ignore
 import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
 import htmlModules from './config/htmlModules' // 自定义插入的html块
+
+import components from './config/import-components'
+import nav from './nav-config'
 
 const DOMAIN_NAME = 'wuxin0011.github.io' // 域名 (不带https)
 const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
@@ -29,91 +31,14 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 主题配置
     themeConfig: {
         // 导航配置
-        nav: [
-            { text: '首页', link: '/' },
-            {
-                text: '前端',
-                link: '/web/', //目录页链接，此处link是vdoing主题新增的配置项，有二级导航时，可以点击一级导航跳到目录页
-                items: [
-                    // 说明：以下所有link的值只是在相应md文件头部定义的永久链接（不是什么特殊编码）。另外，注意结尾是有斜杠的
-                    {
-                        text: '基础内容',
-                        items: [
-                            { text: 'HTML', link: '/pages/8309a5b876fc95e3/' },
-                            { text: 'CSS', link: '/pages/0a83b083bdf257cb/' },
-                            { text: 'JavaScript', link: '/pages/8143cc480faf9a11/' },
-                        ],
-                    },
-                    {
-                        text: '进阶',
-                        items: [
-                            { text: '《JavaScript教程》', link: '/pages/0796ba76b4b55368/' },
-                            { text: '《ES6 教程》', link: '/pages/f344d070a1031ef7/' },
-                            { text: '《Vue》', link: '/pages/114158caa9e96df0/' },
-                            { text: '《React》', link: '/pages/5df969/' },
-                            {
-                                text: '《Git》',
-                                link: '/note/8292d8/',
-                            }
-
-                        ],
-                    },
-                ]
-            },
-            {
-                text: '后端',
-                link: '/admin/',
-                items: [
-                    { text: '推荐阅读', link: '/pages/70ba6f/' },
-                    { text: 'java随笔', link: '/pages/java-collection/' },
-                ]
-            },
-            {
-                text: '技术',
-                link: '/technology/',
-                items: [
-                    { text: '技术文档', link: '/pages/9a7ee40fc232253e/' },
-                    { text: 'GitHub技巧', link: '/pages/4c778760be26d8b3/' },
-                    { text: '博客搭建', link: '/pages/41f87d890d0a02af/' },
-                ],
-            },
-            {
-                text: '更多',
-                link: '/more/',
-                items: [
-                    { text: '学习', link: '/pages/f2a556/' },
-                    { text: '面试', link: '/pages/aea6571b7a8bae86/' },
-                    { text: '心情杂货', link: '/pages/2d615df9a36a98ed/' },
-                    { text: '实用技巧', link: '/pages/baaa02/' },
-                    { text: '友情链接', link: '/friends/' },
-                ],
-            },
-            { text: '关于', link: '/about/' },
-            {
-                text: '收藏',
-                items: [
-                    { text: '网站', link: '/pages/collection-web/' },
-                    { text: '前端', link: '/pages/collection-front/' },
-                    { text: '后端', link: '/pages/collection-admin/' },
-                ],
-            },
-            {
-                text: '索引',
-                link: '/archives/',
-                items: [
-                    { text: '分类', link: '/categories/' },
-                    { text: '标签', link: '/tags/' },
-                    { text: '归档', link: '/archives/' },
-                ],
-            },
-        ],
+        nav: nav,
         sidebarDepth: 2, // 侧边栏显示深度，默认1，最大2（显示到h3标题）
         logo: '/img/logo.png', // 导航栏logo
         repo: 'wuxin0011/wuxin0011.github.io', // 导航栏右侧生成Github链接
         searchMaxSuggestions: 10, // 搜索结果显示最大数
         lastUpdated: '上次更新', // 开启更新时间，并配置前缀文字   string | boolean (取值为git提交时间)
         docsDir: 'docs', // 编辑的文件夹
-        docsBranch: 'blog-dev', // 编辑的文件所在分支，默认master。 注意：如果你的分支是main则修改为main
+        docsBranch: 'main', // 编辑的文件所在分支，默认master。 注意：如果你的分支是main则修改为main
         editLinks: true, // 启用编辑
         editLinkText: '编辑',
 
@@ -180,9 +105,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             ], // 第一个是白天的颜色（默认原图），第二个是黄昏的颜色，第三个是晚上的颜色，第四个是深夜的颜色。bgTimeColor 为 true 生效
             descFade: true, // 是否开启图片中间描述的淡入淡出效果，默认为 false
             desc: [
-              "故事由我书写，旅程由你见证，传奇由她聆听 —— 来自 Young Kbt",
-              "积跬步以至千里，致敬每个爱学习的你 —— 来自 Evan Xu",
-              "这一生波澜壮阔或是不惊都没问题 —— 来自 Weibw",
+              "积跬步以至千里，致敬每个爱学习的你!",
             ], // 多条描述，如果填写则覆盖 index.md 的 tagline，不填写则默认读取 index.md 的 tagline，descFadeIn 为 true 生效
             descFontSize: "1.4rem", // desc 的字体大小，默认 1.4rem。提示：原主题是 1.1rem
             descFadeInTime: 200, // 描述的淡入效果持续时间，descFade 为 true 生效，默认 200 毫秒
@@ -274,6 +197,10 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 插件配置
     plugins: <UserPlugins>[
+        {
+            name: 'custom-plugins',
+            globalUIComponents: components
+        },
         [
             "sitemap", // 网站地图
             {
@@ -281,21 +208,28 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             },
         ],
         // 自定义提示小插件
-        [
-            {
-                name: 'custom-plugins',
-                globalUIComponents: ["GlobalTip"] // 2.x 版本 globalUIComponents 改名为 clientAppRootComponentFiles
-            }
-        ],
+        // [
+        //     {
+        //         name: 'custom-plugins',
+        //         globalUIComponents: ["GlobalTip"] // 2.x 版本 globalUIComponents 改名为 clientAppRootComponentFiles
+        //     }
+        // ],
         // 加载进度条
         ['reading-progress'],
         // 自定义组件
-        [
-            {
-                name: 'custom-plugins',
-                globalUIComponents: ["Fantasy"]
-            }
-        ],
+        // [
+        //     {
+        //         name: 'custom-plugins',
+        //         globalUIComponents: ["Fantasy"]
+        //     }
+        // ],
+        // [
+        //     {
+        //         name: 'custom-plugins',
+        //         globalUIComponents: ["MyPlayer"]
+        //     }
+        // ],
+
 
         'vuepress-plugin-baidu-autopush', // 百度自动推送
 

@@ -1,8 +1,8 @@
 ---
 home: true
 # heroImage: /web/web.png
-heroText:  hello world!
-tagline: 积跬步以至千里，致敬每个爱学习的你。
+heroText:  Hello World!
+tagline: 积跬步以至千里，致敬每个爱学习的你!
 pageClass: vdoing-index-class
 # actionText: 立刻进入 →
 # actionLink: /web/
@@ -104,7 +104,11 @@ postList: detailed
 <ClientOnly>
   <IndexBigImg />
   <Fantasy index="true" />
+  <!-- music -->
+<MyPlayer/>
 </ClientOnly>
+
+
 
 <script>
 export default {

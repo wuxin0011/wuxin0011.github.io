@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "vue": "2.7.14",
+    "vuepress-plugin-comment": "^0.7.3",
     "vuepress-plugin-reading-progress": "^1.0.10",
     "vuepress-plugin-sitemap": "^2.3.1"
   }
