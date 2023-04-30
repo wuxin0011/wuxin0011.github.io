@@ -1,7 +1,7 @@
 <template>
     <div>
-      <template v-if="cardData[0].title != undefined">
-          <div style="text-align: center; font-weight: 900">{{ cardData[0].title }}</div>
+      <template v-if="cardData[0]?.title != undefined">
+          <div style="text-align: center; font-weight: 900">{{ cardData[0]?.title || 'none' }}</div>
       </template>
       <div class="kbt-row">
       <div
@@ -16,21 +16,21 @@
         v-for="(item,index) in cardData"
         :key="index"
       >
-        <a :href="item.cardSrc" target="_blank">
+        <a :href="item?.cardSrc" target="_blank">
           <div class="card-nav-item">
             <div class="card-nav-title">
               <img
-                v-if="item.cardImgSrc && item.cardImgSrc != ''"
-                :src="item.cardImgSrc"
+                v-if="item?.cardImgSrc && item?.cardImgSrc != ''"
+                :src="item?.cardImgSrc"
                 alt="正在加载 ..."
                 class="card-nav-img"
               />
               <p class="card-nav-name" :style="'color:' + carTitleColor">
-                {{ item.cardName }}
+                {{ item?.cardName }}
               </p>
             </div>
-            <div :title="item.cardContent" class="card-nav-content">
-              {{ item.cardContent }}
+            <div :title="item?.cardContent" class="card-nav-content">
+              {{ item?.cardContent }}
             </div>
           </div>
         </a>
