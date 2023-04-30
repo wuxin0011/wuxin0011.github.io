@@ -1,13 +1,10 @@
 
-name: blog-build
+name: action-build
 on:
   push:
     branches:
-      - blog-dev
+      - main
 
-  pull_request:
-    branches:
-      - blog-dev
 
   workflow_dispatch: {}
 env: 
@@ -35,7 +32,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} 
-          branch: main
+          branch: gh-page
           folder: docs/.vuepress/dist 
           # target-folder: blog
           commit-message: update content
