@@ -4,7 +4,7 @@
 import { resolve } from 'path'
 import { defineConfig4CustomTheme, UserPlugins } from 'vuepress/config'
 import { VdoingThemeConfig } from 'vuepress-theme-vdoing/types'
-import { commentPlugin } from "vuepress-plugin-comment2";
+// import { commentPlugin } from "vuepress-plugin-comment2";
 // @ts-ignore
 import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
@@ -14,8 +14,8 @@ const DOMAIN_NAME = 'wuxin0011.github.io' // 域名 (不带https)
 const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
 const IS_DEV = process.env.NODE_ENV == 'development'
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
-    // theme: 'vdoing', // 使用npm主题包
-    theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
+    theme: 'vdoing', // 使用npm主题包
+    // theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
     base: '/',
     locales: {
         '/': {
@@ -131,7 +131,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg2.jpg',
         //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg3.jpg'
         // ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
-        // bodyBgImgOpacity: 0.8, // body背景图透明度，选值 0.1~1.0, 默认0.5
+        bodyBgImgOpacity: 1, // body背景图透明度，选值 0.1~1.0, 默认0.5
         // bodyBgImgInterval: 30, // body多张背景图时的切换间隔, 默认15，单位s
         // titleBadge: false, // 文章标题前的图标是否显示，默认true
         // titleBadgeIcons: [ // 文章标题前图标的地址，默认主题内置图标
@@ -165,6 +165,32 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             avatar: 'https://avatars.githubusercontent.com/u/65836396?v=4',
             name: 'wuxin0011',
             slogan: '懂得越多，懂得越少',
+        },
+
+        indexImg: {
+            navColor: 2, // 导航栏左侧名字、中间搜索框、右侧字体的颜色，1 是黑色，2 是白色。默认是 1
+            switchNavColor: true, // 页面移出大图片的位置后，navColor 是否变换，如由白色变黑色，黑色变白色。默认是 false
+            // 因为本主题的默认背景色偏向白色，如果 navColor 是 2，建议需要开启(true)，否则白背景 + 白字体 = 看不见
+            bgTimeColor: true, // 是否开启图片的背景色随一天的不同时间而变化，并且开启时间窗口提示，默认是 false。时间分为四种：白天（原图）、黄昏（偏黄）、晚上（偏黑）、深夜（偏深黑）
+            bgTimeColorArray: [
+              "transparent",
+              "transparent",
+              "transparent",
+              "transparent",
+            ], // 第一个是白天的颜色（默认原图），第二个是黄昏的颜色，第三个是晚上的颜色，第四个是深夜的颜色。bgTimeColor 为 true 生效
+            descFade: true, // 是否开启图片中间描述的淡入淡出效果，默认为 false
+            desc: [
+              "故事由我书写，旅程由你见证，传奇由她聆听 —— 来自 Young Kbt",
+              "积跬步以至千里，致敬每个爱学习的你 —— 来自 Evan Xu",
+              "这一生波澜壮阔或是不惊都没问题 —— 来自 Weibw",
+            ], // 多条描述，如果填写则覆盖 index.md 的 tagline，不填写则默认读取 index.md 的 tagline，descFadeIn 为 true 生效
+            descFontSize: "1.4rem", // desc 的字体大小，默认 1.4rem。提示：原主题是 1.1rem
+            descFadeInTime: 200, // 描述的淡入效果持续时间，descFade 为 true 生效，默认 200 毫秒
+            descFadeOutTime: 100, // 描述的淡出效果持续时间，descFade 为 true 生效，默认 100 毫秒
+            descNextTime: 800, // 当有多个 desc 时，一个 desc 展示完后或准备开始时，多少时间后出现下一个 desc，默认 800 毫秒
+            bubble: false, // 是否开启图片的气泡效果，默认为 false
+            bubblePosition: 0, // 气泡效果的位置，范围：0-100，不同数值代表不同的起始位置，0是整个图片，50是半张图（一半的下方）。bubble 为 true 生效。默认是 0
+            bubbleNum: 200, // 气泡的个数，bubble 为 true 生效，默认 200 个
         },
 
         // 社交图标 (显示于博主信息栏和页脚栏。内置图标：https://doc.xugaoyi.com/pages/a20ce8/#social)
@@ -220,16 +246,17 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
     head: [
+        ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css' }],
         ['link', { rel: 'icon', href: '/img/favicon.ico' }], //favicons，资源放在public文件夹
         ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }],
         ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js', crossorigin: 'anonymous' }],
         ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js', crossorigin: 'anonymous' }],
-        ['script', { rel: 'stylesheet', src: 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', crossorigin: 'anonymous' }],
+        // ['script', { rel: 'stylesheet', src: 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', crossorigin: 'anonymous' }],
         [
             'meta',
             {
                 name: 'keywords',
-                content: '前端博客,个人技术博客,前端,前端开发,前端框架,web前端,前端面试题,技术文档,学习,面试,JavaScript,js,ES6,TypeScript,vue,python,css3,html5,Node,git,github,markdown',
+                content: '欢迎访问个人博客',
             },
         ],
         ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
@@ -252,6 +279,22 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             {
                 hostname: WEB_SITE,
             },
+        ],
+        // 自定义提示小插件
+        [
+            {
+                name: 'custom-plugins',
+                globalUIComponents: ["GlobalTip"] // 2.x 版本 globalUIComponents 改名为 clientAppRootComponentFiles
+            }
+        ],
+        // 加载进度条
+        ['reading-progress'],
+        // 自定义组件
+        [
+            {
+                name: 'custom-plugins',
+                globalUIComponents: ["Fantasy"]
+            }
         ],
 
         'vuepress-plugin-baidu-autopush', // 百度自动推送
@@ -337,19 +380,40 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         // 基于 github Dissicon 的评论项目 giscus
         // https://plugin-comment2.vuejs.press/
         // https://giscus.app/zh-CN
-        commentPlugin({
-            provider: "Giscus",
-            repo: 'wuxin0011/blog-giscus-comment',
-            repoId: 'R_kgDOJADaHw', // id
-            category: 'Announcements',
-            categoryId: 'DIC_kwDOJADaH84CUUwQ', // id
-            mapping: 'pathname', // url
-            strict: 0,
-            lazyLoading: true,
-            reactionsEnabled: true,
-            inputPosition: 'bottom',// top | bottom
-            lang: 'zh-CN'
-        }),
+        // commentPlugin({
+        //     provider: "Giscus",
+        //     repo: 'wuxin0011/blog-giscus-comment',
+        //     repoId: 'R_kgDOJADaHw', // id
+        //     category: 'Announcements',
+        //     categoryId: 'DIC_kwDOJADaH84CUUwQ', // id
+        //     mapping: 'pathname', // url
+        //     strict: 0,
+        //     lazyLoading: true,
+        //     reactionsEnabled: true,
+        //     inputPosition: 'bottom',// top | bottom
+        //     lang: 'zh-CN'
+        // }),
+
+        [
+            'vuepress-plugin-comment', // 评论
+            {
+                choosen: 'gitalk',
+                options: {
+                    clientID: IS_DEV ? '89da537c46f15ccbf324' : '24a11f32692b0bf7b210',
+                    clientSecret: IS_DEV ? '676dc75bbdec5ff92ea699e578365d9135bc22f1' : 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
+                    repo: 'blog-gitalk-comment', // GitHub 仓库
+                    owner: 'wuxin0011', // GitHub仓库所有者
+                    admin: ['wuxin0011'], // 对仓库有写权限的人
+                    // distractionFreeMode: true,
+                    pagerDirection: 'last', // 'first'正序 | 'last'倒序
+                    id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
+                    title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
+                    labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
+                    body:
+                        '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
+                },
+            },
+        ],
 
 
         // "上次更新"时间格式

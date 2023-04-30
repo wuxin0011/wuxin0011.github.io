@@ -1,12 +1,13 @@
 ---
 home: true
-# heroImage: /img/web.png
-heroText:  积跬步以至千里，致敬每个爱学习的你。
-# tagline: 积跬步以至千里，致敬每个爱学习的你。
+# heroImage: /web/web.png
+heroText:  hello world!
+tagline: 积跬步以至千里，致敬每个爱学习的你。
+pageClass: vdoing-index-class
 # actionText: 立刻进入 →
 # actionLink: /web/
 # bannerBg: auto # auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
-
+# bannerBg: none
 # features: # 可选的
 #  - title: 前端
 #    details: JavaScript、ES6、Vue框架等前端技术
@@ -22,7 +23,7 @@ heroText:  积跬步以至千里，致敬每个爱学习的你。
 #   imgUrl: /img/other.png
 
 # 文章列表显示方式: detailed 默认，显示详细版文章列表（包括作者、分类、标签、摘要、分页等）| simple => 显示简约版文章列表（仅标题和日期）| none 不显示文章列表
-# postList: detailed
+postList: detailed
 # simplePostListLength: 10 # 简约版文章列表显示的文章数量，默认10。（仅在postList设置为simple时生效）
 # hideRightBar: true # 是否隐藏右侧边栏
 ---
@@ -84,3 +85,105 @@ heroText:  积跬步以至千里，致敬每个爱学习的你。
 - **GitHub**: <https://github.com/xugaoyi>
 
 </br>  -->
+
+
+<!-- 
+## 搜索引擎
+
+<ClientOnly>
+  <Card :cardData="cardData0" :cardListSize=3 carTitlColor="#000" carHoverColor="#000" />
+</ClientOnly>
+
+## 前端开发
+
+<ClientOnly>
+  <Card :cardData="cardData1" :cardListSize=3 carTitlColor="#000" carHoverColor="#000" />
+</ClientOnly> -->
+
+
+<ClientOnly>
+  <IndexBigImg />
+  <Fantasy index="true" />
+</ClientOnly>
+
+<script>
+export default {
+  data(){
+    return {
+       showBanner:false
+    }
+  },
+  mounted(){
+    // 关闭背景图
+   window.document.querySelector('.banner').style.background='none'
+  }
+  // data() {
+  //   return {
+  //     cardData0: [
+  //       {
+  //         id: "0",
+  //         cardSrc: "http://www.baidu.com/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220104224044.png",
+  //         cardName: "百度",
+  //         cardContent:
+  //           "百度——全球最大的中文搜索引擎及最大的中文网站，全球领先的人工智能公司",
+  //       },
+  //       {
+  //         cardSrc: "http://www.google.com/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220104225539.png",
+  //         cardName: "Google",
+  //         cardContent: "全球最大的搜索引擎公司",
+  //       },
+  //       {
+  //         cardSrc: "https://www.bing.com/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220104224430.png",
+  //         cardName: "Bing",
+  //         cardContent: "微软公司推出的用以取代Live Search的搜索引擎",
+  //       },
+  //     ],
+  //     cardData1: [
+  //       {
+  //         id: "1",
+  //         title: "Vue & UI",
+  //         cardSrc: "https://cn.vuejs.org/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220105001047.png",
+  //         cardName: "Vue",
+  //         cardContent: "渐进式 JavaScript 框架",
+  //       },
+  //       {
+  //         cardSrc: "https://element.eleme.cn/#/zh-CN/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220105001602.png",
+  //         cardName: "Element-UI",
+  //         cardContent:
+  //           "Element，一套为开发者、设计师和产品经理准备的基于 Vue 的桌面端组件库",
+  //       },
+  //       {
+  //         cardSrc: "https://next.antdv.com/docs/vue/introduce-cn/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220105223748.svg",
+  //         cardName: "Ant Design Vue",
+  //         cardContent: "Vue UI 之 Ant Design Vue，蚂蚁金服的 Vue 框架",
+  //       },
+  //       {
+  //         cardSrc: "https://www.iviewui.com/",
+  //         cardImgSrc:
+  //           "https://cdn.staticaly.com/gh/Kele-Bingtang/static@master/img/tools/20220105001656.png",
+  //         cardName: "View UI",
+  //         cardContent: "View UI 是一套基于 Vue.js 的高质量UI 组件库",
+  //       },
+  //       {
+  //         cardSrc: "https://youzan.github.io/vant/#/zh-CN/",
+  //         cardImgSrc: "https://img01.yzcdn.cn/vant/logo.png",
+  //         cardName: "Vant",
+  //         cardContent: "轻量、可靠的移动端 Vue 组件库",
+  //       },
+  //     ],
+  //   };
+  // },
+}
+</script>
