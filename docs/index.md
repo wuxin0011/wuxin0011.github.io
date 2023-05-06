@@ -91,7 +91,6 @@ postList: detailed
 <ClientOnly>
   <IndexBigImg />
   <Fantasy index="true" />
-  <!-- music -->
   <MyPlayer/>
 </ClientOnly>
 

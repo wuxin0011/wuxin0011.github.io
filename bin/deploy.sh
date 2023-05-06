@@ -24,21 +24,16 @@ git_message="deploy $web_url"
 
 
 
-
-
-
 # 日志
 path="$(pwd)/log"
 log=$path/$source-error.log
 
 
-message_check(){
-    # 判断是否有输入消息参数
-   if [ -n "$1" ]
-   then
-      git_message=$1
-   fi
-}
+# 判断是否有输入消息参数
+if [ -n "$1" ]
+then
+   git_message=$1
+fi
 
 log_check(){
     # 判断日志路径是否存在
@@ -88,7 +83,6 @@ exec_project(){
 
 
 log_check
-message_check
 
 # 判断当前路径是bin目录还是项目目录
 if [[ "$0" == "$source.sh" || "$0" == "./$source.sh" ]]

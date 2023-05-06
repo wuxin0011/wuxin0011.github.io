@@ -14,12 +14,11 @@ web_url='https://wuxin0011.github.io'
 # 上传消息
 git_message="deploy $web_url"
 # 判断是否有输入消息参数
-message_check(){
-    if [ -n "$1" ]
-    then
-       git_message=$1
-    fi
-}
+if [ -n "$1" ]
+then
+    git_message=$1
+fi
+
 
 log_check(){
     # 判断日志路径是否存在
@@ -44,7 +43,6 @@ exec_project(){
 }
 
 
-message_check
 log_check
 
 

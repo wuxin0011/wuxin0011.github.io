@@ -44,7 +44,7 @@
     props: {
       cardData: {
         type: Array,
-        default: [],
+        default: ()=>[],
       },
       cardListSize: {
         type: Number,
