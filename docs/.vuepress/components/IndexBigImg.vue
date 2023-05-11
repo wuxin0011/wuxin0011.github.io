@@ -154,7 +154,7 @@ export default {
         },
         // 监听页面滚动的回调
         watchScroll() {
-            const windowH = document.getElementsByClassName(banner)[0].clientHeight; // 获取窗口高度
+            const windowH = document.getElementsByClassName(banner)[0]?.clientHeight ?? window.innerHeight; // 获取窗口高度
             window.onscroll = () => {
                 if (document.documentElement.scrollTop < windowH) {
                     this.blurText(this.navColor);
@@ -552,20 +552,20 @@ function nextAllTipElement(elem) {
     backdrop-filter: none;
 }
 
-.vdoing-index-class .nav-links1 > .nav-item > a,
-    /* 没有二级导航的一级导航 */
-.vdoing-index-class .nav-links1 > a,
-    /* GitHub */
+.vdoing-index-class .nav-links1>.nav-item>a,
+/* 没有二级导航的一级导航 */
+.vdoing-index-class .nav-links1>a,
+/* GitHub */
 .vdoing-index-class .nav-links1 .dropdown-title a:hover,
-    /* 鼠标悬停 */
+/* 鼠标悬停 */
 .vdoing-index-class .nav-links1 .title,
-    /* 不能跳转的一级导航 */
-.vdoing-index-class .nav-links1 .dropdown-title > .link-title,
-    /* 能跳转的一级导航 */
+/* 不能跳转的一级导航 */
+.vdoing-index-class .nav-links1 .dropdown-title>.link-title,
+/* 能跳转的一级导航 */
 .vdoing-index-class .site-name1
 
-    /* 左侧的名字 */
-{
+/* 左侧的名字 */
+    {
     color: #fff !important;
 }
 
