@@ -5,15 +5,16 @@ const indexTip = false;
 export default {
     mounted() {
         // 首页不弹出消息提示，因为首页大图模块已经内置首页的消息提示
-        if (indexTip || this.$route.path != "/") {
-            this.bgTimeColor();
+        console.log('this.$route.path',this.$route.path === "/",this.$route)
+        if (indexTip || this.$route.path != "/" ) {
+           
         }
     },
     watch: {
         $route(to, from) {
             let gloablTip = document.getElementsByClassName("gloablTip");
             // 如果已经存在一个消息提示，则不会重新弹出，除非消息提示已经消失
-            if (gloablTip.length <= 0) {
+            if (gloablTip && gloablTip.length <= 0) {
                 if (indexTip || (this.$route.path != "/" && this.$route.hash == "")) {
                     this.bgTimeColor();
                 }
@@ -22,6 +23,7 @@ export default {
     },
     methods: {
         bgTimeColor() {
+            console.log('tipj加载中...')
             var hours = new Date().getHours();
             var minutes = new Date().getMinutes();
             var seconds = new Date().getSeconds();
@@ -30,7 +32,6 @@ export default {
             seconds = seconds < 10 ? "0" + seconds : seconds;
             let div = document.createElement("div");
             div.className = "banner-color";
-            console.log('now', hours)
             if (hours >= 6 && hours < 9) {
                 addTip(
                     `早上好呀~~，现在是 ${hours}:${minutes}:${seconds}，吃早餐了吗？🍔`,
@@ -38,7 +39,7 @@ export default {
                     50,
                     4000
                 );
-            } else if (hours >= 9 && hours <= 12) {
+            } else if (hours >= 9 && hours < 12) {
                 addTip(
                     `上午好~~，现在是 ${hours}:${minutes}:${seconds}，摸鱼不要被发现了哦🐟~~`,
                     "info",
@@ -171,10 +172,6 @@ function addTip(content, type, startHeight = 50, dieTime = 3000) {
         }, 500);
     }, dieTime);
     href = window.location.href
-    // setTimeout(() => {
-    //     href = ''
-    //     // 一分钟以内自动清除上一次tip
-    // }, 1000 * 60)
 }
 
 /**

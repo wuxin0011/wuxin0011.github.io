@@ -224,40 +224,70 @@ export default {
             seconds = seconds < 10 ? "0" + seconds : seconds;
             let div = document.createElement("div");
             div.className = "banner-color";
-            if (hours >= 6 && hours < 11) {
-                div.style.backgroundColor = this.bgTimeColorArray[0];
+            if (hours >= 6 && hours < 9) {
                 addTip(
-                    `早上好呀~~，现在是 ${hours}:${minutes}:${seconds}，吃早餐了吗？😊🤭`,
+                    `早上好呀~~，现在是 ${hours}:${minutes}:${seconds}，吃早餐了吗？🍔`,
                     "info",
                     50,
                     4000
                 );
-            } else if (hours >= 12 && hours <= 16) {
-                div.style.backgroundColor = this.bgTimeColorArray[0];
+            } else if (hours >= 9 && hours < 12) {
                 addTip(
-                    `下午好呀~~，现在是 ${hours}:${minutes}:${seconds}，繁忙的下午也要适当休息哦🥤🏀~~`,
+                    `上午好~~，现在是 ${hours}:${minutes}:${seconds}，摸鱼不要被发现了哦🐟~~`,
                     "info",
                     50,
                     4000
                 );
-            } else if (hours >= 16 && hours <= 19) {
-                div.style.backgroundColor = this.bgTimeColorArray[1];
+            } else if (hours >= 12 && hours < 13) {
+                addTip(
+                    `中午好~~，现在是 ${hours}:${minutes}:${seconds}，干饭时间到了哦🍚~~`,
+                    "info",
+                    50,
+                    4000
+                );
+            } else if (hours >= 13 && hours < 14) {
+                addTip(
+                    `下午好呀~~，现在是 ${hours}:${minutes}:${seconds}，繁忙的下午也要适当休息哦😴~~`,
+                    "info",
+                    50,
+                    4000
+                );
+            } else if (hours >= 14 && hours < 17) {
+                addTip(
+                    `下午好呀~~，现在是 ${hours}:${minutes}:${seconds}，下午也要摸鱼,不要被发现了哦🐟~~`,
+                    "info",
+                    50,
+                    4000
+                );
+            } else if (hours >= 17 && hours < 19) {
                 addTip(
                     `到黄昏了~~，现在是 ${hours}:${minutes}:${seconds}，该准备吃饭啦🥗🍖~~`,
                     "info",
                     50,
                     4000
                 );
-            } else if (hours >= 19 && hours < 24) {
-                div.style.backgroundColor = this.bgTimeColorArray[2];
+            } else if (hours >= 19 && hours < 20) {
                 addTip(
-                    `晚上好呀~~，现在是 ${hours}:${minutes}:${seconds}，该准备洗漱睡觉啦🥱😪~~`,
+                    `晚上好呀~~，现在是 ${hours}:${minutes}:${seconds}，忙碌了一天，也要运动哦🏃‍♂️~~`,
+                    "info",
+                    50,
+                    4000
+                );
+            } else if (hours >= 20 && hours < 23) {
+                addTip(
+                    `晚上好呀~~，现在是 ${hours}:${minutes}:${seconds}，晚上也要偷偷学习一会哦💯~~`,
+                    "info",
+                    50,
+                    4000
+                );
+            } else if (hours >= 23 && hours < 24) {
+                addTip(
+                    `晚上好呀~~，现在是 ${hours}:${minutes}:${seconds}，该准备洗漱睡觉啦🛀🥱😪~~`,
                     "info",
                     50,
                     4000
                 );
             } else if (hours >= 0 && hours < 6) {
-                div.style.backgroundColor = this.bgTimeColorArray[3];
                 addTip(
                     `别再熬夜了~~，现在是 ${hours}:${minutes}:${seconds}，早点睡吧，让我们一起欣赏早上的太阳~~😇🛏`,
                     "info",
@@ -299,7 +329,7 @@ export default {
                 let hero = document.getElementsByClassName("hero")[0];
                 descElement = document.createElement("p");
                 descElement && (descElement.className = "description");
-                descElement && hero.appendChild(descElement);
+                descElement && hero && hero.appendChild(descElement);
             }
             // 淡入回调
             let fadeIn = () => {

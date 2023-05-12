@@ -89,7 +89,7 @@ postList: detailed
 
 
 <ClientOnly>
-  <IndexBigImg />
+  <!-- <IndexBigImg /> -->
   <Fantasy index="true" />
   <MyPlayer/>
 </ClientOnly>
