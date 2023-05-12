@@ -150,7 +150,9 @@ export default {
         // 触发下拉按钮
         clickArrow() {
             const arrow = document.getElementById("banner-arrow");
-            arrow.click();
+            if(arrow){
+                arrow.click();
+            }
         },
         // 监听页面滚动的回调
         watchScroll() {

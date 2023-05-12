@@ -25,7 +25,7 @@ pageClass: vdoing-index-class
 # 文章列表显示方式: detailed 默认，显示详细版文章列表（包括作者、分类、标签、摘要、分页等）| simple => 显示简约版文章列表（仅标题和日期）| none 不显示文章列表
 postList: detailed
 # simplePostListLength: 10 # 简约版文章列表显示的文章数量，默认10。（仅在postList设置为simple时生效）
-# hideRightBar: true # 是否隐藏右侧边栏
+hideRightBar: false # 是否隐藏右侧边栏
 ---
 
 
@@ -85,6 +85,17 @@ postList: detailed
 - **GitHub**: <https://github.com/xugaoyi>
 
 </br>  -->
+<!-- <div style="padding: 0.95rem" >
+    <p style="
+      color: var(--textColor);
+      opacity: 0.9;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 0 8px 0;
+    ">微信</p>
+    <img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/weixin.jpg"  style="width:100%;" />
+    </p>
+    </div> -->
 
 
 

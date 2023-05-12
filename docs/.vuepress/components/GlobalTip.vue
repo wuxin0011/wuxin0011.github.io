@@ -5,9 +5,8 @@ const indexTip = false;
 export default {
     mounted() {
         // 首页不弹出消息提示，因为首页大图模块已经内置首页的消息提示
-        console.log('this.$route.path',this.$route.path === "/",this.$route)
         if (indexTip || this.$route.path != "/" ) {
-           
+           this.bgTimeColor()
         }
     },
     watch: {
@@ -23,7 +22,6 @@ export default {
     },
     methods: {
         bgTimeColor() {
-            console.log('tipj加载中...')
             var hours = new Date().getHours();
             var minutes = new Date().getMinutes();
             var seconds = new Date().getSeconds();

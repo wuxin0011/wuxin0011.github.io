@@ -1,7 +1,6 @@
 /**
  * 提示：如您想使用JS版本的配置文件可参考：https://github.com/xugaoyi/vuepress-theme-vdoing/tree/a2f03e993dd2f2a3afdc57cf72adfc6f1b6b0c32/docs/.vuepress
  */
-import { resolve } from 'path'
 import { defineConfig4CustomTheme, UserPlugins } from 'vuepress/config'
 import { VdoingThemeConfig } from 'vuepress-theme-vdoing/types'
 // @ts-ignore
@@ -18,7 +17,7 @@ const IS_DEV = process.env.NODE_ENV == 'development'
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
     theme: 'vdoing', // 使用npm主题包
     // theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
-    base: '/',
+    // base: '/',
     locales: {
         '/': {
             lang: 'zh-CN',
@@ -56,7 +55,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg2.jpg',
         //     'https://cdn.staticaly.com/gh/wuxin0011/wuxin@main/blog-resource/img/bg3.jpg'
         // ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
-        bodyBgImgOpacity: 1, // body背景图透明度，选值 0.1~1.0, 默认0.5
+        // bodyBgImgOpacity: 1, // body背景图透明度，选值 0.1~1.0, 默认0.5
         // bodyBgImgInterval: 30, // body多张背景图时的切换间隔, 默认15，单位s
         // titleBadge: false, // 文章标题前的图标是否显示，默认true
         // titleBadgeIcons: [ // 文章标题前图标的地址，默认主题内置图标
@@ -164,7 +163,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         },
 
         // 自定义hmtl(广告)模块
-        // htmlModules
+        'htmlModules':htmlModules
     },
 
     // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
@@ -184,14 +183,14 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         ],
         ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
         ['meta', { name: 'theme-color', content: '#11a8cd' }], // 移动浏览器主题颜色
-        // [
-        //   'script',
-        //   {
-        //     'data-ad-client': 'ca-pub-7828333725993554',
-        //     async: 'async',
-        //     src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-        //   },
-        // ], // 网站关联Google AdSense 与 html格式广告支持（你可以去掉）
+        [
+          'script',
+          {
+            'data-ad-client': 'ca-pub-7828333725993554',
+            async: 'async',
+            src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+          },
+        ], // 网站关联Google AdSense 与 html格式广告支持（你可以去掉）
     ],
 
 
@@ -210,12 +209,12 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         ['reading-progress'],
         ['vuepress-plugin-baidu-autopush'], // 百度自动推送
 
-        [
-            'vuepress-plugin-baidu-tongji', // 百度统计
-            {
-                hm: baiduCode,
-            },
-        ],
+        // [
+        //     'vuepress-plugin-baidu-tongji', // 百度统计
+        //     {
+        //         hm: baiduCode,
+        //     },
+        // ],
 
         // 全文搜索。 ⚠️注意：此插件会在打开网站时多加载部分js文件用于搜索，导致初次访问网站变慢。如在意初次访问速度的话可以不使用此插件！（推荐：vuepress-plugin-thirdparty-search）
         // 'fulltext-search',
