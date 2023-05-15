@@ -115,12 +115,8 @@ export default {
  *
  * 在 head 里添加图标 link 地址：https://at.alicdn.com/t/font_3114978_qe0b39no76.css
  */
-let href = ''
 
-function addTip(content, type, startHeight = 50, dieTime = 3000) {
-    if (href === window.location.href) {
-        return;
-    }
+export function addTip(content, type, startHeight = 50, dieTime = 3000) {
     var tip = document.querySelectorAll(".global-tip");
     var time = new Date().getTime();
     // 获取最后消息提示元素的高度
@@ -169,7 +165,6 @@ function addTip(content, type, startHeight = 50, dieTime = 3000) {
             timeTip.remove();
         }, 500);
     }, dieTime);
-    href = window.location.href
 }
 
 /**

@@ -1,7 +1,7 @@
 ---
 home: true
 # heroImage: /web/web.png
-heroText:  Hello World!
+heroText: Hello World!
 tagline: 积跬步以至千里，致敬每个爱学习的你!
 pageClass: vdoing-index-class
 # actionText: 立刻进入 →
@@ -85,7 +85,8 @@ hideRightBar: false # 是否隐藏右侧边栏
 - **GitHub**: <https://github.com/xugaoyi>
 
 </br>  -->
-<!-- <div style="padding: 0.95rem" >
+<!-- 
+<div style="padding: 0.95rem" >
     <p style="
       color: var(--textColor);
       opacity: 0.9;
@@ -95,14 +96,15 @@ hideRightBar: false # 是否隐藏右侧边栏
     ">微信</p>
     <img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/weixin.jpg"  style="width:100%;" />
     </p>
-    </div> -->
+    </div>
+-->
 
 
 
 <ClientOnly>
-  <!-- <IndexBigImg /> -->
-  <Fantasy index="true" />
-  <MyPlayer/>
+    <IndexBigImg/>
+    <Fantasy index="true" />
+    <MyPlayer/>
 </ClientOnly>
 
 
@@ -115,7 +117,6 @@ export default {
     }
   },
   mounted(){
-    // 关闭背景图
    window.document.querySelector('.banner').style.background='none'
   }
 
