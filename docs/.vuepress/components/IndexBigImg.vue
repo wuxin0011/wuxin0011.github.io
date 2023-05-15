@@ -75,7 +75,7 @@ export default {
     watch: {
         $route(to, from) {
             // 点击下一页后，往下滑动，移出大图
-            if (to.path == "/" && Object.keys(this.$route.query).length > 0) {
+            if (to.path === "/" && Object.keys(this.$route.query).length > 0) {
                 setTimeout(() => {
                     this.clickArrow();
                 }, 200);
@@ -90,51 +90,51 @@ export default {
                 Object.keys(this.$themeConfig.indexImg).length > 0
             ) {
                 this.navColor =
-                    this.$themeConfig.indexImg.navColor == undefined
+                    this.$themeConfig.indexImg.navColor === undefined
                         ? this.navColor
                         : this.$themeConfig.indexImg.navColor;
                 this.switchNavColor =
-                    this.$themeConfig.indexImg.switchNavColor == undefined
+                    this.$themeConfig.indexImg.switchNavColor === undefined
                         ? this.switchNavColor
                         : this.$themeConfig.indexImg.switchNavColor;
                 this.bgTimeColor =
-                    this.$themeConfig.indexImg.bgTimeColor == undefined
+                    this.$themeConfig.indexImg.bgTimeColor === undefined
                         ? this.bgTimeColor
                         : this.$themeConfig.indexImg.bgTimeColor;
                 this.bgTimeColorArray =
-                    this.$themeConfig.indexImg.bgTimeColorArray == undefined
+                    this.$themeConfig.indexImg.bgTimeColorArray === undefined
                         ? this.bgTimeColorArray
                         : this.$themeConfig.indexImg.bgTimeColorArray;
                 this.descFade =
-                    this.$themeConfig.indexImg.descFade == undefined
+                    this.$themeConfig.indexImg.descFade === undefined
                         ? this.descFade
                         : this.$themeConfig.indexImg.descFade;
                 this.desc =
-                    this.$themeConfig.indexImg.desc == undefined
+                    this.$themeConfig.indexImg.desc === undefined
                         ? this.desc
                         : this.$themeConfig.indexImg.desc;
                 this.descFontSize =
-                    this.$themeConfig.indexImg.descFontSize == undefined
+                    this.$themeConfig.indexImg.descFontSize === undefined
                         ? this.descFontSize
                         : this.$themeConfig.indexImg.descFontSize;
                 this.descFadeInTime =
-                    this.$themeConfig.indexImg.descFadeInTime == undefined
+                    this.$themeConfig.indexImg.descFadeInTime === undefined
                         ? this.descFadeInTime
                         : this.$themeConfig.indexImg.descFadeInTime;
                 this.descNextTime =
-                    this.$themeConfig.indexImg.descNextTime == undefined
+                    this.$themeConfig.indexImg.descNextTime === undefined
                         ? this.descNextTime
                         : this.$themeConfig.indexImg.descNextTime;
                 this.bubble =
-                    this.$themeConfig.indexImg.bubble == undefined
+                    this.$themeConfig.indexImg.bubble === undefined
                         ? this.bubble
                         : this.$themeConfig.indexImg.bubble;
                 this.bubblePosition =
-                    this.$themeConfig.indexImg.bubblePosition == undefined
+                    this.$themeConfig.indexImg.bubblePosition === undefined
                         ? this.bubblePosition
                         : this.$themeConfig.indexImg.bubblePosition;
                 this.bubbleNum =
-                    this.$themeConfig.indexImg.bubbleNum == undefined
+                    this.$themeConfig.indexImg.bubbleNum === undefined
                         ? this.bubbleNum
                         : this.$themeConfig.indexImg.bubbleNum;
             }
@@ -162,9 +162,9 @@ export default {
                     this.blurText(this.navColor);
                     this.noBgBlur();
                 } else {
-                    if (this.switchNavColor && this.navColor == 1) {
+                    if (this.switchNavColor && this.navColor === 1) {
                         this.blurText(2);
-                    } else if (this.switchNavColor && this.navColor == 2) {
+                    } else if (this.switchNavColor && this.navColor === 2) {
                         this.blurText(1);
                     }
                     this.bgBlur();
@@ -190,7 +190,7 @@ export default {
             let title = document.getElementsByClassName("site-name")[0];
             let search = document.getElementsByClassName("search-box")[0];
             let nav = document.getElementsByClassName("nav-links")[0];
-            if (navColor == 1) {
+            if (navColor === 1) {
                 if (title) {
                     title.className = "site-name can-hide";
                 }
@@ -203,7 +203,7 @@ export default {
 
                 }
 
-            } else if (navColor == 2) {
+            } else if (navColor === 2) {
                 if (title) {
                     title.className = "site-name site-name1 can-hide";
                 }
@@ -502,7 +502,7 @@ function addTip(content, type, startHeight = 50, dieTime = 3000) {
     var tip = document.querySelectorAll(".global-tip");
     var time = new Date().getTime();
     // 获取最后消息提示元素的高度
-    var top = tip.length == 0 ? 0 : tip[tip.length - 1].getAttribute("data-top");
+    var top = tip.length === 0 ? 0 : tip[tip.length - 1].getAttribute("data-top");
     // 如果产生两个以上的消息提示，则出现在上一个提示的下面，即高度添加，否则默认 50
     var lastTop =
         parseInt(top) +
@@ -512,13 +512,13 @@ function addTip(content, type, startHeight = 50, dieTime = 3000) {
     div.className = `global-tip tip-${type} ${time}`;
     div.style.top = parseInt(top) + "px";
     div.setAttribute("data-top", lastTop);
-    if (type == "info" || type == 1) {
+    if (type === "info" || type === 1) {
         div.innerHTML = `<i class="iconfont icon-info icon"></i><p class="tip-info-content">${content}</p>`;
-    } else if (type == "success" || type == 2) {
+    } else if (type === "success" || type === 2) {
         div.innerHTML = `<i class="iconfont icon-dagouyouquan icon"></i><p class="tip-success-content">${content}</p>`;
-    } else if (type == "danger" || type == 3) {
+    } else if (type === "danger" || type === 3) {
         div.innerHTML = `<i class="iconfont icon-cuowu icon"></i><p class="tip-danger-content">${content}</p>`;
-    } else if (type == "warning" || type == 4) {
+    } else if (type === "warning" || type === 4) {
         div.innerHTML = `<i class="iconfont icon-gantanhao icon"></i><p class="tip-warning-content">${content}</p>`;
     }
     document.body.appendChild(div);
@@ -556,7 +556,7 @@ function nextAllTipElement(elem) {
     var r = [];
     var n = elem;
     for (; n; n = n.nextSibling) {
-        if (n.nodeType === 1 && n !== elem) {
+        if (n.nodeType === 1 && n !=== elem) {
             r.push(n);
         }
     }

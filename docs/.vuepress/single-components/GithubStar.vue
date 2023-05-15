@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isStarRoute" class="github-star-project">
+    <div class="github-star-project">
         <div class="head">
             <input type="text" v-model="keywords" placeholder="输入关键词过滤...">
             <select v-model="sort">
@@ -23,7 +23,8 @@
 
 <script>
 
-import {addTip} from "./GlobalTip.vue";
+import {addTip} from "../components/GlobalTip.vue";
+import Card from "../components/Card.vue";
 
 export default {
     name: 'GithubStar',
@@ -60,21 +61,17 @@ export default {
                     break
             }
             return arr.filter(item => item && item.cardName && item.cardName.indexOf(keywords) !== -1 || item && item.cardContent && item.cardContent.indexOf(keywords) !== -1)
-        },
-        isStarRoute: function () {
-            return this.$route.path === '/pages/github-star-project/'
         }
 
     },
 
     mounted() {
-        if (this.isStarRoute) {
-            this.username = window.localStorage.getItem('wuxin-github-star-username') ?? 'wuxin0011'
-            var isSave = window.localStorage.getItem('wuxin-github-star-save');
-            this.isSave = !!isSave && isSave !== 'false'
-            this.beforeSearchUsername = this.username
-            this.init()
-        }
+
+        this.username = window.localStorage.getItem('wuxin-github-star-username') ?? 'wuxin0011'
+        var isSave = window.localStorage.getItem('wuxin-github-star-save');
+        this.isSave = !!isSave && isSave !== 'false'
+        this.beforeSearchUsername = this.username
+        this.init()
 
         // 监听username
         this.$watch('username', () => {

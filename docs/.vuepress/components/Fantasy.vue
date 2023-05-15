@@ -11,7 +11,7 @@
 export default {
     mounted() {
         // 只有一个 fantasy 元素，防止重复加载多个图片
-        if (document.getElementsByClassName("fantasy")?.length == 1) {
+        if (document.getElementsByClassName("fantasy")?.length === 1) {
             // 如果使用 IndexBigImg.vue，则去掉该组件提供的时间罩
             this.clearBannerColor();
             // 如果是在首页注册该组件，则挂载到正确的位置
