@@ -173,7 +173,7 @@ export default {
 
                     this.starList.push({
                         id: id,
-                        cardName: `${name} ${stargazers_count > 1000 ? `${parseInt(stargazers_count / 1000)}K` : stargazers_count}`,
+                        cardName: `${name||'unknown'} ${stargazers_count>1000?`${parseInt(stargazers_count/1000)}K`:`${stargazers_count}`}`,
                         cardSrc: html_url,
                         cardImgSrc: avatar_url,
                         cardContent: description,
