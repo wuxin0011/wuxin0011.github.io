@@ -80,8 +80,8 @@ export default {
     },
     methods: {
         init() {
-            if(!this.username){
-                addTip('请输入用户名再进行操作！','warning')
+            if (!this.username) {
+                addTip('请输入用户名再进行操作！', 'warning')
                 return;
             }
             // 每次搜索完毕之后都进行缓存
@@ -89,7 +89,7 @@ export default {
                 let arr = JSON.parse(window.localStorage.getItem('wuxin-github-star-default'));
                 this.starList = arr && Array.isArray(arr) ? arr : []
                 this.page = parseInt(this.dataList.length / this.size) + 1
-                var hasMore = window.localStorage.getItem("wuxin-github-star-hasMore");
+                let hasMore = window.localStorage.getItem("wuxin-github-star-hasMore");
                 this.hasMore = !!hasMore && hasMore !== 'false'
                 return;
             }
@@ -98,50 +98,37 @@ export default {
                 this.starList = []
                 this.beforeSearchUsername = this.username
             }
-            fetch(`https://api.github.com/users/${this.username}/starred?page=${this.page}`).then(res => res.json())
-                .then(res => {
-                    if (Array.isArray(res)) {
-                        this.hasMore = res.length === this.size
-                        res.forEach(item => {
-                            const {
-                                id,
-                                name,
-                                description,
-                                html_url,
-                                stargazers_count,
-                                owner: {
-                                    avatar_url
-                                }
-                            } = item
-
-                            this.starList.push({
-                                id: id,
-                                cardName: `${name} ${stargazers_count > 1000 ? `${parseInt(stargazers_count / 1000)}K` : stargazers_count}`,
-                                cardSrc: html_url,
-                                cardImgSrc: avatar_url,
-                                cardContent: description,
-                                stargazers_count: stargazers_count,
-                            })
 
 
-                        })
-                        // 首次不显示内容
-                        if (!this.initFist) {
-                            addTip(`搜索到${res.length}条结果🚀`, 'success')
-                        }
+            let url = `https://api.github.com/users/${this.username}/starred?page=${this.page}`
+            // 如果支持 window fetch
+            if (window?.fetch) {
+                window.fetch(url).then(res => res.json())
+                    .then(res => {
+                        this.loadData(res)
+                    }).catch(e => {
+                    addTip(`搜索失败😢,原因是: ${JSON.stringify(e)}`, 'danger')
+                })
+            } else {
+                // 使用浏览器自带xml处理
+                let request = new XMLHttpRequest();
+                request.open('GET', url)
+                request.send()
+                request.onload = (data) => {
+                    const {
+                        readyState,
+                        status,
+                        response
+                    } = data.target
 
-
-                        window.localStorage.setItem('wuxin-github-star-default', JSON.stringify(this.starList))
-                        window.localStorage.setItem("wuxin-github-star-save", 'true')
-                        window.localStorage.setItem("wuxin-github-star-hasMore", String(this.hasMore))
-
+                    if (readyState === 4 && status === 200) {
+                        this.loadData(JSON.parse(response))
                     } else {
-                        addTip('搜索结果为空🤔,可能没有跟多内容了', 'warning')
+                        addTip(`加载失败！`, 'danger')
                     }
-                    this.initFist = false
-                }).catch(e => {
-                addTip(`搜索失败😢,原因是: ${JSON.stringify(e)}`, 'danger')
-            })
+
+                }
+            }
         },
 
         handlePage(num) {
@@ -156,7 +143,7 @@ export default {
                 this.page = 1
                 this.isSave = false
                 this.init()
-            }else{
+            } else {
                 addTip(`只有用户名改变了才支持该操作！`, 'warning')
             }
         },
@@ -167,6 +154,46 @@ export default {
             window.localStorage.setItem("wuxin-github-star-save", 'false')
             window.localStorage.setItem("wuxin-github-star-hasMore", 'false')
             addTip(`缓存已清空！`, 'success')
+        },
+
+        loadData(res) {
+            if (Array.isArray(res)) {
+                this.hasMore = res.length === this.size
+                res.forEach(item => {
+                    const {
+                        id,
+                        name,
+                        description,
+                        html_url,
+                        stargazers_count,
+                        owner: {
+                            avatar_url
+                        }
+                    } = item
+
+                    this.starList.push({
+                        id: id,
+                        cardName: `${name} ${stargazers_count > 1000 ? `${parseInt(stargazers_count / 1000)}K` : stargazers_count}`,
+                        cardSrc: html_url,
+                        cardImgSrc: avatar_url,
+                        cardContent: description,
+                        stargazers_count: stargazers_count,
+                    })
+
+
+                })
+                // 首次不显示内容
+                if (!this.initFist) {
+                    addTip(`搜索到${res.length}条结果🚀`, 'success')
+                }
+                window.localStorage.setItem('wuxin-github-star-default', JSON.stringify(this.starList))
+                window.localStorage.setItem("wuxin-github-star-save", 'true')
+                window.localStorage.setItem("wuxin-github-star-hasMore", String(this.hasMore))
+
+            } else {
+                addTip('搜索结果为空🤔,可能没有跟多内容了', 'warning')
+            }
+            this.initFist = false
         }
     }
 }
