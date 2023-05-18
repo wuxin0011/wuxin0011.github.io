@@ -1,8 +1,8 @@
 /**
  * 提示：如您想使用JS版本的配置文件可参考：https://github.com/xugaoyi/vuepress-theme-vdoing/tree/a2f03e993dd2f2a3afdc57cf72adfc6f1b6b0c32/docs/.vuepress
  */
-import { defineConfig4CustomTheme, UserPlugins } from 'vuepress/config'
-import { VdoingThemeConfig } from 'vuepress-theme-vdoing/types'
+import {defineConfig4CustomTheme, UserPlugins} from 'vuepress/config'
+import {VdoingThemeConfig} from 'vuepress-theme-vdoing/types'
 // @ts-ignore
 import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
@@ -163,16 +163,24 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         },
 
         // 自定义hmtl(广告)模块
-        'htmlModules':htmlModules
+        'htmlModules': htmlModules
     },
 
     // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
     head: [
-        ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css' }],
-        ['link', { rel: 'icon', href: 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico' }], //favicons，资源放在public文件夹
-        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }],
-        ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js', crossorigin: 'anonymous' }],
-        ['script', { rel: 'stylesheet', src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js', crossorigin: 'anonymous' }],
+        ['link', {rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css'}],
+        ['link', {rel: 'icon', href: 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'}], //favicons，资源放在public文件夹
+        ['link', {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css'}],
+        ['script', {
+            rel: 'stylesheet',
+            src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js',
+            crossorigin: 'anonymous'
+        }],
+        ['script', {
+            rel: 'stylesheet',
+            src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js',
+            crossorigin: 'anonymous'
+        }],
         // ['script', { rel: 'stylesheet', src: 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', crossorigin: 'anonymous' }],
         [
             'meta',
@@ -181,16 +189,18 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 content: '欢迎访问个人博客',
             },
         ],
-        ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
-        ['meta', { name: 'theme-color', content: '#11a8cd' }], // 移动浏览器主题颜色
+        ['meta', {name: 'baidu-site-verification', content: '7F55weZDDc'}], // 百度统计的站长验证（你可以去掉）
+        ['meta', {name: 'theme-color', content: '#11a8cd'}], // 移动浏览器主题颜色
         [
-          'script',
-          {
-            'data-ad-client': 'ca-pub-7828333725993554',
-            async: 'async',
-            src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
-          },
+            'script',
+            {
+                'data-ad-client': 'ca-pub-7828333725993554',
+                async: 'async',
+                src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+            },
         ], // 网站关联Google AdSense 与 html格式广告支持（你可以去掉）
+        ['script', { src: 'https://cdn.staticfile.org/twikoo/1.6.7/twikoo.all.min.js' }],
+
     ],
 
 
@@ -285,8 +295,26 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 },
             },
         ],
+        // [
+        //     'comment1', // 放大图片
+        //     {
+        //         provider: "Giscus",
+        //         repo: 'wuxin0011/blog-giscus-comment',
+        //         repoId: 'R_kgDOJADaHw', // id
+        //         category: 'Announcements',
+        //         categoryId: 'DIC_kwDOJADaH84CUUwQ', // id
+        //         mapping: 'pathname', // url
+        //         strict: 0,
+        //         lazyLoading: true,
+        //         reactionsEnabled: true,
+        //         inputPosition: 'bottom',// top | bottom
+        //         lang: 'zh-CN'
+        //     }
+        // ],
 
 
+        // 插件地址
+        // https://vuepress-theme-hope.github.io/v1/comment/guide/giscus.html
         // 基于 github Dissicon 的评论项目 giscus
         // https://plugin-comment2.vuejs.press/
         // https://giscus.app/zh-CN
@@ -304,26 +332,27 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         //     lang: 'zh-CN'
         // }),
 
-        [
-            'vuepress-plugin-comment', // 评论
-            {
-                choosen: 'gitalk',
-                options: {
-                    clientID: IS_DEV ? '89da537c46f15ccbf324' : '24a11f32692b0bf7b210',
-                    clientSecret: IS_DEV ? '676dc75bbdec5ff92ea699e578365d9135bc22f1' : 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
-                    repo: 'blog-gitalk-comment', // GitHub 仓库
-                    owner: 'wuxin0011', // GitHub仓库所有者
-                    admin: ['wuxin0011'], // 对仓库有写权限的人
-                    // distractionFreeMode: true,
-                    pagerDirection: 'last', // 'first'正序 | 'last'倒序
-                    id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
-                    title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
-                    labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
-                    body:
-                        '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
-                },
-            },
-        ],
+        // 该评论暂时有点问题，暂时不使用了使用上面的作为评论插件
+        // [
+        //     'vuepress-plugin-comment', // 评论
+        //     {
+        //         choosen: 'gitalk',
+        //         options: {
+        //             clientID: IS_DEV ? '89da537c46f15ccbf324' : '24a11f32692b0bf7b210',
+        //             clientSecret: IS_DEV ? '676dc75bbdec5ff92ea699e578365d9135bc22f1' : 'b6c93c64ccca35cfe509c076cf0cea1342539d16',
+        //             repo: 'blog-gitalk-comment', // GitHub 仓库
+        //             owner: 'wuxin0011', // GitHub仓库所有者
+        //             admin: ['wuxin0011'], // 对仓库有写权限的人
+        //             distractionFreeMode: true,
+        //             pagerDirection: 'last', // 'first'正序 | 'last'倒序
+        //             id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
+        //             title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
+        //             labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
+        //             body:
+        //                 '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
+        //         },
+        //     },
+        // ],
 
 
         // "上次更新"时间格式
@@ -340,7 +369,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 提取标题到侧边栏的级别，默认['h2', 'h3']
     markdown: {
         lineNumbers: true,
-        extractHeaders: ['h2', 'h3', 'h4', 'h5', 'h6'],
+        extractHeaders: [ 'h2', 'h3', 'h4', 'h5', 'h6'],
     },
 
     // 监听文件变化并重新构建

@@ -24,7 +24,6 @@
 <script>
 
 import {addTip} from "../components/GlobalTip.vue";
-import Card from "../components/Card.vue";
 
 export default {
     name: 'GithubStar',
