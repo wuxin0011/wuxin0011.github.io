@@ -26,11 +26,11 @@
                                     class="card-nav-img"
                             />
                             <p class="card-nav-name" :style="'color:' + carTitleColor">
-                                {{ item?.cardName }}
+                                {{ item?.cardName||'unknown' }}
                             </p>
                         </div>
                         <div :title="item?.cardContent" class="card-nav-content">
-                            {{ item?.cardContent }}
+                            {{ item?.cardContent||'暂无描述...' }}
                         </div>
                     </div>
                 </a>

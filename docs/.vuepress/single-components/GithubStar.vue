@@ -11,11 +11,12 @@
             <button @click="search" v-show="username !== beforeSearchUsername && !!username">搜索</button>
             <button @click="clear">清空缓存</button>
 
-            <div style="float: right">
-                <a :href="`https://github.com/${username}`" target="_blank">
-                    <img :src="avatar" :alt="username" class="avatar" :title="`点击访问${username}主页`">
+            <div class="avatar-link">
+                <a :href="`https://github.com/${username}`" target="_blank"  >
+                    <img :src="avatar" :alt="username" :title="`点击访问${username}主页`" class="avatar">
                 </a>
             </div>
+
         </div>
         <div v-if="dataList &&dataList.length>0">
             <Card :cardData="dataList"/>
@@ -23,7 +24,11 @@
         <div class="no-result" v-else>
             {{ tip }}
         </div>
-        <a href="javascript:;void(0)" @click="handlePage(1)" v-if="hasMore && !!username ">点击加载更多...</a>
+
+        <a href="javascript:void(0)" @click="handlePage(1)" v-if="hasMore && !!username ">
+            {{ loading?'加载中...':'点击加载更多...'}}
+        </a>
+
     </div>
 </template>
 
@@ -287,7 +292,7 @@ export default {
                         cardName: `${name || 'unknown'} ${stargazers_count > 1000 ? `${parseInt(String(stargazers_count / 1000))}K` : `${stargazers_count}`}`,
                         cardSrc: html_url,
                         cardImgSrc: avatar_url,
-                        cardContent: description,
+                        cardContent: description || '暂无描述...',
                         stargazers_count: stargazers_count,
                     })
 
@@ -328,11 +333,20 @@ export default {
 </script>
 <style scoped>
 
+.github-star-project {
+    position: relative;
+}
+
+.head {
+    margin-left: 10px;
+}
+
 
 .head input, .head select, .head option {
     padding: 8px 10px;
     border: none;
     outline: teal 1px solid;
+    margin-right: 10px;
 }
 
 button {
@@ -343,10 +357,12 @@ button {
     border-radius: 4px;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     transition: all ease-in-out 0.3s;
+    background: #0d4a68;
+    color:white;
 }
 
 button:hover {
-    background: #0d4a68;
+    background: #3d3ed0;
     color: white;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -362,17 +378,31 @@ button:hover {
     margin: 10px 0;
 }
 
+.avatar-link {
+    position: absolute;
+    right: -10px;
+    top: -60px;
+}
+
 .avatar {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: none;
     outline: none;
     box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.8s all ease-in-out;
+    cursor: pointer;
+    display: inline-block;
 }
 
 .avatar:hover {
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
+    transform: rotate(360deg);
+}
+
+.last-updated {
+    display: none !important;
 }
 
 </style>
