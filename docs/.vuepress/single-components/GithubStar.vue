@@ -45,7 +45,7 @@ export default {
     computed: {
         dataList() {
             let keywords = this.keywords
-            let arr = this.starList
+            let arr = [...this.starList]
             let defaultList = [...this.starList]
 
             switch (this.sort) {
@@ -87,7 +87,7 @@ export default {
             if (this.isSave) {
                 let arr = JSON.parse(window.localStorage.getItem('wuxin-github-star-default'));
                 this.starList = arr && Array.isArray(arr) ? arr : []
-                this.page = parseInt(this.dataList.length / this.size) + 1
+                this.page = parseInt(this.starList.length/this.size) + 1
                 let hasMore = window.localStorage.getItem("wuxin-github-star-hasMore");
                 this.hasMore = !!hasMore && hasMore !== 'false'
                 return;
@@ -137,7 +137,6 @@ export default {
         },
 
         search() {
-            console.log('只有用户名改变了才支持该操作')
             if (this.username !== this.beforeSearchUsername) {
                 this.page = 1
                 this.isSave = false
@@ -170,9 +169,10 @@ export default {
                         }
                     } = item
 
+                    // 每次搜索结果累加
                     this.starList.push({
                         id: id,
-                        cardName: `${name||'unknown'} ${stargazers_count>1000?`${parseInt(stargazers_count/1000)}K`:`${stargazers_count}`}`,
+                        cardName: `${name || 'unknown'} ${stargazers_count > 1000 ? `${stargazers_count / 1000}K` : `${stargazers_count}`}`,
                         cardSrc: html_url,
                         cardImgSrc: avatar_url,
                         cardContent: description,
