@@ -133,11 +133,12 @@ export default {
             sort: 0,
             username: '',
             avatar: '',
-            initFist: true,
+            initFirst: true,
             isSave: false,
             beforeSearchUsername: '',
             userIsExist: false,
-            loading: false
+            loading: false,
+
         }
     },
 
@@ -173,7 +174,7 @@ export default {
 
             if (this.loading) {
                 return '搜索中...'
-            } else if (!this.loading&& Array.isArray(this.starList) && this.starList.length === 0) {
+            } else if (!this.loading && Array.isArray(this.starList) && this.starList.length === 0) {
                 return '搜索结果为空！'
             }
 
@@ -205,10 +206,16 @@ export default {
     methods: {
         async init() {
 
-            if (!this.userIsExist) {
-                addTip('当前用户不存在！', 'warning')
-                return;
+            if (this.initFirst && !this.userIsExist) {
+                // 检查一次如果还是查不到报错
+                await this.validUserIsExist()
+                if (!this.userIsExist) {
+                    addTip('当前用户不存在！请重新输入用户名！', 'warning')
+                    return;
+                }
             }
+
+
             // 每次搜索完毕之后都进行缓存
             if (this.isSave) {
                 let arr = getValue(LOCAL_DATA, true);
@@ -287,7 +294,7 @@ export default {
 
                 })
                 // 首次不显示内容
-                if (!this.initFist) {
+                if (!this.initFirst) {
                     addTip(`搜索到${res.length}条结果🚀,共计结果${this.starList.length}条🚗${this.hasMore ? '，点击加载更多查看更多内容！' : '，没有更多了！'}`, 'success')
                 }
 
@@ -299,14 +306,13 @@ export default {
             } else {
                 addTip('搜索结果为空🤔,可能没有跟多内容了或者检查用户名是否存在', 'warning')
             }
-            this.initFist = false
+            this.initFirst = false
         },
 
 
         validUserIsExist() {
             getUrlData(`https://api.github.com/users/${this.username}`, (res) => {
                 this.userIsExist = !!res?.login
-                console.log("user_is_exist = ", this.userIsExist)
                 this.avatar = res.avatar_url || 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
                 setValue(LOCAL_USER_IS_EXIST, String(this.userIsExist))
                 setValue(LOCAL_USER_AVTAR, this.avatar)
