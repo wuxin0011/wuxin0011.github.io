@@ -207,6 +207,9 @@ export default {
         window.document.querySelector('img.avatar').addEventListener('error', (e) => {
             e.target.src = 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
         })
+
+
+
     },
     methods: {
         async init() {
@@ -214,6 +217,8 @@ export default {
             if (this.initFirst && !this.userIsExist) {
                 // 检查一次如果还是查不到报错
                 await this.validUserIsExist()
+                // 用户不存在需要清除缓存 走下面搜索链接
+                this.isSave = false
                 if (!this.userIsExist) {
                     addTip('当前用户不存在！请重新输入用户名！', 'warning')
                     return;
