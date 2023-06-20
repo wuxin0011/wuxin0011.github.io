@@ -1,6 +1,6 @@
 ---
 title: 仿照 vscode LiveServe
-date: 2023-06-011 18:52:40
+date: 2023-06-11 18:52:40
 permalink: /pages/node-live-serve/
 sidebar: auto
 categories:
