@@ -11,22 +11,22 @@
             <button @click="search" v-show="username !== beforeSearchUsername && !!username">搜索</button>
             <button @click="clear">清空缓存</button>
 
-            <div class="avatar-link">
-                <a :href="`https://github.com/${username}`" target="_blank"  >
+            <div class="avatar-link" >
+                <a :href="`https://github.com/${username}`" target="_blank">
                     <img :src="avatar" :alt="username" :title="`点击访问${username}主页`" class="avatar">
                 </a>
             </div>
 
         </div>
-        <div v-if="dataList &&dataList.length>0">
-            <Card :cardData="dataList"/>
+        <div v-if="dataList && dataList.length > 0">
+            <Card :cardData="dataList" />
         </div>
         <div class="no-result" v-else>
             {{ tip }}
         </div>
 
-        <a href="javascript:void(0)" @click="handlePage(1)" v-if="hasMore && !!username ">
-            {{ loading?'加载中...':'点击加载更多...'}}
+        <a href="javascript:void(0)" @click="handlePage(1)" v-if="hasMore && !!username">
+            {{ loading ? '加载中...' : '点击加载更多...' }}
         </a>
 
     </div>
@@ -34,7 +34,7 @@
 
 <script>
 
-import {addTip} from "../components/GlobalTip.vue";
+import { addTip } from "../components/GlobalTip.vue";
 
 
 const getUrlData = (url, callback, onerror) => {
@@ -270,10 +270,13 @@ export default {
         },
 
 
-        clear() {
+        clear(isTool = true) {
             setValue(LOCAL_DATA, []);
+            // this.starList = []
             [LOCAL_IS_SAVE, LOCAL_HAS_MORE].forEach(key => setValue(key, 'false'));
-            addTip(`缓存已清空！`, 'success')
+            if (isTool) {
+                addTip(`缓存已清空！`, 'success')
+            }
         },
 
         loadData(res) {
@@ -326,18 +329,25 @@ export default {
                 this.avatar = res.avatar_url || 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
                 setValue(LOCAL_USER_IS_EXIST, String(this.userIsExist))
                 setValue(LOCAL_USER_AVTAR, this.avatar)
+                // 如果搜索到结果OK 清空之前结果
+                if (this.username !== this.beforeSearchUsername) {
+                    this.clear(false)
+                }
             }, (e) => {
                 this.userIsExist = false
                 this.avatar = 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
                 setValue(LOCAL_USER_AVTAR, this.avatar)
                 setValue(LOCAL_USER_IS_EXIST, String(false))
             })
+        },
+
+        toHome(){
+            window.open(`https://github.com/${this.username}`,'_blank')
         }
     }
 }
 </script>
 <style scoped>
-
 .github-star-project {
     position: relative;
 }
@@ -347,7 +357,9 @@ export default {
 }
 
 
-.head input, .head select, .head option {
+.head input,
+.head select,
+.head option {
     padding: 8px 10px;
     border: none;
     outline: teal 1px solid;
@@ -363,7 +375,7 @@ button {
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     transition: all ease-in-out 0.3s;
     background: #0d4a68;
-    color:white;
+    color: white;
 }
 
 button:hover {
@@ -409,5 +421,4 @@ button:hover {
 .last-updated {
     display: none !important;
 }
-
 </style>

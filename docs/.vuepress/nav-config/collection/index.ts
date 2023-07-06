@@ -4,6 +4,5 @@ export default {
         { text: '网站', link: '/pages/collection-web/' },
         { text: '前端', link: '/pages/collection-front/' },
         { text: '后端', link: '/pages/collection-admin/' },
-        { text: 'github-star', link: '/pages/github-star-project/' },
     ],
 }
