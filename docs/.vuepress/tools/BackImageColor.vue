@@ -120,7 +120,7 @@ export default {
       this.$set(this.selectColor, colorAttr, '#fff')
 
       let that = this
-      inputDOM.addEventListener('change', (e) => {
+      inputDOM.addEventListener('input', (e) => {
         that.selectColor[`${colorAttr}`] = e.target.value
       })
 
