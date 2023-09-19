@@ -29,7 +29,7 @@ const htmlModule: VdoingThemeConfig['htmlModules'] = {
       font-weight: bold;
       margin: 0 0 8px 0;
     ">微信</p>
-    <img src="https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/picgo/weixin.jpg"  style="width:100%;" />
+    <img src="https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/picgo/weixin.jpg"  style="width:100%;" />
     </p>
     </div>`,
   // `<!-- 纵向自适应 -->

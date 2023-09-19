@@ -205,7 +205,7 @@ export default {
 
 
         window.document.querySelector('img.avatar').addEventListener('error', (e) => {
-            e.target.src = 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
+            e.target.src = 'https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/icon/logo.ico'
         })
 
 
@@ -326,7 +326,7 @@ export default {
         validUserIsExist() {
             getUrlData(`https://api.github.com/users/${this.username}`, (res) => {
                 this.userIsExist = !!res?.login
-                this.avatar = res.avatar_url || 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
+                this.avatar = res.avatar_url || 'https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/icon/logo.ico'
                 setValue(LOCAL_USER_IS_EXIST, String(this.userIsExist))
                 setValue(LOCAL_USER_AVTAR, this.avatar)
                 // 如果搜索到结果OK 清空之前结果
@@ -335,7 +335,7 @@ export default {
                 }
             }, (e) => {
                 this.userIsExist = false
-                this.avatar = 'https://cdn.staticaly.com/gh/wuxin0011/blog-resource@main/icon/logo.ico'
+                this.avatar = 'https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/icon/logo.ico'
                 setValue(LOCAL_USER_AVTAR, this.avatar)
                 setValue(LOCAL_USER_IS_EXIST, String(false))
             })
