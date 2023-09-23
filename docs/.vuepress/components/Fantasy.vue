@@ -259,10 +259,10 @@ export default {
 
             // Canvas奇妙的剪切蒙版实现
             var screenMask = new Image();
-            screenMask.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/Screenmask.png";
+            screenMask.src = "/fantasy/Screenmask.png";
 
             var screen = new Image();
-            screen.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/screen.png";
+            screen.src = "/fantasy/screen.png";
 
             var iv = setInterval(() => {
                 if (screen.complete && screenMask.complete) {
@@ -290,26 +290,26 @@ export default {
 
             // 加载图片
             var bg = new Image();
-            bg.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/bg.png";
+            bg.src = "/fantasy/bg.png";
 
             var mask = new Image();
-            mask.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/mask.png";
+            mask.src = "/fantasy/mask.png";
 
             var light = new Image();
-            light.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/light.png";
+            light.src = "/fantasy/light.png";
 
             var caidai = new Image();
-            caidai.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/caidai.png";
+            caidai.src = "/fantasy/caidai.png";
 
-            // https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/Screenmask.png
+            // /fantasy/Screenmask.png
             var two = new Image();
-            two.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/22.png";
+            two.src = "/fantasy/22.png";
 
             var screenLight = new Image();
-            screenLight.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/screenLight.png";
+            screenLight.src = "/fantasy/screenLight.png";
 
             var phoneLight = new Image();
-            phoneLight.src = "https://cdn.jsdelivr.net/gh/wuxin0011/blog-resource@main/fantasy/phoneLight.png";
+            phoneLight.src = "/fantasy/phoneLight.png";
 
             var phoneText = JSON.parse(
                 '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'
