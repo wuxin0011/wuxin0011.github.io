@@ -1,8 +1,8 @@
 /**
  * 提示：如您想使用JS版本的配置文件可参考：https://github.com/xugaoyi/vuepress-theme-vdoing/tree/a2f03e993dd2f2a3afdc57cf72adfc6f1b6b0c32/docs/.vuepress
  */
-import {defineConfig4CustomTheme, UserPlugins} from 'vuepress/config'
-import {VdoingThemeConfig} from 'vuepress-theme-vdoing/types'
+import { defineConfig4CustomTheme, UserPlugins } from 'vuepress/config'
+import { VdoingThemeConfig } from 'vuepress-theme-vdoing/types'
 // @ts-ignore
 import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
@@ -29,6 +29,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 主题配置
     themeConfig: {
+
         // 导航配置
         nav: nav,
         sidebarDepth: 2, // 侧边栏显示深度，默认1，最大2（显示到h3标题）
@@ -40,7 +41,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         docsBranch: 'main', // 编辑的文件所在分支，默认master。 注意：如果你的分支是main则修改为main
         editLinks: true, // 启用编辑
         editLinkText: '编辑',
-
         //*** 以下是Vdoing主题相关配置，文档：https://doc.xugaoyi.com/pages/a20ce8/ ***//
 
         // category: false, // 是否打开分类功能，默认true
@@ -161,16 +161,17 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 link: 'https://github.com/wuxin0011'
             }
         },
-
         // 自定义hmtl(广告)模块
         'htmlModules': htmlModules
     },
 
+
+
     // 注入到页面<head>中的标签，格式[tagName, { attrName: attrValue }, innerHTML?]
     head: [
-        ['link', {rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css'}],
-        ['link', {rel: 'icon', href: '/icon/logo.ico'}], //favicons，资源放在public文件夹
-        ['link', {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css'}],
+        ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css' }],
+        ['link', { rel: 'icon', href: '/icon/logo.ico' }], //favicons，资源放在public文件夹
+        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }],
         ['script', {
             rel: 'stylesheet',
             src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js',
@@ -189,8 +190,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 content: '欢迎访问个人博客',
             },
         ],
-        ['meta', {name: 'baidu-site-verification', content: '7F55weZDDc'}], // 百度统计的站长验证（你可以去掉）
-        ['meta', {name: 'theme-color', content: '#11a8cd'}], // 移动浏览器主题颜色
+        ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
+        ['meta', { name: 'theme-color', content: '#11a8cd' }], // 移动浏览器主题颜色
         [
             'script',
             {
@@ -369,7 +370,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 提取标题到侧边栏的级别，默认['h2', 'h3']
     markdown: {
         lineNumbers: true,
-        extractHeaders: [ 'h2', 'h3', 'h4', 'h5', 'h6'],
+        extractHeaders: ['h2', 'h3', 'h4', 'h5', 'h6'],
     },
 
     // 监听文件变化并重新构建
