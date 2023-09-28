@@ -2,7 +2,7 @@
 home: true
 # heroImage: /web/web.png
 heroText: Hello World!
-tagline: 积跬步以至千里，致敬每个爱学习的你!
+tagline: 冰冻三尺，非一日之寒，水滴石穿，非一日之功
 pageClass: vdoing-index-class
 # actionText: 立刻进入 →
 # actionLink: /web/
