@@ -42,5 +42,5 @@ jobs:
           force: true
           git-config-name: wuxin0011
           git-config-email: 2191377759@qq.com
-          clean: true
+          clean: false
 
