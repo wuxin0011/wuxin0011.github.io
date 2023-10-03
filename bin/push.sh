@@ -37,7 +37,7 @@ exec_project(){
    # 确保脚本抛出遇到的错误
    git add . 2>>$log
    git commit -m "$git_message" 2>>$log
-   git push 2>>$log
+   git push --all 2>>$log
    echo "项目成功发布到$web_url！🚀"
    cd -
 }
