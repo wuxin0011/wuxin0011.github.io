@@ -4,6 +4,7 @@
   "scripts": {
     "dev": " cross-env NODE_ENV=development && node --max_old_space_size=4096 ./node_modules/vuepress/cli.js  dev docs",
     "build": "cross-env NODE_ENV=production && node --max_old_space_size=4096 ./node_modules/vuepress/cli.js build docs",
+    "build:gitee": "cross-env NODE_ENV=production && node --max_old_space_size=4096 ./node_modules/vuepress/cli.js build --temp wuxin0011.gitee.io docs ",
     "deploy": "bash deploy.sh"
   },
   "license": "MIT",
@@ -13,7 +14,7 @@
     "inquirer": "^7.1.0",
     "json2yaml": "^1.1.0",
     "vuepress": "1.9.5",
-    "vuepress-plugin-baidu-autopush": "^1.0.1",
+    "vuepress-plugin-baidu-a": "^1.0.1",
     "vuepress-plugin-baidu-tongji": "^1.0.1",
     "vuepress-plugin-comment1": "1.31.0-beta.1",
     "vuepress-plugin-demo-block": "^0.7.2",

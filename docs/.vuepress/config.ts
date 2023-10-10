@@ -14,10 +14,28 @@ import nav from './nav-config'
 const DOMAIN_NAME = 'wuxin0011.github.io' // 域名 (不带https)
 const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
 const IS_DEV = process.env.NODE_ENV == 'development'
+const basePath = () => {
+    try {
+        // return (process.env.NODE_BASE_PATH || "/") as `/${string}/`
+        // 设置环境变量不生效没办法了只能借用buid参数获取目录
+        // console.log('args:',process.argv)
+        const isGiteePath = process.argv.indexOf('--temp') !== -1 && process.argv.indexOf('wuxin0011.gitee.io') !== -1
+        console.error('build base path =>' ,isGiteePath ? '/wuxin0011.gitee.io/' : '/')
+        if (isGiteePath) {
+            // 就不通过字符串方式获取打包路径了 这是我是 --temp 参数代替 base
+            return '/wuxin0011.gitee.io/' as `/${string}/`
+        } else {
+            return "/" as `/${string}/`
+        }
+    } catch (error) {
+        return "/" as `/${string}/`
+    }
+
+}
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
     theme: 'vdoing', // 使用npm主题包
     // theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
-    // base: '/',
+    base: basePath(),
     locales: {
         '/': {
             lang: 'zh-CN',
