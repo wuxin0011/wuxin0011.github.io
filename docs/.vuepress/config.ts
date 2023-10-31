@@ -189,18 +189,18 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     head: [
         ['link', { rel: 'stylesheet', href: '//at.alicdn.com/t/font_3114978_qe0b39no76.css' }],
         ['link', { rel: 'icon', href: '/icon/logo.ico' }], //favicons，资源放在public文件夹
-        ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css' }],
+        ['link', { rel: 'stylesheet', href: 'https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css' }],
         ['script', {
             rel: 'stylesheet',
-            src: 'https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js',
+            src: 'https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js',
             crossorigin: 'anonymous'
         }],
         ['script', {
             rel: 'stylesheet',
-            src: 'https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js',
+            src: 'https://cdn.bootcdn.net/ajax/libs/meting/2.0.1/Meting.min.js',
             crossorigin: 'anonymous'
         }],
-        // ['script', { rel: 'stylesheet', src: 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js', crossorigin: 'anonymous' }],
+        ['script', { rel: 'stylesheet', src: 'https://cdn.bootcdn.net/ajax/libs/busuanzi/2.3.0/bsz.pure.mini.min.js', crossorigin: 'anonymous' }],
         [
             'meta',
             {
@@ -218,7 +218,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
             },
         ], // 网站关联Google AdSense 与 html格式广告支持（你可以去掉）
-        ['script', { src: 'https://cdn.staticfile.org/twikoo/1.6.7/twikoo.all.min.js' }],
+        ['script', { src: 'https://cdn.bootcdn.net/ajax/libs/twikoo/1.6.20/twikoo.all.min.js' }],
 
     ],
 
