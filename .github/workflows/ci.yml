@@ -1,3 +1,4 @@
+
 name: blog-build
 on:
   push:
@@ -9,8 +10,8 @@ on:
       - main
 
   workflow_dispatch: {}
-env:
-  TZ: Asia/Shanghai
+env: 
+  TZ: Asia/Shanghai 
 
 permissions:
   contents: write
@@ -25,19 +26,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: 📦 install pnpm
-        run: npm install pnpm -g
-      - name: 📦 Install dependencies
-        run: pnpm install
+      - name: 📦 install
+        run: npm install --registry=https://registry.npmmirror.com --force --legacy-peer-deps
       - name: 🚧 Set up project
-        run: pnpm build
-      # https://github.com/JamesIves/github-pages-deploy-action
+        run: npm run build
+     # https://github.com/JamesIves/github-pages-deploy-action
       - name: 🚀 deploy project
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} 
           branch: gh-pages
-          folder: docs/.vuepress/dist
+          folder: docs/.vuepress/dist 
           # target-folder: blog
           commit-message: update content
           force: true
