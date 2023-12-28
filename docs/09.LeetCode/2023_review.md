@@ -1,5 +1,5 @@
 ---
-title: LeetCode
+title: LeetCode 2023 年度回顾
 date: 2023-12-30 21:21:23
 permalink: /LeetCode/2023_review/
 categories: 
@@ -121,11 +121,6 @@ vue-server-renderer
            max = Math.max(max,height[i]); 
            ans += Math.min(max, l_helps[i]) - height[i];
         }
-        // // 第一个格子和最后一个格子是不可能装水
-        // for(int i = 1;i<n-1;i++){
-        //     // 当前容量为当前高度差最小值减去 当前高度
-        //     ans += Math.min(r_helps[i] , l_helps[i]) - height[i];
-        // }
         return ans;
     }
 ```
@@ -306,14 +301,13 @@ public int orangesRotting(int[][] grid) {
 - 优先级队列之[数据流的中位数](https://leetcode.cn/problems/find-median-from-data-stream?envType=study-plan-v2&envId=top-100-liked)
 
 还有很多典型题目就不贴了……
- 
+
 
 
 ### 2024 期望
 
 - 周赛1700
 - 刷题到800
-
 
 
 
