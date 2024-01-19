@@ -122,7 +122,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             ], // 第一个是白天的颜色（默认原图），第二个是黄昏的颜色，第三个是晚上的颜色，第四个是深夜的颜色。bgTimeColor 为 true 生效
             descFade: true, // 是否开启图片中间描述的淡入淡出效果，默认为 false
             desc: [
-                "积跬步以至千里，致敬每个爱学习的你!",
+                "冰冻三尺，非一日之寒，水滴石穿，非一日之功",
             ], // 多条描述，如果填写则覆盖 index.md 的 tagline，不填写则默认读取 index.md 的 tagline，descFadeIn 为 true 生效
             descFontSize: "1.4rem", // desc 的字体大小，默认 1.4rem。提示：原主题是 1.1rem
             descFadeInTime: 200, // 描述的淡入效果持续时间，descFade 为 true 生效，默认 200 毫秒
